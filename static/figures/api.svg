@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 470" font-family="'Inter','Helvetica Neue',Arial,sans-serif" role="img" aria-label="The Codesign Gym API is Gymnasium plus an embodiment axis: make, reset and step all thread an embodiment through, and a validate_embodiment method is added.">
+  <defs><filter id="s3" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="5" flood-color="#1a2233" flood-opacity="0.09"/></filter></defs>
+  <style>.mono{font-family:'SFMono-Regular',ui-monospace,Menlo,monospace;}</style>
+
+  <text x="40" y="42" font-size="22" font-weight="700" fill="#1a2233">Gymnasium, plus an embodiment axis</text>
+  <text x="40" y="66" font-size="14" fill="#6b7590">a minimal, backward-compatible extension &#8212; the design threads through the same three calls</text>
+
+  <!-- header pills -->
+  <g filter="url(#s3)"><rect x="60" y="92" width="430" height="30" rx="15" fill="#eef1f8"/></g>
+  <text x="275" y="112" text-anchor="middle" font-size="13.5" font-weight="700" fill="#55617a">standard Gymnasium</text>
+  <g filter="url(#s3)"><rect x="550" y="92" width="430" height="30" rx="15" fill="#eafaf6"/></g>
+  <text x="765" y="112" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0f766e">Codesign Gym</text>
+
+  <!-- rows -->
+  <g class="mono" font-size="12.5">
+    <!-- make -->
+    <rect x="60" y="136" width="430" height="52" rx="10" fill="#ffffff" stroke="#e2e6ef"/>
+    <text x="76" y="160" fill="#55617a">make(id)</text>
+    <text x="76" y="180" fill="#9aa3b8">&#8594; env</text>
+    <rect x="550" y="136" width="430" height="52" rx="10" fill="#ffffff" stroke="#bfe9e0"/>
+    <text x="566" y="160" fill="#1a2233">make(id, <tspan fill="#0f766e" font-weight="700">is_eval_env, max_action_space_size</tspan>)</text>
+    <text x="566" y="180" fill="#1a2233">&#8594; (env, <tspan fill="#0f766e" font-weight="700">base_embodiment</tspan>)</text>
+
+    <!-- reset -->
+    <rect x="60" y="196" width="430" height="52" rx="10" fill="#ffffff" stroke="#e2e6ef"/>
+    <text x="76" y="220" fill="#55617a">reset()</text>
+    <text x="76" y="240" fill="#9aa3b8">&#8594; (obs, info)</text>
+    <rect x="550" y="196" width="430" height="52" rx="10" fill="#ffffff" stroke="#bfe9e0"/>
+    <text x="566" y="220" fill="#1a2233">reset(<tspan fill="#0f766e" font-weight="700">embodiment</tspan>)</text>
+    <text x="566" y="240" fill="#1a2233">&#8594; (obs, <tspan fill="#c8324a" font-weight="700">embodiment_rejected</tspan>, info)</text>
+
+    <!-- step -->
+    <rect x="60" y="256" width="430" height="52" rx="10" fill="#ffffff" stroke="#e2e6ef"/>
+    <text x="76" y="280" fill="#55617a">step(action)</text>
+    <text x="76" y="300" fill="#9aa3b8">&#8594; (obs, reward, term, trunc, info)</text>
+    <rect x="550" y="256" width="430" height="52" rx="10" fill="#ffffff" stroke="#bfe9e0"/>
+    <text x="566" y="280" fill="#1a2233">step(action, <tspan fill="#0f766e" font-weight="700">embodiment=None</tspan>)</text>
+    <text x="566" y="300" fill="#9aa3b8">&#8594; (obs, reward, term, trunc, info)</text>
+
+    <!-- spaces -->
+    <rect x="60" y="316" width="430" height="46" rx="10" fill="#ffffff" stroke="#e2e6ef"/>
+    <text x="76" y="344" fill="#55617a">action_space &#183; observation_space</text>
+    <rect x="550" y="316" width="430" height="46" rx="10" fill="#ffffff" stroke="#bfe9e0"/>
+    <text x="566" y="344" fill="#1a2233"><tspan fill="#0f766e" font-weight="700">+ embodiment_space</tspan>  (bounds &#183; shape)</text>
+
+    <!-- validate -->
+    <rect x="60" y="370" width="430" height="46" rx="10" fill="#fbfbfd" stroke="#eef0f5"/>
+    <text x="76" y="398" fill="#c3c9d6">&#8212;</text>
+    <rect x="550" y="370" width="430" height="46" rx="10" fill="#ffffff" stroke="#bfe9e0"/>
+    <text x="566" y="398" fill="#1a2233"><tspan fill="#0f766e" font-weight="700">validate_embodiment</tspan>(&#952;) &#8594; bool</text>
+  </g>
+
+  <text x="60" y="446" font-size="12" fill="#8792a8" font-style="italic">validation is structural only &#8212; it rejects impossible designs (out of bounds, wrong shape), never merely bad ones.</text>
+</svg>
