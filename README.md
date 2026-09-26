@@ -28,6 +28,7 @@ python tools/export_results.py              # results.json via codesign-gym/make
 python tools/fetch_videos.py                # best-seed final-eval video per (preset, method) from wandb; needs wandb login
 PYTHON=python tools/make_showcase.sh        # per-family showcase clips (+ follow-cropped locomotion montage)
 python tools/fetch_replays.py               # Pokémon: best/worst eval battle replays (poke-env HTML) + team/outcome summary
+python tools/stamp.py                       # after editing CSS/JS: cache-busting ?v=<hash> on every local asset link
 ```
 
 `tools/track_crop.py` follow-crops fixed-camera MuJoCo rollouts around the robot. The Shape-shifting Hand clip is a
