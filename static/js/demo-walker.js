@@ -14,6 +14,7 @@
   const SL = { w: $('#wk-w'), th: $('#wk-th'), thigh: $('#wk-thigh'), shin: $('#wk-shin') };
   let dpr = 1, body = PRESETS[0][2].slice(), baseGait = null, lanes = [null, null], cam = [0, 0], busy = false, visible = true;
   const board = new Map();   // key -> {name, body, withBase, own, ownG}
+  let customN = 0;
 
   let FS = 1;   // canvas font scale: the canvas is drawn wide and shrunk on phones, so text is drawn larger there
   function resize() { dpr = Math.min(2, window.devicePixelRatio || 1); W = (cv.clientWidth || 960) < 620 ? 560 : 960; FS = W < 700 ? 1.55 : 1; cv.style.aspectRatio = `${W} / ${H}`; cv.width = W * dpr; cv.height = H * dpr; }
@@ -23,7 +24,7 @@
   function labels() { const d = Wk.decode(sym().concat(Array(9).fill(0.5))); $('#wk-wv').textContent = d.w.toFixed(2) + ' m'; $('#wk-thv').textContent = d.th.toFixed(2) + ' m'; $('#wk-thighv').textContent = d.legs[0][0].toFixed(2) + ' m'; $('#wk-shinv').textContent = d.legs[0][1].toFixed(2) + ' m'; }
   function distance(g) { const s = Wk.build(g); let i = 0; for (; i < Wk.T_SIM * Wk.HZ; i++) { s.step(); if (Wk.fallen(s)) break; } return Math.max(0, s.torso.getPosition().x); }
   function lane(k, g, label) { cam[k] = 0; lanes[k] = { sim: Wk.build(g), g, fell: false, hold: 0, label, dist: distance(g) }; }
-  const nameOf = b => (PRESETS.find(p => bodyKey(p[2]) === bodyKey(b)) || [0, 'Custom body'])[1];
+  const nameOf = b => (board.get(bodyKey(b)) || {}).name || (PRESETS.find(p => bodyKey(p[2]) === bodyKey(b)) || [0, 'Custom body'])[1];
 
   // evolve a gait for a fixed body, a few generations per frame so the page stays live; resolves with the best genome
   function evolveGait(b, onGen) {
@@ -47,7 +48,7 @@
     $('#wk-name').textContent = nameOf(body);
   }
   function record(b, withBase, own, ownG) {
-    const k = bodyKey(b), e = board.get(k) || { name: nameOf(b), body: b.slice() };
+    const k = bodyKey(b), e = board.get(k) || { name: nameOf(b) === 'Custom body' ? `Custom ${++customN}` : nameOf(b), body: b.slice() };
     if (withBase !== undefined) e.withBase = withBase;
     if (own !== undefined) { e.own = own; e.ownG = ownG; }
     board.set(k, e); renderBoard();
@@ -93,9 +94,10 @@
     const worst = Math.max(...[...board.values()].filter(x => bodyKey(x.body) !== bodyKey(PRESETS[0][2])).map(x => x.withBase || 0));
     say(`<b>Best body found: ${nameOf(best.b)}, ${best.d.toFixed(1)} m.</b> With the base body's gait, no other body gets past ${worst.toFixed(1)} m, so a search that tuned the gait first and then judged bodies with it would never have picked this one.`);
   });
+  // dragging only previews the body (top lane); it joins the leaderboard once a gait is evolved for it
   for (const k in SL) SL[k].addEventListener('input', () => {
-    if (busy || !baseGait) return; labels(); const b = sym(); record(b, distance(b.concat(baseGait))); showBody(b); markPreset();
-    say(`Custom body: it walks <b>${board.get(bodyKey(b)).withBase.toFixed(1)} m</b> with the base body's gait. Evolve a gait for it to see what it can really do.`);
+    if (busy || !baseGait) return; labels(); const b = sym(); showBody(b); markPreset();
+    say(`${nameOf(b)}: it walks <b>${lanes[0].dist.toFixed(1)} m</b> with the base body's gait. Evolve a gait for it to see what it can really do.`);
   });
   $('#wk-presets').innerHTML = PRESETS.map(([k, n]) => `<button type="button" class="chip" data-p="${k}" aria-pressed="false">${n}</button>`).join('');
   function markPreset() { const k = bodyKey(sym()); $('#wk-presets').querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', bodyKey(PRESETS.find(p => p[0] === c.dataset.p)[2]) === k)); }
