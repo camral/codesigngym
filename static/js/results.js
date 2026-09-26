@@ -47,6 +47,7 @@
   }
 
   function buildWins() {
+    if (!$('.wins')) return;
     const wins = {}; D.methods.forEach(m => wins[m.id] = { n: 0, of: 0 });
     D.presets.forEach(p => {
       const f = Object.entries(p.methods).filter(([, v]) => v.final).map(([k, v]) => [k, v.final.mean]);

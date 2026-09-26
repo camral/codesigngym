@@ -53,18 +53,26 @@
       return `<button type="button" class="env reveal" data-id="${f.id}" data-tags="${f.tags.join(' ')}" aria-haspopup="dialog">
         <div class="media"><img src="${md.poster}" alt="" loading="lazy">${md.video ? `<video muted loop playsinline preload="none" src="${md.video}"></video><span class="play-hint"><i class="fa-solid fa-play"></i> ${touch ? 'tap for details' : 'hover to play'}</span>` : ''}${f.replay ? '<span class="play-hint"><i class="fa-solid fa-play"></i> click to watch a battle</span>' : ''}<span class="ids">${f.ids} id${f.ids > 1 ? 's' : ''}</span></div>
         <div class="body"><h3>${f.name}</h3><div class="sim">${f.sim}</div><p>${f.blurb}</p>
-        <dl class="dp"><dt class="d">design</dt><dd>${f.design}</dd><dt class="p">policy</dt><dd>${f.policy}</dd></dl>
         ${f.transition ? '<span class="badge">θ can change mid-episode</span>' : ''}</div></button>`;
     }).join('');
     grid.querySelectorAll('.reveal').forEach(el => rv.observe(el));
     const counts = {}; fams.forEach(f => f.tags.forEach(t => counts[t] = (counts[t] || 0) + 1));
     filters.innerHTML = window.ENV_TAGS.map(([k, n]) => `<button type="button" class="chip" data-tag="${k}" aria-pressed="${k === 'all'}">${n}<span class="n">${k === 'all' ? fams.length : counts[k] || 0}</span></button>`).join('');
+    // show the first few cards under "All"; the rest behind a button, so the section stays short
+    const SHOW = 6, more = document.createElement('div'); more.className = 'more-wrap';
+    more.innerHTML = `<button type="button" class="btn">Show all ${fams.length} families</button>`; grid.after(more);
+    let expanded = false;
+    function applyFilter(t) {
+      grid.querySelectorAll('.env').forEach((c, i) => { c.hidden = !(t === 'all' ? (expanded || i < SHOW) : c.dataset.tags.split(' ').includes(t)); });
+      more.hidden = t !== 'all' || expanded;
+    }
+    more.querySelector('button').addEventListener('click', () => { expanded = true; applyFilter('all'); });
     filters.addEventListener('click', e => {
       const b = e.target.closest('.chip'); if (!b) return;
       filters.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c === b));
-      const t = b.dataset.tag;
-      grid.querySelectorAll('.env').forEach(c => { c.hidden = !(t === 'all' || c.dataset.tags.split(' ').includes(t)); });
+      applyFilter(b.dataset.tag);
     });
+    applyFilter('all');
     // hover / focus to play
     grid.querySelectorAll('.env').forEach(card => {
       const v = card.querySelector('video'); if (!v) return;

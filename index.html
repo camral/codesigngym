@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Codesign Gym</title>
-  <meta name="description" content="Codesign Gym is a Gymnasium-style benchmark for co-design, where an agent's body is optimized alongside its control policy: 86 environment ids across robotics, soft bodies, energy grids, wireless networks, racing, warehouses and Pokémon.">
+  <title>Co-Design Gym</title>
+  <meta name="description" content="Co-Design Gym: a unified benchmark for embodiment-policy co-optimization. 20 environment families and 85+ presets where the body and the policy are optimized together.">
   <meta name="author" content="Aviraj Newatia, Yordan Tsvetkov, Leonard Pleiss, Andrew Spielberg, Rika Antonova">
-  <meta property="og:title" content="Codesign Gym">
-  <meta property="og:description" content="Optimize the body and the brain together: a Gymnasium-style benchmark for co-design.">
+  <meta property="og:title" content="Co-Design Gym">
+  <meta property="og:description" content="Optimize the body and the brain together: 20 domains, 85+ co-design presets, one Gymnasium-style API.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="static/video/hero/softwalker.jpg">
   <meta name="theme-color" content="#f6f1e7">
@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="static/css/site.css?v=5274438a97">
+  <link rel="stylesheet" href="static/css/site.css?v=88649e4099">
 </head>
 <body>
 
@@ -24,14 +24,13 @@
 
 <nav class="nav" aria-label="Primary">
   <div class="wrap">
-    <a class="brand" href="#top"><img class="logo" src="static/images/favicon.svg" alt="">Codesign Gym</a>
+    <a class="brand" href="#top"><img class="logo" src="static/images/favicon.svg" alt="">Co-Design Gym</a>
     <div class="nav-links">
-      <a href="#idea">The idea</a>
-      <a href="#playground">Playground</a>
+      <a href="#idea">Idea</a>
       <a href="#environments">Environments</a>
-      <a href="#results">Baselines</a>
+      <a href="#results">Results</a>
+      <a href="#playground">Playground</a>
       <a href="#api">API</a>
-      <a href="#team">Team</a>
       <a href="#cite">Cite</a>
     </div>
     <a class="nav-gh" href="https://github.com/camral/codesign-gym" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Code</a>
@@ -45,9 +44,9 @@
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <span class="kicker">A benchmark for co-design</span>
-        <h1 class="title">Codesign<br>Gym</h1>
-        <p class="lede">Most RL benchmarks hand you a body and ask for a brain. Here you get to pick <span class="mark">both</span>: a Gymnasium-style suite where an agent&rsquo;s embodiment is optimized alongside its control policy, from dexterous hands and soft walkers to microgrids and Pok&eacute;mon teams.</p>
+        <span class="kicker">A unified benchmark for co-design</span>
+        <h1 class="title">Co-Design<br>Gym</h1>
+        <p class="lede">Benchmarks fix the robot and train the brain. Co-Design Gym lets you optimize <span class="mark">both</span>: the body and the policy, together, across 20 domains.</p>
         <p class="authors"><span class="au"><a href="mailto:aviraj.newatia@cst.cam.ac.uk">Aviraj Newatia</a><sup>1,*</sup></span>, <span class="au"><a href="mailto:yordan.tsvetkov@cst.cam.ac.uk">Yordan Tsvetkov</a><sup>1,*</sup></span>, <span class="au"><a href="mailto:leonard.pleiss@tum.de">Leonard Pleiss</a><sup>2</sup></span>, <span class="au"><a href="mailto:aespielberg@gmail.com">Andrew Spielberg</a><sup>3,4</sup></span>, <span class="au"><a href="mailto:rika.antonova@cst.cam.ac.uk">Rika Antonova</a><sup>1</sup></span></p>
         <ul class="affils"><li><sup>1</sup>Department of Computer Science &amp; Technology, University of Cambridge</li><li><sup>2</sup>Department of Computer Science, Technical University of Munich</li><li><sup>3</sup>College of Engineering, Carnegie Mellon University</li><li><sup>4</sup>MorphoAI</li><li><sup>*</sup>Equal contribution</li></ul>
         <div class="btns">
@@ -71,10 +70,10 @@
     </div>
 
     <div class="stats reveal">
-      <div class="stat"><b>86</b><span>registered environment ids</span></div>
-      <div class="stat"><b>13</b><span>families, from soft bodies to power grids</span></div>
-      <div class="stat"><b>31</b><span>presets benchmarked with up to four baselines</span></div>
-      <div class="stat"><b>1</b><span>entry point: <code>make_vec</code></span></div>
+      <div class="stat"><b>20</b><span>environment families</span></div>
+      <div class="stat"><b>85+</b><span>co-design presets</span></div>
+      <div class="stat"><b>0</b><span>methods that win everywhere</span></div>
+      <div class="stat"><b>1</b><span>Gymnasium-style API</span></div>
     </div>
   </div>
 </header>
@@ -82,26 +81,83 @@
 <!-- ======================================================= 1 IDEA -->
 <section class="block" id="idea">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§1</span><div><h2>Optimize the body and the brain, together</h2><p>Co-design is a doubly non-stationary problem: the best design depends on the policy that will run it, and the best policy depends on the design.</p></div></div>
-    <div class="two">
-      <div class="prose reveal">
-        <p>In robotics, energy systems and network planning, the <b>shape of the agent</b> is a decision too: how long the arm is, how big the battery is, where the base stations go. Choose it first and a controller inherits whatever that choice got wrong. Choose the controller first and the body never gets a chance to help.</p>
-        <p>Codesign Gym treats the design as a first-class object. Every environment exposes an <code>embodiment_space</code> with declared bounds, and <code>reset</code> takes the design you want to try. Control stays plain Gymnasium, so existing RL and control stacks plug in unchanged. Design search is left to whatever optimizer you like: CMA-ES, Bayesian optimization, an RL outer loop, gradient descent through a simulator.</p>
-        <p>The environments reject only <i>impossible</i> designs (out of bounds, wrong shape, overlapping cells), never merely bad ones. An unnavigable warehouse is a valid layout that simply earns little reward. Telling good designs from bad is the optimizer&rsquo;s job.</p>
-        <p class="aside-note hand">&rarr; the playground below lets you feel this with your own hands</p>
-      </div>
-      <figure class="paper-fig reveal">
-        <a class="zoom" href="static/figures/codesign-loop.svg" target="_blank" rel="noopener" title="Open full size"><img src="static/figures/codesign-loop.svg" alt="Two nested loops: a slow outer loop searches over the embodiment theta, a fast inner loop learns the control policy pi, both against a Gymnasium-compatible environment." loading="lazy"></a>
-        <figcaption class="cap"><b>Two coupled loops.</b> A slow outer loop searches designs &theta;; a fast inner loop learns the policy &pi;. Neither can be scored without the other.</figcaption>
-      </figure>
+    <div class="sec-head reveal"><span class="sec-num">§1</span><div><h2>The body shapes the brain.<br>The brain defines the body.</h2><p>An embodiment decides what a policy can do; the best embodiment is the one whose policy does best. Optimize them apart and you leave performance on the table.</p></div></div>
+    <figure class="paper-fig hero-fig reveal"><a class="zoom" href="static/images/paper/overview.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/overview.jpg" alt="Co-Design Gym overview: Native robotics domains, Extended classic MuJoCo tasks, and Reframed problems from games, energy, networking, racing, logistics and control." loading="lazy"></a></figure>
+    <div class="pillars reveal">
+      <div class="pillar p-native"><b>Native</b><span>New robotics domains built for co-design: catching, cleaning, unloading, grasping, shape-shifting hands, soft walkers.</span></div>
+      <div class="pillar p-extended"><b>Extended</b><span>The classic MuJoCo control tasks, now with bodies you can reshape.</span></div>
+      <div class="pillar p-reframed"><b>Reframed</b><span>Racing, power grids, wireless networks, warehouses, Pok&eacute;mon and optimal control, recast as co-design.</span></div>
     </div>
+    <div class="slice reveal">
+      <img src="static/images/paper/landscape.jpg" alt="A joint co-design landscape over policy space and embodiment space; fixing the embodiment explores only one slice." loading="lazy">
+      <ol>
+        <li><b>Fix the body</b>, and policy learning searches one slice of the landscape.</li>
+        <li><b>Change the body</b>, and the best policy changes with it.</li>
+        <li><b>Co-design</b> searches the whole landscape: a doubly non-stationary problem.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= 3 ENVIRONMENTS -->
+<section class="block alt" id="environments">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">§2</span><div><h2>20 families. 85+ presets.</h2><p>Hover a card to watch it; tap for presets and code.</p></div></div>
+    <figure class="paper-fig envs-fig reveal"><a class="zoom" href="static/images/paper/environments.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/environments.jpg" alt="Grid of all environment families, grouped as Native, Extended and Reframed." loading="lazy"></a></figure>
+    <div class="filters" id="env-filters" role="toolbar" aria-label="Filter environments"></div>
+    <div class="env-grid" id="env-grid"></div>
+  </div>
+</section>
+
+<dialog class="modal" id="env-modal" aria-labelledby="env-modal-title">
+  <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <div class="modal-grid"><div class="modal-media"></div><div class="modal-body"></div></div>
+</dialog>
+
+<dialog class="modal replay-modal" id="replay-modal" aria-labelledby="replay-title">
+  <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <div class="replay-head"><h3 id="replay-title">Battle replay</h3><p class="replay-meta"></p></div>
+  <div class="replay-frame"></div>
+  <p class="media-note replay-note">A real evaluation battle, replayed by the Pokémon Showdown client (press Play; choose “sound off” for silence). Only the text battle log is hosted here; the client and its artwork load from play.pokemonshowdown.com.</p>
+</dialog>
+
+<!-- ======================================================= 4 RESULTS -->
+<section class="block" id="results">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">§3</span><div><h2>No single winner.<br>Lots of headroom.</h2><p>Four representative co-design methods, matched 4-hour budget, 5 seeds each: <b>CMA-ES</b>, <b>FastTD3</b>, <b>PPO+NGOpt</b> and <b>LOKI</b>.</p></div></div>
+    <div class="bignums reveal">
+      <div><b>12<small>/16</small></b><span>presets where the leading method changes during training</span></div>
+      <div><b>16.6%</b><span>of balls caught by the best method on Ball Catcher Pitch</span></div>
+      <div><b>&asymp;0</b><span>return for every method on Solar Cleaner and the large warehouses</span></div>
+    </div>
+    <figure class="paper-fig reveal"><a class="zoom" href="static/images/paper/leader.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/leader.jpg" alt="Leading method over the 4-hour training budget on 16 presets: the leader changes on most presets and differs by domain." loading="lazy"></a><figcaption class="cap"><b>Who is ahead, hour by hour.</b> The leader depends on the task and on the budget.</figcaption></figure>
+    <h3 class="sub-h reveal">Dig into any preset</h3>
+    <div class="res-top reveal">
+      <div class="picker">
+        <div class="list"></div>
+        <label class="sr" for="preset-select">Preset</label><select id="preset-select" aria-label="Preset"></select>
+      </div>
+      <div>
+        <div class="chart-card">
+          <div class="chart-head"><h3>–</h3><span class="grp"></span></div>
+          <div class="legend" role="group" aria-label="Toggle methods"></div>
+          <div class="chart"></div>
+          <p class="chart-foot">Lines: seed-mean eval return, step-held between evaluations; bands: &plusmn;1 std over seeds. An evaluation where every design was rejected is a gap. <button class="tbl-toggle" type="button">Hide table</button></p>
+          <div class="final-wrap"></div>
+        </div>
+        <div class="roll-bar"><h4>Watch the four side by side</h4><span class="hint cap" style="margin:0"></span><button class="btn play-all" type="button"><i class="fa-solid fa-play"></i> Play all four</button></div>
+        <div class="rollouts"></div>
+      </div>
+    </div>
+
+    <figure class="paper-fig designs-fig reveal"><a class="zoom" href="static/images/results/final_designs_ballcatcher_pitch.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/results/final_designs_ballcatcher_pitch.jpg" alt="Final designs found by each method on BallCatcher Pitch, three seeds each, sorted by final eval return." loading="lazy"></a><figcaption class="cap"><b>Same task, very different bodies.</b> Final Ball Catcher Pitch designs per method and seed.</figcaption></figure>
   </div>
 </section>
 
 <!-- ======================================================= 2 PLAYGROUND -->
 <section class="block alt" id="playground">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§2</span><div><h2>Playground: shape the body, then watch the brain adapt</h2><p>Two small co-design problems that run live in your browser. Reshape a catching robot and feel its policy go stale, or give a walker new legs and see that a body is only as good as the gait learned for it.</p></div></div>
+    <div class="sec-head reveal"><span class="sec-num">§4</span><div><h2>Try it yourself</h2><p>Two tiny co-design problems, running live in your browser.</p></div></div>
 
     <div class="demo-tabs reveal" role="tablist" aria-label="Playground demos">
       <button role="tab" type="button" aria-selected="true" aria-controls="demo-catcher" id="tab-catcher"><i class="fa-solid fa-baseball"></i> Build a catcher</button>
@@ -137,7 +193,7 @@
         </div>
         <div class="verdict wide-verdict" id="cc-say" aria-live="polite"></div>
       </div>
-      <p class="cap demo-cap">A 2D toy of our <a href="#environments">Ball Catcher</a> environment. A longer arm reaches further but swings slower (joint speed falls with arm inertia), so the right aim depends on the arm you built. Twenty fixed throws; a catch is the hand within 14 cm of the ball in flight. Every search is exact and deterministic, computed in your browser.</p>
+      <p class="cap demo-cap">A 2D toy of our Ball Catcher: a longer arm reaches further but swings slower, so the right aim depends on the body you built.</p>
     </div>
 
     <!-- B: evolve a walker -->
@@ -161,68 +217,7 @@
           <div class="lb" id="wk-board" aria-label="Bodies tried so far"></div>
         </div>
       </div>
-      <p class="cap demo-cap">Real 2D rigid-body physics (<a href="https://piqnt.com/planck.js/" target="_blank" rel="noopener">planck.js</a>). The gait is a rhythm for the four joints (a frequency, and an amplitude and phase per joint), found by a small genetic algorithm: 24 gaits × 40 generations, the same fixed seed for every body. The score is distance walked in 8 s; an episode ends if the torso tips past 57&deg;. In our tests, long-legged bodies walk roughly twice as far as the base body once they have their own gait, and barely a metre with the base body's.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================= 3 ENVIRONMENTS -->
-<section class="block" id="environments">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§3</span><div><h2>Thirteen ways to be embodied</h2><p>Each family has several presets and a documented per-episode return window. Hover a card to play it (on a phone they play as you scroll); tap for the details.</p></div></div>
-    <div class="filters" id="env-filters" role="toolbar" aria-label="Filter environments"></div>
-    <div class="env-grid" id="env-grid"></div>
-  </div>
-</section>
-
-<dialog class="modal" id="env-modal" aria-labelledby="env-modal-title">
-  <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-  <div class="modal-grid"><div class="modal-media"></div><div class="modal-body"></div></div>
-</dialog>
-
-<dialog class="modal replay-modal" id="replay-modal" aria-labelledby="replay-title">
-  <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-  <div class="replay-head"><h3 id="replay-title">Battle replay</h3><p class="replay-meta"></p></div>
-  <div class="replay-frame"></div>
-  <p class="media-note replay-note">A real evaluation battle, replayed by the Pokémon Showdown client (press Play; choose “sound off” for silence). Only the text battle log is hosted here; the client and its artwork load from play.pokemonshowdown.com.</p>
-</dialog>
-
-<!-- ======================================================= 4 RESULTS -->
-<section class="block alt" id="results">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§4</span><div><h2>How do today&rsquo;s methods fare?</h2><p>Four baselines under the same 4-hour wall-clock budget, five seeds per preset: <b>CMA-ES</b> searches design and policy parameters jointly; <b>FastTD3</b> is off-policy RL whose actor also picks the design in a zero-time step before each episode; <b>PPO+NGOpt</b> optimizes the policy and the design independently; <b>LOKI</b> clusters a learned latent design space and trains a controller per cluster (its online clock starts after one hour of data generation and pre-training, and it ran on 18 of the 31 presets). New: the soft-bodied <b>Soft Walker (Beam 3D)</b> results.</p></div></div>
-
-    <div class="res-top reveal">
-      <div class="picker">
-        <div class="list"></div>
-        <label class="sr" for="preset-select">Preset</label><select id="preset-select" aria-label="Preset"></select>
-      </div>
-      <div>
-        <div class="chart-card">
-          <div class="chart-head"><h3>–</h3><span class="grp"></span></div>
-          <div class="legend" role="group" aria-label="Toggle methods"></div>
-          <div class="chart"></div>
-          <p class="chart-foot">Lines: seed-mean eval return, step-held between evaluations; bands: &plusmn;1 std over seeds. An evaluation where every design was rejected is a gap. <button class="tbl-toggle" type="button">Hide table</button></p>
-          <div class="final-wrap"></div>
-        </div>
-        <div class="roll-bar"><h4>Watch the four side by side</h4><span class="hint cap" style="margin:0"></span><button class="btn play-all" type="button"><i class="fa-solid fa-play"></i> Play all four</button></div>
-        <div class="rollouts"></div>
-      </div>
-    </div>
-
-    <div class="wins reveal" aria-label="Presets where each method had the best final mean"></div>
-    <p class="cap reveal" style="margin-top:10px">No single method dominates: which one leads depends on the environment, which is the point of a suite. Counts are per preset (methods compared within an environment); no score is normalized across environments.</p>
-
-    <div class="two reveal" style="margin-top:56px; align-items:center">
-      <figure class="paper-fig">
-        <a class="zoom" href="static/images/results/final_designs_ballcatcher_pitch.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/results/final_designs_ballcatcher_pitch.jpg" alt="Final designs found by each method on BallCatcher Pitch, three seeds each, sorted by final eval return." loading="lazy"></a>
-        <figcaption class="cap"><b>What did they build?</b> Final BallCatcher Pitch designs, three seeds per method, sorted by final eval return (the number above each frame).</figcaption>
-      </figure>
-      <div class="prose">
-        <p class="hand" style="font-size:1.6rem; transform:rotate(-1.5deg); margin-bottom:.5em">same task, very different bodies</p>
-        <p>The designs are where the methods diverge most. FastTD3&rsquo;s best catcher (5.98) has long, stretched limbs; CMA-ES lands on nearly the same body on all three seeds; LOKI&rsquo;s bodies are long-limbed too but score lowest here. A longer limb only helps if the policy learns to use it, and that coupling is exactly what these baselines have to handle.</p>
-        <p>Each run logs its designs, rejection rate, and a final-evaluation video. The numbers behind this section come straight from those logs (and match the paper tables).</p>
-      </div>
+      <p class="cap demo-cap">Real 2D physics (<a href="https://piqnt.com/planck.js/" target="_blank" rel="noopener">planck.js</a>). Every gait is evolved by a small genetic algorithm in your browser. Long legs walk about twice as far as the base body, but only with a gait of their own.</p>
     </div>
   </div>
 </section>
@@ -230,7 +225,7 @@
 <!-- ======================================================= 5 API -->
 <section class="block" id="api">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§5</span><div><h2>Gymnasium, plus a design axis</h2><p>The embodiment threads through the same calls you already know. Everything else is unchanged.</p></div></div>
+    <div class="sec-head reveal"><span class="sec-num">§5</span><div><h2>Gymnasium, plus a design axis</h2><p>Any Gymnasium environment becomes a co-design environment by declaring an <code>embodiment_space</code>.</p></div></div>
     <div class="two">
       <div class="reveal" data-tabs>
         <div class="tabs" role="tablist" aria-label="Code examples">
@@ -283,33 +278,28 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
       </div>
       <div class="reveal">
         <ul class="facts">
-          <li data-n="i."><b>One entry point.</b> <code>make_vec</code> and <code>make</code> return <code>(env, base_embodiment)</code>; <code>list_envs()</code> lists all 86 ids.</li>
-          <li data-n="ii."><b>Native vectorization.</b> No Gymnasium vector wrappers. JAX envs <code>vmap</code>, Showdown runs process shards, MuJoCo envs run batched on Warp. Batches can hold <i>different</i> designs.</li>
-          <li data-n="iii."><b>Lazy heavy deps.</b> MuJoCo, JAX and Showdown load only when you ask for an env that needs them.</li>
-          <li data-n="iv."><b>Padded spaces.</b> When a design changes the observation or action size (say, more base stations), <code>max_*_space_size</code> pads to a fixed shape and an action mask comes back in <code>info</code>.</li>
-          <li data-n="v."><b>Designs are not observed</b> in the geometric envs: the policy has to infer its body from how it moves.</li>
+          <li data-n="i."><b>One call.</b> <code>make_vec</code> returns a GPU-parallel env and its base embodiment.</li>
+          <li data-n="ii."><b>Design in <code>reset</code>.</b> Pass <code>embodiment=None</code> and it is plain Gymnasium.</li>
+          <li data-n="iii."><b>Honest evaluation.</b> <code>is_eval_env=True</code> locks the design for the whole episode.</li>
         </ul>
       </div>
-    </div>
-    <div class="figs-stack">
-      <figure class="paper-fig reveal"><a class="zoom" href="static/figures/api.svg" target="_blank" rel="noopener" title="Open full size"><img src="static/figures/api.svg" alt="Side-by-side comparison of standard Gymnasium and Codesign Gym call signatures." loading="lazy"></a><figcaption class="cap"><b>The whole API diff.</b> Three calls gain an embodiment; one method is added.</figcaption></figure>
-      <figure class="paper-fig reveal"><a class="zoom" href="static/figures/architecture.svg" target="_blank" rel="noopener" title="Open full size"><img src="static/figures/architecture.svg" alt="make_vec resolves an env id through a lazy registry to a per-environment build_vec returning a native vectorized env." loading="lazy"></a><figcaption class="cap"><b>Under the hood.</b> A lazy registry maps each id to its own native vectorized builder.</figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- ======================================================= 6 TEAM -->
-<section class="block alt" id="team">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§6</span><div><h2>Who built what</h2><p>This suite pulls together environments from several projects and people. Commit history doesn&rsquo;t tell the whole story, so here it is.</p></div></div>
-    <div class="people reveal">
-      <div class="person"><div class="av" style="background:#c4502f">AN</div><b>Aviraj Newatia</b><span>API design &amp; implementation; most environment ports and integrations</span></div>
-      <div class="person"><div class="av" style="background:#1f6f68">YT</div><b>Yordan Tsvetkov</b><span>Solar Cleaner, Ball Catcher, Shape-shifting Hand, multi-robot manipulation</span></div>
-      <div class="person"><div class="av" style="background:#2a78d6">LP</div><b>Leonard Pleiss</b><span>API design &amp; implementation; Ball Catcher</span></div>
-      <div class="person"><div class="av" style="background:#eb6834">AS</div><b>Andrew Spielberg</b><span>Soft Walker: the soft-body simulation engine</span></div>
-      <div class="person"><div class="av" style="background:#4a3aa7">RA</div><b>Rika Antonova</b><span>NeroGrasp, Solar Cleaner, Ball Catcher</span></div>
-    </div>
-    <div class="tbl-scroll reveal">
+<!-- ======================================================= 7 CITE -->
+<section class="block alt" id="cite">
+  <div class="wrap" style="max-width:900px">
+    <div class="sec-head reveal"><span class="sec-num">§6</span><div><h2>Cite</h2><p>If Co-Design Gym helps your work, please cite the paper.</p></div></div>
+    <div class="bib reveal"><button class="copy" data-copy="#bib">Copy BibTeX</button><pre id="bib">@misc{newatia2026codesigngym,
+  title  = {Co-Design Gym: A Unified Benchmark for Embodiment-Policy Co-Optimization},
+  author = {Newatia, Aviraj and Tsvetkov, Yordan and Pleiss, Leonard and Spielberg, Andrew and Antonova, Rika},
+  year   = {2026},
+  note   = {Preprint},
+  url    = {https://github.com/camral/codesign-gym}
+}</pre></div>
+    <details class="credits-box reveal"><summary>Who built which environment</summary>
+      <div class="tbl-scroll">
       <table class="credits">
         <thead><tr><th>Environment</th><th>Origin</th><th>Contributors</th></tr></thead>
         <tbody>
@@ -329,19 +319,7 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
         </tbody>
       </table>
     </div>
-  </div>
-</section>
-
-<!-- ======================================================= 7 CITE -->
-<section class="block" id="cite">
-  <div class="wrap" style="max-width:900px">
-    <div class="sec-head reveal"><span class="sec-num">§7</span><div><h2>Cite</h2><p>If Codesign Gym is useful in your work, please cite it.</p></div></div>
-    <div class="bib reveal"><button class="copy" data-copy="#bib">Copy BibTeX</button><pre id="bib">@software{newatia2026codesigngym,
-  title  = {Codesign Gym: A Gymnasium-like Benchmark for Co-Design},
-  author = {Newatia, Aviraj and Tsvetkov, Yordan and Pleiss, Leonard and Spielberg, Andrew and Antonova, Rika},
-  year   = {2026},
-  url    = {https://github.com/camral/codesign-gym}
-}</pre></div>
+    </details>
   </div>
 </section>
 
@@ -350,23 +328,23 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
 <footer>
   <div class="wrap cols">
     <div>
-      <p><b style="color:var(--ink)">Codesign Gym</b> &middot; MIT License &middot; University of Cambridge &middot; Technical University of Munich &middot; Carnegie Mellon University &middot; MorphoAI</p>
+      <p><b style="color:var(--ink)">Co-Design Gym</b> &middot; MIT License &middot; University of Cambridge &middot; Technical University of Munich &middot; Carnegie Mellon University &middot; MorphoAI</p>
       <p>Built on the shoulders of <a href="https://gymnasium.farama.org" target="_blank" rel="noopener">Gymnasium</a>, <a href="https://mujoco.org" target="_blank" rel="noopener">MuJoCo</a> and <a href="https://github.com/google-deepmind/mujoco_warp" target="_blank" rel="noopener">MuJoCo Warp</a>, <a href="https://github.com/NVIDIA/warp" target="_blank" rel="noopener">NVIDIA Warp</a>, <a href="https://github.com/instadeepai/jumanji" target="_blank" rel="noopener">Jumanji</a>, <a href="https://github.com/f1tenth/f1tenth_gym_jax" target="_blank" rel="noopener">f1tenth_gym_jax</a>, <a href="https://github.com/stefanbschneider/mobile-env" target="_blank" rel="noopener">mobile-env</a>, <a href="https://github.com/Total-RD/pymgrid" target="_blank" rel="noopener">python-microgrid</a>, <a href="https://pokemonshowdown.com" target="_blank" rel="noopener">Pok&eacute;mon Showdown</a> and <a href="https://github.com/hsahovic/poke-env" target="_blank" rel="noopener">poke-env</a>.</p>
     </div>
     <div>
       <p>Pok&eacute;mon is &copy; Nintendo / Creatures Inc. / GAME FREAK inc. This is an unofficial research benchmark, not affiliated with or endorsed by them.</p>
-      <p>Page structure inspired by the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page. Diagrams are hand-written SVG with editable <code>.drawio</code> sources.</p>
+      <p>Page structure inspired by the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page. Figures from the Co-Design Gym paper.</p>
     </div>
   </div>
 </footer>
 
-<script src="static/js/envs.js?v=81633f5886"></script>
-<script src="static/js/main.js?v=e6fd7ed49c"></script>
+<script src="static/js/envs.js?v=d9f9cdc8f0"></script>
+<script src="static/js/main.js?v=1f4baf5f4e"></script>
 <script src="https://cdn.jsdelivr.net/npm/planck@1.5.0/dist/planck.min.js"></script>
 <script src="static/js/catcher-core.js?v=5b267256ac"></script>
 <script src="static/js/demo-catcher.js?v=84885a9ab3"></script>
 <script src="static/js/walker-core.js?v=5d33d8fee9"></script>
 <script src="static/js/demo-walker.js?v=f0ea2a6cde"></script>
-<script src="static/js/results.js?v=141c9172d0"></script>
+<script src="static/js/results.js?v=25eeb96f5a"></script>
 </body>
 </html>
