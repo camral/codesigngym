@@ -56,7 +56,7 @@
         ${f.transition ? '<span class="badge">θ can change mid-episode</span>' : ''}</div></button>`;
     };
     // all 20 families, grouped as in the paper (Figure 3)
-    const GROUPS = [['native', 'Native', 'New domains built for co-design'], ['extended', 'Extended', 'Classic MuJoCo control, with reshapeable bodies'], ['reframed', 'Reframed', 'Existing problems, recast as co-design']];
+    const GROUPS = [['native', 'Native', 'New domains built for co-design'], ['reframed', 'Reframed', 'Existing problems, recast as co-design'], ['extended', 'Extended', 'Classic MuJoCo control, with reshapeable bodies']];
     grid.innerHTML = GROUPS.map(([k, n, d]) => { const fs = fams.filter(f => f.tags[0] === k); return `<div class="env-group g-${k}" data-group="${k}"><h3 class="grp-h"><span>${n}</span><em>${fs.length} families · ${d}</em></h3><div class="env-grid">${fs.map(card).join('')}</div></div>`; }).join('');
     grid.querySelectorAll('.reveal').forEach(el => rv.observe(el));
     filters.innerHTML = [['all', 'All', fams.length]].concat(GROUPS.map(([k, n]) => [k, n, fams.filter(f => f.tags[0] === k).length])).map(([k, n, c]) => `<button type="button" class="chip" data-tag="${k}" aria-pressed="${k === 'all'}">${n}<span class="n">${c}</span></button>`).join('');

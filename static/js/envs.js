@@ -54,6 +54,41 @@ window.ENV_FAMILIES = [
     note: 'Render from the environment (HexFEM 3D on the Gaps terrain), not a baseline run. Baselines on SoftWalkerBeam3D (CMA-ES, FastTD3, PPO+NGOpt; 5 seeds) are in the results explorer. Return windows are not yet characterised.'
   },
   {
+    id: 'lq', name: 'LQ Structure', sim: 'lq_structure · python-control + cvxpy', tags: ['reframed', 'control'], ids: 3,
+    blurb: 'A mass-spring chain with an exact optimum: a sanity check for co-design.',
+    design: 'masses, stiffness, damping, actuator + sensor placement', policy: 'regulate against disturbances (LQR / LQG / QP)',
+    presets: [['LQR: continuous design, unconstrained control', '0 / −∞'], ['LQG: placement under process + sensor noise', '0 / −∞'], ['QP: actuator saturation, mass/authority budget', '0 / −∞']],
+    example: 'LQStructure-LQR-v0', credit: 'Aviraj Newatia.'
+  },
+  {
+    id: 'microgrid', name: 'Microgrid Sizing & Dispatch', sim: 'microgrid · python-microgrid', tags: ['reframed', 'infra'], ids: 5,
+    blurb: 'Size the solar, battery and diesel, then dispatch against real demand.',
+    design: 'solar kW, battery kWh, genset kW', policy: 'charge, discharge, curtail, import',
+    presets: [['Random: one building, grid-tied, 24 h', '+720 / ≈−270k'], ['Forecast: + noisy forecasts', '+720 / ≈−270k'], ['Campus: several buildings', '+2,880 / ≈−1.08M'], ['Off-grid: solar + battery + genset, 72 h', '0 / ≈−378k'], ['Off-grid campus', '0 / ≈−1.51M']],
+    example: 'MicrogridRandom', credit: 'Aviraj Newatia; built on python-microgrid (pymgrid).'
+  },
+  {
+    id: 'network', name: 'Wireless Network Placement', sim: 'mobile_env · mobile-env', tags: ['reframed', 'infra'], ids: 3,
+    blurb: 'Place base stations, then hand moving users between them.',
+    design: 'number, position and transmit power of base stations (count + power budgets)', policy: 'user-to-cell association',
+    presets: [['Urban: pedestrians, 3–8 small cells', '+100 / −100'], ['Suburban: mixed mobility, 3–7 cells', '+100 / −100'], ['Motorway: sparse, fast, 1–4 macro cells', '+100 / −100']],
+    example: 'NetworkUrban', credit: 'Aviraj Newatia; built on mobile-env.'
+  },
+  {
+    id: 'racing', name: 'Vehicle Setup (Racing)', sim: 'f1tenth · f1tenth_gym_jax (JAX)', tags: ['reframed', 'games'], ids: 2, transition: true,
+    blurb: 'Tune grip, stiffness and power, then drive the fastest lap.',
+    design: 'tyre grip, cornering stiffness, drive power, weight distribution (mass is derived)', policy: 'steering + throttle',
+    presets: [['Spielberg time trial', '±343 m (one lap)'], ['Levine time trial', '±63 m (one lap)']],
+    example: 'RacingSpielberg', credit: 'Aviraj Newatia; built on f1tenth_gym_jax.'
+  },
+  {
+    id: 'warehouse', name: 'Warehouse Layout', sim: 'robot_warehouse · Jumanji (JAX)', tags: ['reframed', 'multi'], ids: 3,
+    blurb: 'Lay out the shelves, then coordinate the robot fleet.',
+    design: 'combinatorial shelf placement', policy: 'joint navigation for the whole fleet',
+    presets: [['Small: 10×10, 2 robots, 25 shelves', '+1000 / 0'], ['Medium: 16×16, 4 robots, 115 shelves', '+1000 / 0'], ['Congested: 20×22, 8 robots, 264 shelves', '+1000 / 0']],
+    example: 'WarehouseSmall', credit: 'Aviraj Newatia; built on Jumanji RobotWarehouse.'
+  },
+  {
     id: 'halfcheetah', name: 'Half-Cheetah', sim: 'half_cheetah · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
     blurb: "A planar runner whose six leg segments you can reshape.",
     design: "each leg segment’s length and angle, head and torso halves (16-dim)", policy: '6 leg joints',
@@ -110,41 +145,6 @@ window.ENV_FAMILIES = [
     note: "Real eval rollout (FastTD3), follow-cropped around the robot."
   },
   {
-    id: 'lq', name: 'LQ Structure', sim: 'lq_structure · python-control + cvxpy', tags: ['reframed', 'control'], ids: 3,
-    blurb: 'A mass-spring chain with an exact optimum: a sanity check for co-design.',
-    design: 'masses, stiffness, damping, actuator + sensor placement', policy: 'regulate against disturbances (LQR / LQG / QP)',
-    presets: [['LQR: continuous design, unconstrained control', '0 / −∞'], ['LQG: placement under process + sensor noise', '0 / −∞'], ['QP: actuator saturation, mass/authority budget', '0 / −∞']],
-    example: 'LQStructure-LQR-v0', credit: 'Aviraj Newatia.'
-  },
-  {
-    id: 'microgrid', name: 'Microgrid Sizing & Dispatch', sim: 'microgrid · python-microgrid', tags: ['reframed', 'infra'], ids: 5,
-    blurb: 'Size the solar, battery and diesel, then dispatch against real demand.',
-    design: 'solar kW, battery kWh, genset kW', policy: 'charge, discharge, curtail, import',
-    presets: [['Random: one building, grid-tied, 24 h', '+720 / ≈−270k'], ['Forecast: + noisy forecasts', '+720 / ≈−270k'], ['Campus: several buildings', '+2,880 / ≈−1.08M'], ['Off-grid: solar + battery + genset, 72 h', '0 / ≈−378k'], ['Off-grid campus', '0 / ≈−1.51M']],
-    example: 'MicrogridRandom', credit: 'Aviraj Newatia; built on python-microgrid (pymgrid).'
-  },
-  {
-    id: 'network', name: 'Wireless Network Placement', sim: 'mobile_env · mobile-env', tags: ['reframed', 'infra'], ids: 3,
-    blurb: 'Place base stations, then hand moving users between them.',
-    design: 'number, position and transmit power of base stations (count + power budgets)', policy: 'user-to-cell association',
-    presets: [['Urban: pedestrians, 3–8 small cells', '+100 / −100'], ['Suburban: mixed mobility, 3–7 cells', '+100 / −100'], ['Motorway: sparse, fast, 1–4 macro cells', '+100 / −100']],
-    example: 'NetworkUrban', credit: 'Aviraj Newatia; built on mobile-env.'
-  },
-  {
-    id: 'racing', name: 'Vehicle Setup (Racing)', sim: 'f1tenth · f1tenth_gym_jax (JAX)', tags: ['reframed', 'games'], ids: 2, transition: true,
-    blurb: 'Tune grip, stiffness and power, then drive the fastest lap.',
-    design: 'tyre grip, cornering stiffness, drive power, weight distribution (mass is derived)', policy: 'steering + throttle',
-    presets: [['Spielberg time trial', '±343 m (one lap)'], ['Levine time trial', '±63 m (one lap)']],
-    example: 'RacingSpielberg', credit: 'Aviraj Newatia; built on f1tenth_gym_jax.'
-  },
-  {
-    id: 'warehouse', name: 'Warehouse Layout', sim: 'robot_warehouse · Jumanji (JAX)', tags: ['reframed', 'multi'], ids: 3,
-    blurb: 'Lay out the shelves, then coordinate the robot fleet.',
-    design: 'combinatorial shelf placement', policy: 'joint navigation for the whole fleet',
-    presets: [['Small: 10×10, 2 robots, 25 shelves', '+1000 / 0'], ['Medium: 16×16, 4 robots, 115 shelves', '+1000 / 0'], ['Congested: 20×22, 8 robots, 264 shelves', '+1000 / 0']],
-    example: 'WarehouseSmall', credit: 'Aviraj Newatia; built on Jumanji RobotWarehouse.'
-  },
-  {
     id: 'pokemon', name: 'Pokémon Showdown', sim: 'pokenv · Pokémon Showdown + poke-env', tags: ['reframed', 'games'], ids: 23,
     blurb: 'Build a team of six, then learn to win with it.',
     design: 'the team: species, moves, EVs, item, nature, ability × 6 slots', policy: 'the battle strategy, turn by turn',
@@ -155,4 +155,4 @@ window.ENV_FAMILIES = [
   }
 ];
 
-window.ENV_TAGS = [['all', 'All'], ['native', 'Native'], ['extended', 'Extended'], ['reframed', 'Reframed']];
+window.ENV_TAGS = [['all', 'All'], ['native', 'Native'], ['reframed', 'Reframed'], ['extended', 'Extended']];

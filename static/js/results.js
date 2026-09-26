@@ -34,7 +34,7 @@
     const list = $('.picker .list'), sel = $('.picker select');
     let html = '', opts = '', last = null;
     const groups = { Native: 'Native environments', Extended: 'Classic locomotion, co-designed', Reframed: 'Reframed problems' };
-    const order = ['Native', 'Extended', 'Reframed'];
+    const order = ['Native', 'Reframed', 'Extended'];
     order.forEach(g => {
       const ps = D.presets.filter(p => p.group === g);
       html += `<h4>${groups[g]}</h4>`; opts += `<optgroup label="${groups[g]}">`;
