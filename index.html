@@ -27,9 +27,9 @@
     <a class="brand" href="#top"><img class="logo" src="static/images/favicon.svg" alt="">Co-Design Gym</a>
     <div class="nav-links">
       <a href="#idea">Idea</a>
+      <a href="#playground">Playground</a>
       <a href="#environments">Environments</a>
       <a href="#results">Results</a>
-      <a href="#playground">Playground</a>
       <a href="#api">API</a>
       <a href="#cite">Cite</a>
     </div>
@@ -99,65 +99,10 @@
   </div>
 </section>
 
-<!-- ======================================================= 3 ENVIRONMENTS -->
-<section class="block alt" id="environments">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§2</span><div><h2>20 families. 85+ presets.</h2><p>Hover a card to watch it; tap for presets and code.</p></div></div>
-    <figure class="paper-fig envs-fig reveal"><a class="zoom" href="static/images/paper/environments.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/environments.jpg" alt="Grid of all environment families, grouped as Native, Extended and Reframed." loading="lazy"></a></figure>
-    <div class="filters" id="env-filters" role="toolbar" aria-label="Filter environments"></div>
-    <div class="env-grid" id="env-grid"></div>
-  </div>
-</section>
-
-<dialog class="modal" id="env-modal" aria-labelledby="env-modal-title">
-  <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-  <div class="modal-grid"><div class="modal-media"></div><div class="modal-body"></div></div>
-</dialog>
-
-<dialog class="modal replay-modal" id="replay-modal" aria-labelledby="replay-title">
-  <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-  <div class="replay-head"><h3 id="replay-title">Battle replay</h3><p class="replay-meta"></p></div>
-  <div class="replay-frame"></div>
-  <p class="media-note replay-note">A real evaluation battle, replayed by the Pokémon Showdown client (press Play; choose “sound off” for silence). Only the text battle log is hosted here; the client and its artwork load from play.pokemonshowdown.com.</p>
-</dialog>
-
-<!-- ======================================================= 4 RESULTS -->
-<section class="block" id="results">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§3</span><div><h2>No single winner.<br>Lots of headroom.</h2><p>Four representative co-design methods, matched 4-hour budget, 5 seeds each: <b>CMA-ES</b>, <b>FastTD3</b>, <b>PPO+NGOpt</b> and <b>LOKI</b>.</p></div></div>
-    <div class="bignums reveal">
-      <div><b>12<small>/16</small></b><span>presets where the leading method changes during training</span></div>
-      <div><b>16.6%</b><span>of balls caught by the best method on Ball Catcher Pitch</span></div>
-      <div><b>&asymp;0</b><span>return for every method on Solar Cleaner and the large warehouses</span></div>
-    </div>
-    <figure class="paper-fig reveal"><a class="zoom" href="static/images/paper/leader.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/leader.jpg" alt="Leading method over the 4-hour training budget on 16 presets: the leader changes on most presets and differs by domain." loading="lazy"></a><figcaption class="cap"><b>Who is ahead, hour by hour.</b> The leader depends on the task and on the budget.</figcaption></figure>
-    <h3 class="sub-h reveal">Dig into any preset</h3>
-    <div class="res-top reveal">
-      <div class="picker">
-        <div class="list"></div>
-        <label class="sr" for="preset-select">Preset</label><select id="preset-select" aria-label="Preset"></select>
-      </div>
-      <div>
-        <div class="chart-card">
-          <div class="chart-head"><h3>–</h3><span class="grp"></span></div>
-          <div class="legend" role="group" aria-label="Toggle methods"></div>
-          <div class="chart"></div>
-          <p class="chart-foot">Lines: seed-mean eval return, step-held between evaluations; bands: &plusmn;1 std over seeds. An evaluation where every design was rejected is a gap. <button class="tbl-toggle" type="button">Hide table</button></p>
-          <div class="final-wrap"></div>
-        </div>
-        <div class="roll-bar"><h4>Watch the four side by side</h4><span class="hint cap" style="margin:0"></span><button class="btn play-all" type="button"><i class="fa-solid fa-play"></i> Play all four</button></div>
-        <div class="rollouts"></div>
-      </div>
-    </div>
-
-    <figure class="paper-fig designs-fig reveal"><a class="zoom" href="static/images/results/final_designs_ballcatcher_pitch.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/results/final_designs_ballcatcher_pitch.jpg" alt="Final designs found by each method on BallCatcher Pitch, three seeds each, sorted by final eval return." loading="lazy"></a><figcaption class="cap"><b>Same task, very different bodies.</b> Final Ball Catcher Pitch designs per method and seed.</figcaption></figure>
-  </div>
-</section>
-
 <!-- ======================================================= 2 PLAYGROUND -->
 <section class="block alt" id="playground">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§4</span><div><h2>Try it yourself</h2><p>Two tiny co-design problems, running live in your browser.</p></div></div>
+    <div class="sec-head reveal"><span class="sec-num">§2</span><div><h2>Try it yourself</h2><p>Two tiny co-design problems, running live in your browser.</p></div></div>
 
     <div class="demo-tabs reveal" role="tablist" aria-label="Playground demos">
       <button role="tab" type="button" aria-selected="true" aria-controls="demo-catcher" id="tab-catcher"><i class="fa-solid fa-baseball"></i> Build a catcher</button>
@@ -219,6 +164,61 @@
       </div>
       <p class="cap demo-cap">Real 2D physics (<a href="https://piqnt.com/planck.js/" target="_blank" rel="noopener">planck.js</a>). Every gait is evolved by a small genetic algorithm in your browser. Long legs walk about twice as far as the base body, but only with a gait of their own.</p>
     </div>
+  </div>
+</section>
+
+<!-- ======================================================= 3 ENVIRONMENTS -->
+<section class="block" id="environments">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">§3</span><div><h2>20 families. 85+ presets.</h2><p>Hover a card to watch it; tap for presets and code.</p></div></div>
+    <figure class="paper-fig envs-fig reveal"><a class="zoom" href="static/images/paper/environments.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/environments.jpg" alt="Grid of all environment families, grouped as Native, Extended and Reframed." loading="lazy"></a></figure>
+    <div class="filters" id="env-filters" role="toolbar" aria-label="Filter environments"></div>
+    <div class="env-grid" id="env-grid"></div>
+  </div>
+</section>
+
+<dialog class="modal" id="env-modal" aria-labelledby="env-modal-title">
+  <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <div class="modal-grid"><div class="modal-media"></div><div class="modal-body"></div></div>
+</dialog>
+
+<dialog class="modal replay-modal" id="replay-modal" aria-labelledby="replay-title">
+  <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <div class="replay-head"><h3 id="replay-title">Battle replay</h3><p class="replay-meta"></p></div>
+  <div class="replay-frame"></div>
+  <p class="media-note replay-note">A real evaluation battle, replayed by the Pokémon Showdown client (press Play; choose “sound off” for silence). Only the text battle log is hosted here; the client and its artwork load from play.pokemonshowdown.com.</p>
+</dialog>
+
+<!-- ======================================================= 4 RESULTS -->
+<section class="block alt" id="results">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">§4</span><div><h2>No single winner.<br>Lots of headroom.</h2><p>Four representative co-design methods, matched 4-hour budget, 5 seeds each: <b>CMA-ES</b>, <b>FastTD3</b>, <b>PPO+NGOpt</b> and <b>LOKI</b>.</p></div></div>
+    <div class="bignums reveal">
+      <div><b>12<small>/16</small></b><span>presets where the leading method changes during training</span></div>
+      <div><b>16.6%</b><span>of balls caught by the best method on Ball Catcher Pitch</span></div>
+      <div><b>&asymp;0</b><span>return for every method on Solar Cleaner and the large warehouses</span></div>
+    </div>
+    <figure class="paper-fig reveal"><a class="zoom" href="static/images/paper/leader.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/leader.jpg" alt="Leading method over the 4-hour training budget on 16 presets: the leader changes on most presets and differs by domain." loading="lazy"></a><figcaption class="cap"><b>Who is ahead, hour by hour.</b> The leader depends on the task and on the budget.</figcaption></figure>
+    <h3 class="sub-h reveal">Dig into any preset</h3>
+    <div class="res-top reveal">
+      <div class="picker">
+        <div class="list"></div>
+        <label class="sr" for="preset-select">Preset</label><select id="preset-select" aria-label="Preset"></select>
+      </div>
+      <div>
+        <div class="chart-card">
+          <div class="chart-head"><h3>–</h3><span class="grp"></span></div>
+          <div class="legend" role="group" aria-label="Toggle methods"></div>
+          <div class="chart"></div>
+          <p class="chart-foot">Lines: seed-mean eval return, step-held between evaluations; bands: &plusmn;1 std over seeds. An evaluation where every design was rejected is a gap. <button class="tbl-toggle" type="button">Hide table</button></p>
+          <div class="final-wrap"></div>
+        </div>
+        <div class="roll-bar"><h4>Watch the four side by side</h4><span class="hint cap" style="margin:0"></span><button class="btn play-all" type="button"><i class="fa-solid fa-play"></i> Play all four</button></div>
+        <div class="rollouts"></div>
+      </div>
+    </div>
+
+    <figure class="paper-fig designs-fig reveal"><a class="zoom" href="static/images/results/final_designs_ballcatcher_pitch.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/results/final_designs_ballcatcher_pitch.jpg" alt="Final designs found by each method on BallCatcher Pitch, three seeds each, sorted by final eval return." loading="lazy"></a><figcaption class="cap"><b>Same task, very different bodies.</b> Final Ball Catcher Pitch designs per method and seed.</figcaption></figure>
   </div>
 </section>
 
