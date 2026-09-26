@@ -33,7 +33,7 @@
   function buildPicker() {
     const list = $('.picker .list'), sel = $('.picker select');
     let html = '', opts = '', last = null;
-    const groups = { Native: 'Native', Reframed: 'Reframed', Extended: 'Extended' };
+    const groups = { Native: 'Native', Reframed: 'Unlocked/Reframed', Extended: 'Extended' };
     const order = ['Native', 'Reframed', 'Extended'];
     order.forEach(g => {
       const ps = D.presets.filter(p => p.group === g);

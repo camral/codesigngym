@@ -155,4 +155,4 @@ window.ENV_FAMILIES = [
   }
 ];
 
-window.ENV_TAGS = [['all', 'All'], ['native', 'Native'], ['reframed', 'Reframed'], ['extended', 'Extended']];
+window.ENV_TAGS = [['all', 'All'], ['native', 'Native'], ['reframed', 'Unlocked/Reframed'], ['extended', 'Extended']];
