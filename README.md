@@ -12,7 +12,8 @@ fetches JSON, so `file://` will not work).
 | Section | Built from |
 |---|---|
 | Hero video wall, environment explorer | `static/video/showcase/*.mp4` (one clip per family) |
-| Playground | `static/js/playground.js`: exact 1-DOF LQ cost landscape (closed-form Lyapunov solve) |
+| Playground: Build a catcher | `static/js/catcher-core.js` (2D arm + ballistics, deterministic searches) + `demo-catcher.js` |
+| Playground: Give a walker new legs | `static/js/walker-core.js` (planck.js walker + GA) + `demo-walker.js` |
 | Environment cards + modals | `static/js/envs.js` (facts from the codesign-gym README) |
 | Baseline results explorer | `static/data/results.json`, `static/data/videos.json`, `static/video/<preset>/<method>.mp4` |
 | Pokémon battle replays | `static/replays/<preset>/<method>-{best,worst}.html`, `static/data/replays.json` |

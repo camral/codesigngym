@@ -100,6 +100,14 @@
     dlg.addEventListener('close', () => { const v = dlg.querySelector('video'); if (v) v.pause(); if (dlg.classList.contains('wide')) dlg.querySelector('.modal-media').innerHTML = ''; });
   }
 
+  // playground demo tabs
+  const dtabs = [...document.querySelectorAll('.demo-tabs [role=tab]')];
+  function showDemo(i) {
+    dtabs.forEach((t, j) => { t.setAttribute('aria-selected', i === j); t.tabIndex = i === j ? 0 : -1; document.getElementById(t.getAttribute('aria-controls')).hidden = i !== j; });
+    window.dispatchEvent(new Event('resize'));
+  }
+  dtabs.forEach((t, i) => { t.addEventListener('click', () => showDemo(i)); t.addEventListener('keydown', e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { const k = (i + d + dtabs.length) % dtabs.length; showDemo(k); dtabs[k].focus(); } }); });
+
   // code tabs
   document.querySelectorAll('[data-tabs]').forEach(box => {
     const tabs = [...box.querySelectorAll('[role=tab]')], panes = [...box.querySelectorAll('[role=tabpanel]')];

@@ -88,7 +88,7 @@
         <p>In robotics, energy systems and network planning, the <b>shape of the agent</b> is a decision too: how long the arm is, how big the battery is, where the base stations go. Choose it first and a controller inherits whatever that choice got wrong. Choose the controller first and the body never gets a chance to help.</p>
         <p>Codesign Gym treats the design as a first-class object. Every environment exposes an <code>embodiment_space</code> with declared bounds, and <code>reset</code> takes the design you want to try. Control stays plain Gymnasium, so existing RL and control stacks plug in unchanged. Design search is left to whatever optimizer you like: CMA-ES, Bayesian optimization, an RL outer loop, gradient descent through a simulator.</p>
         <p>The environments reject only <i>impossible</i> designs (out of bounds, wrong shape, overlapping cells), never merely bad ones. An unnavigable warehouse is a valid layout that simply earns little reward. Telling good designs from bad is the optimizer&rsquo;s job.</p>
-        <p class="aside-note hand">&rarr; the playground below lets you feel this in two dimensions</p>
+        <p class="aside-note hand">&rarr; the playground below lets you feel this with your own hands</p>
       </div>
       <figure class="paper-fig reveal">
         <a class="zoom" href="static/figures/codesign-loop.svg" target="_blank" rel="noopener" title="Open full size"><img src="static/figures/codesign-loop.svg" alt="Two nested loops: a slow outer loop searches over the embodiment theta, a fast inner loop learns the control policy pi, both against a Gymnasium-compatible environment." loading="lazy"></a>
@@ -101,40 +101,67 @@
 <!-- ======================================================= 2 PLAYGROUND -->
 <section class="block alt" id="playground">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§2</span><div><h2>Playground: why you can&rsquo;t tune them one at a time</h2><p>A one-degree-of-freedom body. You choose its <b>mass</b> (the design) and a feedback <b>gain</b> (the policy). Every pixel is the exact cost of that pair, computed live in your browser.</p></div></div>
-    <div class="pg reveal">
-      <div class="pg-card">
-        <div class="pg-plot">
-          <canvas id="pg-canvas" tabindex="0" aria-label="Cost landscape over body mass (horizontal) and controller gain (vertical). Click or use arrow keys to move the point."></canvas>
-          <svg id="pg-over" class="over" aria-hidden="true"></svg>
+    <div class="sec-head reveal"><span class="sec-num">§2</span><div><h2>Playground: shape the body, then watch the brain adapt</h2><p>Two small co-design problems that run live in your browser. Reshape a catching robot and feel its policy go stale, or give a walker new legs and see that a body is only as good as the gait learned for it.</p></div></div>
+
+    <div class="demo-tabs reveal" role="tablist" aria-label="Playground demos">
+      <button role="tab" type="button" aria-selected="true" aria-controls="demo-catcher" id="tab-catcher"><i class="fa-solid fa-baseball"></i> Build a catcher</button>
+      <button role="tab" type="button" aria-selected="false" aria-controls="demo-walker" id="tab-walker"><i class="fa-solid fa-person-walking"></i> Give a walker new legs</button>
+    </div>
+
+    <!-- A: build a catcher -->
+    <div class="demo reveal" id="demo-catcher" role="tabpanel" aria-labelledby="tab-catcher">
+      <div class="demo-stage"><canvas aria-label="A robot arm on a pedestal catching balls thrown by a pitcher. Drag the dashed rings to change torso height and arm-link lengths."></canvas></div>
+      <div class="demo-side">
+        <div class="col">
+        <div class="scorecard"><div><b id="cc-score">–</b><span>of 20 caught</span></div><div class="dots" id="cc-dots" aria-label="Outcome of each throw"></div></div>
+        <ul class="board" id="cc-board" aria-label="Best scores so far"></ul>
         </div>
-        <div class="pg-axis"><span>light body</span><span>body mass m (design &theta;) &rarr;</span><span>heavy body</span></div>
-        <div class="pg-legend">
-          <span class="pg-ramp"><span class="bar"></span> darker = better return</span>
-          <span><i style="border-color:#eb6834"></i>best gain for each body</span>
-          <span><i style="border-color:#1f1d1a;border-top-style:dashed"></i>best body for each gain</span>
-          <span>&#9733; joint optimum</span>
+        <fieldset class="knobs col"><legend>Body <em>(the design)</em></legend>
+          <label for="cc-h"><span>torso height</span><b id="cc-hv"></b></label><input id="cc-h" type="range" min="0.3" max="1.6" step="0.01">
+          <label for="cc-L1"><span>upper arm</span><b id="cc-L1v"></b></label><input id="cc-L1" type="range" min="0.25" max="1.3" step="0.01">
+          <label for="cc-L2"><span>forearm</span><b id="cc-L2v"></b></label><input id="cc-L2" type="range" min="0.25" max="1.3" step="0.01">
+          <div class="meter"><span>reach <b id="cc-reach"></b></span><span>arm speed <b id="cc-speedv"></b></span></div>
+          <div class="bar"><i id="cc-speed"></i></div>
+        </fieldset>
+        <div class="col">
+        <fieldset class="knobs"><legend>Policy <em>(how it moves)</em></legend>
+          <label for="cc-lead"><span>aim at the ball&hellip;</span><b id="cc-leadv"></b></label><input id="cc-lead" type="range" min="0" max="0.8" step="0.02">
+        </fieldset>
+        <div class="demo-btns">
+          <button class="btn solid" id="cc-throw" type="button"><i class="fa-solid fa-play"></i> Throw 20 balls</button>
+          <button class="btn" id="cc-tune-pol" type="button">Tune policy for this body</button>
+          <button class="btn" id="cc-tune-body" type="button">Tune body for this policy</button>
+          <button class="btn accent" id="cc-codesign" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Co-design both</button>
+          <button class="btn ghost" id="cc-reset" type="button"><i class="fa-solid fa-rotate-left"></i> Reset</button>
         </div>
+        </div>
+        <div class="verdict wide-verdict" id="cc-say" aria-live="polite"></div>
       </div>
-      <div>
-        <div class="readout" aria-live="polite">
-          <div><span>mass m</span><b id="pg-m">–</b></div>
-          <div><span>gain g</span><b id="pg-g">–</b></div>
-          <div><span>cost J</span><b id="pg-j">–</b></div>
+      <p class="cap demo-cap">A 2D toy of our <a href="#environments">Ball Catcher</a> environment. A longer arm reaches further but swings slower (joint speed falls with arm inertia), so the right aim depends on the arm you built. Twenty fixed throws; a catch is the hand within 14 cm of the ball in flight. Every search is exact and deterministic, computed in your browser.</p>
+    </div>
+
+    <!-- B: evolve a walker -->
+    <div class="demo reveal" id="demo-walker" role="tabpanel" aria-labelledby="tab-walker" hidden>
+      <div class="demo-stage"><canvas aria-label="Two lanes showing the same 2D walker body: on top walking with the gait evolved for the base body, below walking with a gait evolved for this body."></canvas></div>
+      <div class="demo-side">
+        <fieldset class="knobs col"><legend>Body <em>(the design): <span id="wk-name">Base body</span></em></legend>
+          <div class="chips-row" id="wk-presets" role="group" aria-label="Body presets"></div>
+          <label for="wk-w"><span>torso width</span><b id="wk-wv"></b></label><input id="wk-w" type="range" min="0" max="1" step="0.01">
+          <label for="wk-th"><span>torso height</span><b id="wk-thv"></b></label><input id="wk-th" type="range" min="0" max="1" step="0.01">
+          <label for="wk-thigh"><span>thigh</span><b id="wk-thighv"></b></label><input id="wk-thigh" type="range" min="0" max="1" step="0.01">
+          <label for="wk-shin"><span>shin</span><b id="wk-shinv"></b></label><input id="wk-shin" type="range" min="0" max="1" step="0.01">
+        </fieldset>
+        <div class="col">
+          <div class="demo-btns">
+            <button class="btn solid" id="wk-evolve" type="button"><i class="fa-solid fa-dna"></i> Evolve a gait for this body</button>
+            <button class="btn accent" id="wk-search" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Search bodies for me</button>
+          </div>
+          <p class="gen-note" id="wk-gen" aria-live="polite"></p>
+          <div class="verdict" id="wk-say" aria-live="polite"></div>
         </div>
-        <div class="sim"><canvas id="pg-sim" aria-label="Simulation of the body being regulated back to its target"></canvas></div>
-        <div class="ctl">
-          <label for="pg-g0"><span>Two-stage recipe: nominal controller g&#8320;</span><b id="pg-g0v">3.00</b></label>
-          <input id="pg-g0" type="range" min="0.2" max="4.8" step="0.05" value="3">
-        </div>
-        <div class="pg-btns">
-          <button class="btn solid" id="pg-two" type="button"><i class="fa-solid fa-shoe-prints"></i> Design, then control</button>
-          <button class="btn" id="pg-alt" type="button"><i class="fa-solid fa-arrows-rotate"></i> Alternate best responses</button>
-          <button class="btn" id="pg-opt" type="button"><i class="fa-solid fa-star"></i> Joint optimum</button>
-        </div>
-        <div class="verdict" id="pg-verdict" aria-live="polite"></div>
-        <p class="cap">Toy model: m&#7821; = &minus;c&#7819; + u, u = &minus;g x &minus; h &#7819;, cost = &int;(x&sup2; + 0.05 &#7819;&sup2; + r u&sup2;) dt + &lambda;/m (light bodies cost more to build). Solved exactly from the closed-loop Lyapunov equation. The <a href="#environments">LQ Structure</a> environments scale this idea up to chains with sensor and actuator placement; the real environments add contact, noise and hundreds of design dimensions.</p>
+        <div class="col lb" id="wk-board" aria-label="Bodies tried so far"></div>
       </div>
+      <p class="cap demo-cap">Real 2D rigid-body physics (<a href="https://piqnt.com/planck.js/" target="_blank" rel="noopener">planck.js</a>). The gait is a rhythm for the four joints (a frequency, and an amplitude and phase per joint), found by a small genetic algorithm: 24 gaits × 40 generations, the same fixed seed for every body. The score is distance walked in 8 s; an episode ends if the torso tips past 57&deg;. In our tests, long-legged bodies walk roughly twice as far as the base body once they have their own gait, and barely a metre with the base body's.</p>
     </div>
   </div>
 </section>
@@ -334,7 +361,11 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
 
 <script src="static/js/envs.js"></script>
 <script src="static/js/main.js"></script>
-<script src="static/js/playground.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/planck@1.5.0/dist/planck.min.js"></script>
+<script src="static/js/catcher-core.js"></script>
+<script src="static/js/demo-catcher.js"></script>
+<script src="static/js/walker-core.js"></script>
+<script src="static/js/demo-walker.js"></script>
 <script src="static/js/results.js"></script>
 </body>
 </html>
