@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Codesign Gym</title>
   <meta name="description" content="Codesign Gym is a Gymnasium-style benchmark for co-design, where an agent's body is optimized alongside its control policy: 86 environment ids across robotics, soft bodies, energy grids, wireless networks, racing, warehouses and Pokémon.">
-  <meta name="author" content="Aviraj Newatia, Yordan Tsvetkov, Leonard Pleiss, Rika Antonova">
+  <meta name="author" content="Aviraj Newatia, Yordan Tsvetkov, Leonard Pleiss, Andrew Spielberg, Rika Antonova">
   <meta property="og:title" content="Codesign Gym">
   <meta property="og:description" content="Optimize the body and the brain together: a Gymnasium-style benchmark for co-design.">
   <meta property="og:type" content="website">
@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="static/css/site.css?v=6542723b0b">
+  <link rel="stylesheet" href="static/css/site.css?v=5274438a97">
 </head>
 <body>
 
@@ -48,8 +48,8 @@
         <span class="kicker">A benchmark for co-design</span>
         <h1 class="title">Codesign<br>Gym</h1>
         <p class="lede">Most RL benchmarks hand you a body and ask for a brain. Here you get to pick <span class="mark">both</span>: a Gymnasium-style suite where an agent&rsquo;s embodiment is optimized alongside its control policy, from dexterous hands and soft walkers to microgrids and Pok&eacute;mon teams.</p>
-        <p class="authors"><a href="#team">Aviraj Newatia</a>, <a href="#team">Yordan Tsvetkov</a>, <a href="#team">Leonard Pleiss</a>, <a href="#team">Rika Antonova</a></p>
-        <p class="affil">University of Cambridge &middot; CAMRAL</p>
+        <p class="authors"><span class="au"><a href="mailto:aviraj.newatia@cst.cam.ac.uk">Aviraj Newatia</a><sup>1,*</sup></span>, <span class="au"><a href="mailto:yordan.tsvetkov@cst.cam.ac.uk">Yordan Tsvetkov</a><sup>1,*</sup></span>, <span class="au"><a href="mailto:leonard.pleiss@tum.de">Leonard Pleiss</a><sup>2</sup></span>, <span class="au"><a href="mailto:aespielberg@gmail.com">Andrew Spielberg</a><sup>3,4</sup></span>, <span class="au"><a href="mailto:rika.antonova@cst.cam.ac.uk">Rika Antonova</a><sup>1</sup></span></p>
+        <ul class="affils"><li><sup>1</sup>Department of Computer Science &amp; Technology, University of Cambridge</li><li><sup>2</sup>Department of Computer Science, Technical University of Munich</li><li><sup>3</sup>College of Engineering, Carnegie Mellon University</li><li><sup>4</sup>MorphoAI</li><li><sup>*</sup>Equal contribution</li></ul>
         <div class="btns">
           <a class="btn solid" href="https://github.com/camral/codesign-gym" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Code</a>
           <a class="btn" href="#environments"><i class="fa-solid fa-cubes"></i> Environments</a>
@@ -306,6 +306,7 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
       <div class="person"><div class="av" style="background:#c4502f">AN</div><b>Aviraj Newatia</b><span>API design &amp; implementation; most environment ports and integrations</span></div>
       <div class="person"><div class="av" style="background:#1f6f68">YT</div><b>Yordan Tsvetkov</b><span>Solar Cleaner, Ball Catcher, Shape-shifting Hand, multi-robot manipulation</span></div>
       <div class="person"><div class="av" style="background:#2a78d6">LP</div><b>Leonard Pleiss</b><span>API design &amp; implementation; Ball Catcher</span></div>
+      <div class="person"><div class="av" style="background:#eb6834">AS</div><b>Andrew Spielberg</b><span>Soft Walker: the soft-body simulation engine</span></div>
       <div class="person"><div class="av" style="background:#4a3aa7">RA</div><b>Rika Antonova</b><span>NeroGrasp, Solar Cleaner, Ball Catcher</span></div>
     </div>
     <div class="tbl-scroll reveal">
@@ -337,7 +338,7 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
     <div class="sec-head reveal"><span class="sec-num">§7</span><div><h2>Cite</h2><p>If Codesign Gym is useful in your work, please cite it.</p></div></div>
     <div class="bib reveal"><button class="copy" data-copy="#bib">Copy BibTeX</button><pre id="bib">@software{newatia2026codesigngym,
   title  = {Codesign Gym: A Gymnasium-like Benchmark for Co-Design},
-  author = {Newatia, Aviraj and Tsvetkov, Yordan and Pleiss, Leonard and Antonova, Rika},
+  author = {Newatia, Aviraj and Tsvetkov, Yordan and Pleiss, Leonard and Spielberg, Andrew and Antonova, Rika},
   year   = {2026},
   url    = {https://github.com/camral/codesign-gym}
 }</pre></div>
@@ -349,7 +350,7 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
 <footer>
   <div class="wrap cols">
     <div>
-      <p><b style="color:var(--ink)">Codesign Gym</b> &middot; MIT License &middot; University of Cambridge &middot; CAMRAL</p>
+      <p><b style="color:var(--ink)">Codesign Gym</b> &middot; MIT License &middot; University of Cambridge &middot; Technical University of Munich &middot; Carnegie Mellon University &middot; MorphoAI</p>
       <p>Built on the shoulders of <a href="https://gymnasium.farama.org" target="_blank" rel="noopener">Gymnasium</a>, <a href="https://mujoco.org" target="_blank" rel="noopener">MuJoCo</a> and <a href="https://github.com/google-deepmind/mujoco_warp" target="_blank" rel="noopener">MuJoCo Warp</a>, <a href="https://github.com/NVIDIA/warp" target="_blank" rel="noopener">NVIDIA Warp</a>, <a href="https://github.com/instadeepai/jumanji" target="_blank" rel="noopener">Jumanji</a>, <a href="https://github.com/f1tenth/f1tenth_gym_jax" target="_blank" rel="noopener">f1tenth_gym_jax</a>, <a href="https://github.com/stefanbschneider/mobile-env" target="_blank" rel="noopener">mobile-env</a>, <a href="https://github.com/Total-RD/pymgrid" target="_blank" rel="noopener">python-microgrid</a>, <a href="https://pokemonshowdown.com" target="_blank" rel="noopener">Pok&eacute;mon Showdown</a> and <a href="https://github.com/hsahovic/poke-env" target="_blank" rel="noopener">poke-env</a>.</p>
     </div>
     <div>

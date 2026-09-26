@@ -67,6 +67,9 @@ h1.title em { font-style: italic; font-weight: 500; color: var(--accent); }
 .authors { font-family: var(--sans); font-size: 0.98rem; line-height: 1.9; margin: 0; }
 .authors a { color: var(--ink); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--line-2); }
 .authors a:hover { border-color: var(--accent); }
+.authors .au { white-space: nowrap; }
+.affils { list-style: none; margin: 6px 0 0; padding: 0; font-family: var(--sans); font-size: 0.86rem; color: var(--muted); line-height: 1.55; }
+.authors sup, .affils sup { font-size: 0.68em; font-weight: 600; color: var(--accent); margin-left: 1px; }
 .affil { font-family: var(--sans); font-size: 0.88rem; color: var(--muted); margin: 4px 0 0; }
 .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .btn { font-family: var(--sans); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; cursor: pointer; transition: transform .12s, background .12s, color .12s; }
@@ -333,7 +336,7 @@ table.final tr.best td:first-child::after { content: ' ★'; color: var(--accent
 .figs-stack { display: grid; gap: 28px; max-width: 980px; margin: 52px auto 0; }
 
 /* ---------------------------------------------------------------- team */
-.people { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 34px; }
+.people { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 34px; }
 .person { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
 .person .av { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 1.1rem; color: #fff; margin-bottom: 10px; }
 .person b { font-family: var(--sans); font-size: 0.98rem; display: block; }
