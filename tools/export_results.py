@@ -3,17 +3,45 @@
 Usage (from this repo root): python tools/export_results.py [path/to/codesign-gym]
 Curves: seed mean +- std of the step-held eval return on a 4 h wall-clock grid (fully rejected evals are NaN, as in the paper figures).
 Finals: summary eval/reward mean +- std over seeds (the paper tables' numbers).
+Extra presets not in the paper tables (EXTRA below, e.g. SoftWalker) are fetched straight from wandb into tools/.cache/extra_runs.pkl
+(pass --refresh to re-fetch); codesign-gym's own _wandb_cache.pkl is never modified.
 """
 import json, math, os, pickle, sys
 import numpy as np
 
-GYM = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), '..', '..', 'codesign-gym'))
+ARGS = [a for a in sys.argv[1:] if not a.startswith('--')]
+GYM = os.path.abspath(ARGS[0] if ARGS else os.path.join(os.path.dirname(__file__), '..', '..', 'codesign-gym'))
 sys.path.insert(0, GYM)
 os.chdir(GYM)
 import make_figures as mf  # noqa: E402  (imports make_table for METHODS / MAIN / NO_LOKI)
 
 GRID = np.linspace(0, mf.T_END, 81)
-g = mf.by(pickle.load(open(mf.CACHE, 'rb')))
+HERE = os.path.dirname(os.path.abspath(__file__))
+# (wandb project, env_id, page group) for presets run after the paper tables were frozen
+EXTRA = [('cdgym-environment-suite', 'SoftWalkerBeam3D', 'Native')]
+
+
+def fetch_extra():
+    """Same record format as make_figures.fetch, restricted to the EXTRA presets."""
+    import wandb
+    api, out = wandb.Api(timeout=180), {}
+    for proj, env, _ in EXTRA:
+        for r in api.runs(f'projectavi/{proj}', per_page=500):
+            m = mf.ALIAS.get(r.config.get('method'), r.config.get('method'))
+            if r.config.get('env_id') != env or m not in mf.NAME or (proj, m) in mf.SKIP: continue
+            rows = [{k: v for k, v in h.items() if isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)} for h in r.scan_history(page_size=1000)]
+            out[r.id] = dict(project=proj, path=f'projectavi/{proj}/{r.id}', method=m, env=env, seed=r.config.get('seed'), state=r.state, summ=dict(r.summary._json_dict), hist=rows)
+    return out
+
+
+runs = pickle.load(open(mf.CACHE, 'rb'))
+xcache = os.path.join(HERE, '.cache', 'extra_runs.pkl')
+if '--refresh' in sys.argv or not os.path.exists(xcache):
+    os.makedirs(os.path.dirname(xcache), exist_ok=True); pickle.dump(fetch_extra(), open(xcache, 'wb'))
+extra = pickle.load(open(xcache, 'rb'))
+runs = {k: v for k, v in runs.items() if v['env'] not in {e for _, e, _ in EXTRA}}   # the extra fetch is the source of truth for these presets
+runs.update(extra)
+g = mf.by(runs)
 
 
 def r3(x): return None if x is None or not math.isfinite(x) else float(f'{x:.4g}')
@@ -46,9 +74,13 @@ for groups, with_loki in ((mf.MAIN, True), (mf.NO_LOKI, False)):
                 if not rs: continue
                 ms[m] = dict(curve=curve(rs), final=final(rs), rejected_evals=mf.n_rejected_evals(rs))
             presets.append(dict(id=e, name=mf.short(e), group=grp, loki=with_loki, methods=ms))
+for _, e, grp in EXTRA:
+    ms = {m: dict(curve=curve(g[e][m]), final=final(g[e][m]), rejected_evals=mf.n_rejected_evals(g[e][m])) for m, _ in mf.METHODS if g[e][m]}
+    presets.append(dict(id=e, name=mf.short(e), group=grp, loki=bool(g[e]['loki']), methods=ms, extra=True))
+    print('extra', e, {m: (len(g[e][m]), v['final']) for m, v in ms.items()})
 
 out = dict(t=[float(f'{x:.3f}') for x in GRID], methods=[dict(id=m, name=n, color=mf.COLOR[m]) for m, n in mf.METHODS], loki_prep_h=mf.LOKI_PREP_H,
            budget_h=mf.T_END, presets=presets)
-dst = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'static', 'data', 'results.json')
+dst = os.path.join(HERE, '..', 'static', 'data', 'results.json')
 json.dump(out, open(dst, 'w'), separators=(',', ':'))
 print('wrote', os.path.normpath(dst), f'{os.path.getsize(dst) / 1024:.0f} KB', len(presets), 'presets')

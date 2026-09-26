@@ -51,7 +51,7 @@ window.ENV_FAMILIES = [
     design: 'per cell: occupancy, stiffness, density, actuator strength, fibre direction, channel, Poisson ratio', policy: 'actuation channels over time',
     presets: [['Spring lattice (2D)', 'flat / stairs / gaps'], ['MPM (2D) and MPM (3D)', 'flat / stairs / gaps'], ['Timoshenko beam lattice (3D)', 'flat / stairs / gaps'], ['Hexahedral FEM, neo-Hookean (3D)', 'flat / stairs / gaps']],
     example: 'SoftWalkerHexFEM3D-Gaps', credit: 'Engine by Andrew Spielberg; integrated by Aviraj Newatia.',
-    note: 'Render from the environment (HexFEM 3D on the Gaps terrain), not a baseline run. Return windows are not yet characterised.'
+    note: 'Render from the environment (HexFEM 3D on the Gaps terrain), not a baseline run. Baselines on SoftWalkerBeam3D (CMA-ES, FastTD3, PPO+NGOpt; 5 seeds) are in the results explorer. Return windows are not yet characterised.'
   },
   {
     id: 'lq', name: 'LQ Structure', sim: 'lq_structure · python-control + cvxpy', tags: ['control'], ids: 3,

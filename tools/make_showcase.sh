@@ -51,3 +51,7 @@ hero warehouse $V/WarehouseSmall/ppo_ngopt.mp4      "crop=302:302:0:0"
 hero grasp     $V/NeroGraspAll/ppo_ngopt.mp4        "crop=360:360:110:0"
 hero network   $V/NetworkUrban/ppo_ngopt.mp4        "crop=372:372:0:14"         0.05
 ls -la "$Hh"
+
+# hero wall soft robot: the env's own 3D render (HexFEM on Gaps), square-cropped on the body; 31 frames played at 12 fps
+ffmpeg -v error -y -r 12 -i ../codesign-gym/soft_walker_renders/SoftWalkerHexFEM3D-Gaps.gif -vf "crop=1100:1100:730:310,scale=360:360:flags=lanczos,format=yuv420p" "${enc[@]}" -r 12 "$Hh/softwalker.mp4"
+ffmpeg -v error -y -ss 1.2 -i "$Hh/softwalker.mp4" -frames:v 1 -q:v 3 "$Hh/softwalker.jpg"

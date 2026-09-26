@@ -24,7 +24,7 @@ fetches JSON, so `file://` will not work).
 All scripts assume `../codesign-gym` is a checkout with `baseline_figures/_wandb_cache.pkl`.
 
 ```bash
-python tools/export_results.py              # results.json via codesign-gym/make_figures.py (same numbers as the paper tables)
+python tools/export_results.py [--refresh]  # results.json via codesign-gym/make_figures.py (paper tables) + EXTRA presets (SoftWalkerBeam3D) fetched from wandb
 python tools/fetch_videos.py                # best-seed final-eval video per (preset, method) from wandb; needs wandb login
 PYTHON=python tools/make_showcase.sh        # per-family showcase clips (+ follow-cropped locomotion montage)
 python tools/fetch_replays.py               # Pokémon: best/worst eval battle replays (poke-env HTML) + team/outcome summary
@@ -33,7 +33,7 @@ python tools/stamp.py                       # after editing CSS/JS: cache-bustin
 
 `tools/track_crop.py` follow-crops fixed-camera MuJoCo rollouts around the robot. The Shape-shifting Hand clip is a
 design sweep rendered from the env's hand model in plain MuJoCo (pad heights blended between random valid designs), and the
-SoftWalker clips are the env's own renders; the page labels both as such. Every other clip is a final-evaluation rollout
+SoftWalker clips (including the hero tile) are the env's own renders, since the SoftWalker baseline runs log only single-frame eval videos; the page labels them as such. Every other clip is a final-evaluation rollout
 from the baseline runs.
 
 The Pokémon environments have no video; their runs log poke-env battle replays instead. Each replay page holds only the

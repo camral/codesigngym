@@ -26,7 +26,7 @@
   const methodName = id => D.methods.find(m => m.id === id).name;
   const pretty = p => p.id.replace(/-v4$/, '').replace('HumanoidStandup', 'Humanoid Standup').replace(/^Pokenv/, 'Pokémon ').replace(/^BallCatcher-/, 'Ball Catcher ').replace(/^NeroGrasp/, 'NeroGrasp ')
     .replace(/^SolarCleaner/, 'Solar Cleaner ').replace(/^TruckUnload/, 'Truck Unload ').replace(/^Racing/, 'Racing ').replace(/^Warehouse/, 'Warehouse ').replace(/^Network/, 'Network ')
-    .replace(/^Microgrid/, 'Microgrid ').replace('OffGridSingle', 'Off-grid').replace('OffGridCampus', 'Off-grid Campus').replace('MaxPower', 'Max Power').replace(/\s+/g, ' ').trim();
+    .replace(/^Microgrid/, 'Microgrid ').replace('OffGridSingle', 'Off-grid').replace('OffGridCampus', 'Off-grid Campus').replace('MaxPower', 'Max Power').replace(/^SoftWalkerBeam3D$/, 'Soft Walker (Beam 3D)').replace(/\s+/g, ' ').trim();
   const tickFmt = (v, step) => { if (Math.abs(v) < step * 1e-6) return '0'; const a = Math.abs(v); if (a >= 1e5) return (v / 1e3).toFixed(0) + 'k'; const d = Math.max(0, -Math.floor(Math.log10(step) + 1e-9)); return v.toFixed(d).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
   const color = id => D.methods.find(m => m.id === id).color;
 
@@ -38,7 +38,7 @@
     order.forEach(g => {
       const ps = D.presets.filter(p => p.group === g);
       html += `<h4>${groups[g]}</h4>`; opts += `<optgroup label="${groups[g]}">`;
-      ps.forEach(p => { html += `<button type="button" data-p="${p.id}" aria-pressed="false">${pretty(p)}${p.loki ? '' : ' <small>· 3 methods</small>'}</button>`; opts += `<option value="${p.id}">${pretty(p)}</option>`; });
+      ps.forEach(p => { html += `<button type="button" data-p="${p.id}" aria-pressed="false">${pretty(p)}${p.loki ? '' : ' <small>· 3 methods</small>'}${p.extra ? ' <small class="new">new</small>' : ''}</button>`; opts += `<option value="${p.id}">${pretty(p)}</option>`; });
       opts += '</optgroup>';
     });
     list.innerHTML = html; sel.innerHTML = opts;
@@ -180,6 +180,11 @@
     }
     const v = V[cur.id] || {};
     const box = $('.rollouts');
+    if (cur.id.startsWith('SoftWalker')) {   // eval videos for these runs are single frames; show the env's own render instead
+      box.onclick = null;
+      box.innerHTML = `<div class="rollout wide-roll"><video muted loop playsinline preload="none" poster="static/video/showcase/softwalker.jpg" src="static/video/showcase/softwalker.mp4" aria-label="Soft walker render"></video><div class="lab"><b>Environment render</b><span>not a baseline rollout: the logged eval videos for these runs are single frames</span></div></div>`;
+      $('.roll-bar h4').textContent = 'What a soft walker looks like'; $('.play-all').hidden = true; $('.roll-bar .hint').textContent = ''; box.querySelector('video').play().catch(() => {}); return;
+    }
     box.onclick = null;
     box.innerHTML = Object.keys(cur.methods).map(m => {
       const r = v[m];
