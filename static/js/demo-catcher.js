@@ -31,7 +31,7 @@
   function setScore(res) {
     st.results = res;
     const n = res.filter(r => r === true).length, done = res.every(r => r !== null);
-    $('#cc-score').textContent = done ? n : res.filter(r => r !== null).length ? n : '–';
+    const any = res.some(r => r !== null), el = $('#cc-score'); el.textContent = n; el.classList.toggle('empty', !any && !done);
     $('#cc-dots').innerHTML = res.map((r, i) => `<i class="${r === null ? '' : r ? 'hit' : 'miss'}" title="throw ${i + 1}: ${r === null ? 'not thrown' : r ? 'caught' : 'missed'}"></i>`).join('');
   }
   function say(html) { $('#cc-say').innerHTML = html; }
@@ -169,7 +169,7 @@
     setBusy(true); invalidate(); await yieldUI();
     const before = C.score(st.d, st.lead, throws);
     const { best, hist } = C.searchBody(throws, st.lead, joint);
-    for (const h of hist.slice(1)) { await morphTo(h.d); if (joint) { st.lead = h.lead; syncUI(); } $('#cc-score').textContent = h.score; await sleep(160); }
+    for (const h of hist.slice(1)) { await morphTo(h.d); if (joint) { st.lead = h.lead; syncUI(); } $('#cc-score').textContent = h.score; $('#cc-score').classList.remove('empty'); await sleep(160); }
     st.d = { ...best.d }; if (joint) st.lead = best.lead; syncUI(); setBusy(false);
     const n = await throwAll(true);
     return { before, n };
@@ -187,7 +187,7 @@
   $('#cc-reset').addEventListener('click', () => { if (st.busy) return; st.d = { ...C.BASE }; st.lead = 0; syncUI(); invalidate(); say('Back to the starting robot: a medium arm that just chases the ball.'); });
 
   const best = {};
-  function record(k, n) { best[k] = Math.max(best[k] || 0, n); $('#cc-board').innerHTML = [['policy', 'policy tuned'], ['body', 'body tuned'], ['co', 'co-designed']].map(([key, name]) => `<li><span>${name}</span><b>${best[key] === undefined ? '—' : best[key] + ' / 20'}</b></li>`).join(''); }
+  function record(k, n) { best[k] = Math.max(best[k] || 0, n); $('#cc-board').innerHTML = [['policy', 'policy tuned'], ['body', 'body tuned'], ['co', 'co-designed']].map(([key, name]) => `<li><span>${name}</span>${best[key] === undefined ? '<b class="none">not run</b>' : '<b>' + best[key] + ' / 20</b>'}</li>`).join(''); }
 
   window.addEventListener('resize', resize);
   syncUI(); setScore(Array(throws.length).fill(null)); resize(); record('_', 0);
