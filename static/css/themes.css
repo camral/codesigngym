@@ -1,0 +1,94 @@
+/* Theme mockups: html[data-theme="tech" | "arena" | "academic"]. No attribute = the current (default) look. */
+
+/* ---------------------------------------------------------------- shared: drop the notebook devices */
+[data-theme] .hand, [data-theme] .wall-note, [data-theme] .aside-note, [data-theme] .sec-num, [data-theme] .polaroid .tape { display: none !important; }
+[data-theme] .sec-head { grid-template-columns: 1fr; }
+[data-theme] .polaroid { --r: 0deg !important; padding: 0; border-radius: var(--rad); overflow: hidden; border: 1px solid var(--line); }
+[data-theme] .polaroid:hover { transform: translateY(-3px); }
+[data-theme] .polaroid figcaption { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); padding: 7px 8px; text-align: left; }
+[data-theme] .mark { background-image: none !important; color: var(--accent); padding: 0; }
+[data-theme] .btn, [data-theme] .nav-gh, [data-theme] .chip, [data-theme] .legend button, [data-theme] .demo-tabs, [data-theme] .demo-tabs button, [data-theme] .pip, [data-theme] .bib .copy { border-radius: var(--rad); }
+[data-theme] .env, [data-theme] .paper-fig, [data-theme] .pillar, [data-theme] .take-card, [data-theme] .bignums div, [data-theme] .chart-card, [data-theme] .at-leaf, [data-theme] .at-hub,
+[data-theme] .demo-stage, [data-theme] .knobs, [data-theme] .scorecard, [data-theme] .lb, [data-theme] .rollout, [data-theme] .cta, [data-theme] .bib, [data-theme] .code, [data-theme] dialog.modal { border-radius: var(--rad); }
+[data-theme] .nav { background: color-mix(in srgb, var(--paper) 88%, transparent); }
+[data-theme] .title em { color: var(--accent); }
+[data-theme] .at-hub b, [data-theme] .cta .hand { color: var(--hub-num); }
+[data-theme] .at-hub-s, [data-theme] .cta p { color: var(--hub-sub); }
+[data-theme] .kicker::before { background: var(--accent); }
+[data-theme] .kicker, [data-theme] .take-k, [data-theme] .card-h, [data-theme] .picker h4 { color: var(--accent); }
+[data-theme] .progress { background: var(--accent); }
+[data-theme] .slice li.on::before { background: var(--accent); }
+[data-theme] .verdict { border-left-color: var(--accent); background: var(--accent-soft); }
+[data-theme] .badge { background: var(--accent-soft); color: var(--accent); }
+
+/* ---------------------------------------------------------------- 1. TECH: crisp white, electric blue, grotesk + mono, blueprint grid */
+[data-theme="tech"] {
+  --paper: #ffffff; --paper-2: #f4f6fa; --card: #ffffff; --ink: #0a0e17; --ink-2: #283142; --muted: #5d6779; --line: #e4e8ef; --line-2: #cdd5e1;
+  --accent: #2563eb; --accent-soft: #e8efff; --teal: #0f766e; --teal-soft: #dff5f1; --hi: rgba(37, 99, 235, .15); --code-bg: #0a0e17; --code-ink: #e6ebf5;
+  --shadow: 0 1px 2px rgba(10, 14, 23, .05), 0 6px 20px rgba(10, 14, 23, .06);
+  --serif: 'Inter', system-ui, sans-serif; --display: 'Space Grotesk', 'Inter', sans-serif; --sans: 'Inter', system-ui, sans-serif; --rad: 6px;
+  --hub-num: #60a5fa; --hub-sub: #9aa6ba;
+}
+[data-theme="tech"] body { font-size: 17px; }
+[data-theme="tech"] .hero { background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 40px 40px; background-position: -1px -1px; }
+[data-theme="tech"] .hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, transparent 30%, #fff 80%); pointer-events: none; }
+[data-theme="tech"] .hero > .wrap { position: relative; z-index: 1; }
+[data-theme="tech"] h1.title, [data-theme="tech"] .sec-head h2 { font-variation-settings: normal; letter-spacing: -0.035em; font-weight: 700; }
+[data-theme="tech"] .at-hub b, [data-theme="tech"] .at-leaf b, [data-theme="tech"] .take-n, [data-theme="tech"] .bignums b { font-family: var(--mono); font-weight: 600; letter-spacing: -0.04em; }
+[data-theme="tech"] section.block.alt { background: var(--paper-2); }
+[data-theme="tech"] .kicker { font-family: var(--mono); letter-spacing: .08em; }
+
+/* ---------------------------------------------------------------- 2. ARENA: dark navy, neon tier colours, condensed bold headlines */
+[data-theme="arena"] {
+  --paper: #0a0f1e; --paper-2: #0e1528; --card: #121a31; --ink: #eef2ff; --ink-2: #c1c9e4; --muted: #8791b3; --line: #212b48; --line-2: #34416b;
+  --accent: #22d3ee; --accent-soft: rgba(34, 211, 238, .12); --teal: #34d399; --teal-soft: rgba(52, 211, 153, .12); --hi: rgba(163, 230, 53, .25);
+  --code-bg: #060a15; --code-ink: #dfe6ff; --shadow: 0 0 0 1px rgba(255,255,255,.02), 0 10px 30px rgba(0, 0, 0, .35);
+  --serif: 'Inter', system-ui, sans-serif; --display: 'Barlow Condensed', 'Inter', sans-serif; --sans: 'Inter', system-ui, sans-serif; --rad: 4px;
+  --hub-num: #a3e635; --hub-sub: #8791b3;
+}
+[data-theme="arena"] body { font-size: 17px; }
+[data-theme="arena"] h1.title { font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; font-size: clamp(3.6rem, 8vw, 6.6rem); line-height: .9; font-variation-settings: normal;
+  background: linear-gradient(95deg, #eef2ff 30%, #22d3ee 70%, #a3e635); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-theme="arena"] .sec-head h2 { font-weight: 800; text-transform: uppercase; letter-spacing: 0; font-size: clamp(2.4rem, 4.6vw, 3.6rem); line-height: .98; font-variation-settings: normal; }
+[data-theme="arena"] .hero { background: radial-gradient(900px 500px at 85% 20%, rgba(34, 211, 238, .14), transparent 60%), radial-gradient(700px 400px at 10% 90%, rgba(163, 230, 53, .08), transparent 60%); }
+[data-theme="arena"] .at-hub { background: linear-gradient(160deg, #16213f, #0c1226); color: var(--ink); border: 1px solid #2c3a66; box-shadow: 0 0 40px rgba(34, 211, 238, .18); }
+[data-theme="arena"] .at-hub code { background: rgba(255,255,255,.06); }
+[data-theme="arena"] .at-leaf b, [data-theme="arena"] .take-n, [data-theme="arena"] .bignums b { font-family: var(--display); font-weight: 800; }
+[data-theme="arena"] .at-leaf.at-win b, [data-theme="arena"] .take-n, [data-theme="arena"] .bignums b { color: #a3e635; text-shadow: 0 0 24px rgba(163, 230, 53, .35); }
+[data-theme="arena"] .btn.solid, [data-theme="arena"] .nav-gh { background: var(--accent); border-color: var(--accent); color: #041018; }
+[data-theme="arena"] .btn.accent { background: #a3e635; border-color: #a3e635; color: #0a0f1e; }
+[data-theme="arena"] .chip[aria-pressed="true"], [data-theme="arena"] .picker button[aria-pressed="true"], [data-theme="arena"] .demo-tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #041018; }
+[data-theme="arena"] .cta { background: linear-gradient(120deg, #0f2a44, #102218); border: 1px solid var(--line-2); }
+[data-theme="arena"] .cta .btn.solid { background: #a3e635; border-color: #a3e635; color: #0a0f1e; }
+[data-theme="arena"] .paper-fig, [data-theme="arena"] .demo-stage { background: #f4f6fb; border-color: transparent; }
+[data-theme="arena"] .paper-fig .cap { color: #4b5570; } [data-theme="arena"] .paper-fig .cap b { color: #1b2338; }
+[data-theme="arena"] .chart svg text { fill: #9aa3c3; } [data-theme="arena"] .chart svg line[stroke="#ece4d4"] { stroke: #243052; }
+[data-theme="arena"] .chart svg text[fill="#1f1d1a"] { fill: #eef2ff; } [data-theme="arena"] .chart svg circle[stroke="#fffdf8"] { stroke: #121a31; }
+[data-theme="arena"] .hr-track { background: #1b2542; } [data-theme="arena"] .polaroid { background: var(--card); }
+[data-theme="arena"] .env .media, [data-theme="arena"] .rollout video { background: #060a15; }
+[data-theme="arena"] img[src$="favicon.svg"] { filter: invert(1) hue-rotate(180deg); }
+[data-theme="arena"] .g-native { --gc: #60a5fa; } [data-theme="arena"] .g-reframed { --gc: #4ade80; } [data-theme="arena"] .g-extended { --gc: #f472b6; }
+[data-theme="arena"] .p-native { --c: #60a5fa; } [data-theme="arena"] .p-reframed { --c: #4ade80; } [data-theme="arena"] .p-extended { --c: #f472b6; }
+
+/* ---------------------------------------------------------------- 3. ACADEMIC: white, paper-figure blue, Plex, no decoration */
+[data-theme="academic"] {
+  --paper: #ffffff; --paper-2: #f7f8fa; --card: #ffffff; --ink: #111827; --ink-2: #374151; --muted: #6b7280; --line: #e5e7eb; --line-2: #d1d5db;
+  --accent: #2f6fcb; --accent-soft: #eaf1fb; --teal: #2f6fcb; --teal-soft: #eaf1fb; --hi: rgba(47, 111, 203, .12); --code-bg: #111827; --code-ink: #e5e7eb;
+  --shadow: none; --serif: 'IBM Plex Sans', system-ui, sans-serif; --display: 'IBM Plex Sans', system-ui, sans-serif; --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace; --rad: 4px; --hub-num: #8fb8ee; --hub-sub: #9ca3af;
+}
+[data-theme="academic"] body { font-size: 17px; }
+[data-theme="academic"] h1.title { font-weight: 600; letter-spacing: -0.02em; font-variation-settings: normal; font-size: clamp(2.8rem, 5.6vw, 4.4rem); }
+[data-theme="academic"] .sec-head h2 { font-weight: 600; letter-spacing: -0.015em; font-variation-settings: normal; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+[data-theme="academic"] .sec-head { text-align: center; justify-items: center; } [data-theme="academic"] .sec-head p { margin: 0 auto; }
+[data-theme="academic"] .at-hub b, [data-theme="academic"] .at-leaf b, [data-theme="academic"] .take-n, [data-theme="academic"] .bignums b { font-weight: 600; font-variation-settings: normal; }
+[data-theme="academic"] section.block.alt { background: var(--paper-2); }
+[data-theme="academic"] .env:hover, [data-theme="academic"] .polaroid:hover { box-shadow: 0 4px 14px rgba(17, 24, 39, .08); }
+
+/* ---------------------------------------------------------------- the picker */
+.theme-pick { position: fixed; left: 16px; bottom: 16px; z-index: 80; display: flex; gap: 2px; padding: 4px; border-radius: 10px; background: #111; box-shadow: 0 8px 30px rgba(0,0,0,.3); font-family: 'Inter', system-ui, sans-serif; }
+.theme-pick span { color: #9ca3af; font-size: 0.7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 7px 8px 0 6px; }
+.theme-pick button { border: 0; background: transparent; color: #e5e7eb; font: 600 0.8rem 'Inter', system-ui, sans-serif; padding: 7px 11px; border-radius: 7px; cursor: pointer; }
+.theme-pick button[aria-pressed="true"] { background: #fff; color: #111; }
+@media (max-width: 640px) { .theme-pick { left: 8px; right: 8px; bottom: 8px; justify-content: space-between; } .theme-pick span { display: none; } .theme-pick button { flex: 1; padding: 8px 4px; } }
+[data-theme="arena"] .apitree a.at-hub { color: var(--ink); }

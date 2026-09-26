@@ -24,7 +24,7 @@
       g.fillStyle = ramp(J((q.e0 + q.e1) / 2, (q.p0 + q.p1) / 2)); g.fill(); g.strokeStyle = 'rgba(90,60,40,.28)'; g.lineWidth = 0.7; g.stroke();
     });
     // axes
-    g.strokeStyle = '#45413a'; g.fillStyle = '#45413a'; g.lineWidth = 1.4; g.font = 'italic 600 17px "Source Serif 4", Georgia, serif';
+    const ax = getComputedStyle(document.documentElement).getPropertyValue('--ink-2').trim() || '#45413a'; g.strokeStyle = ax; g.fillStyle = ax; g.lineWidth = 1.4; g.font = 'italic 600 17px "Source Serif 4", Georgia, serif';
     const a0 = P(0, 1.05, 0), a1 = P(1, 1.05, 0), b0 = P(1.05, 0, 0), b1 = P(1.05, 1, 0);
     [[a0, a1], [b0, b1]].forEach(([u, v]) => { g.beginPath(); g.moveTo(...u); g.lineTo(...v); g.stroke(); });
     const me = P(0.5, 1.05, 0), mp = P(1.05, 0.5, 0); g.textAlign = 'right'; g.fillText('E  embodiment', me[0] - 8, me[1] + 22); g.textAlign = 'left'; g.fillText('Π  policy', mp[0] + 8, mp[1] + 22); g.textAlign = 'left';
@@ -73,7 +73,7 @@
   }
   items.forEach((li, i) => { li.tabIndex = 0; li.setAttribute('role', 'button'); const go = () => { auto = false; setStep(i); }; li.addEventListener('click', go); li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); });
   new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; })).observe(box);
-  addEventListener('resize', resize); resize(); setStep(0);
+  addEventListener('resize', resize); addEventListener('themechange', () => { paintSurface(); draw(); }); resize(); setStep(0);
   if (reduce) { auto = false; t = DUR[2]; step = 2; items.forEach((li, i) => li.classList.toggle('on', i === 2)); draw(); visible = false; items.forEach((li, i) => li.addEventListener('click', () => { t = DUR[i]; draw(); })); }
   requestAnimationFrame(frame);
 })();
