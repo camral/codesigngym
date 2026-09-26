@@ -41,8 +41,11 @@ hero() { # name src crop_filter [trim_start] [trim_len]
   local d; d=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$Hh/$1.mp4")
   ffmpeg -v error -y -ss "$(python3 -c "print(float('$d')*0.4)")" -i "$Hh/$1.mp4" -frames:v 1 -q:v 3 "$Hh/$1.jpg"
 }
-hero cheetah   $V/HalfCheetah-v4/ppo_ngopt.mp4      "crop=480:480:0:0"          ""   10
-hero solar     $V/SolarCleanerTraverse/cmaes.mp4    "crop=400:400:40:60"
+# Humanoid (FastTD3, return 5,956): the fixed camera keeps the runner centred for ~2.7 s before it reaches the frame edge, so follow-crop that stretch
+ffmpeg -v error -y -i $V/Humanoid-v4/fasttd3.mp4 -t 2.7 "${enc[@]}" $T/humanoid_visible.mp4
+$P tools/track_crop.py $T/humanoid_visible.mp4 $T/humanoid.mp4 185 360
+hero humanoid  $T/humanoid.mp4                      "crop=360:360:0:0"
+hero truck     $V/TruckUnloadSingle/fasttd3.mp4     "crop=400:400:60:40"
 hero racing    $V/RacingSpielberg/ppo_ngopt.mp4     "crop=420:420:0:0"          ""   12
 hero warehouse $V/WarehouseSmall/ppo_ngopt.mp4      "crop=302:302:0:0"
 hero grasp     $V/NeroGraspAll/ppo_ngopt.mp4        "crop=360:360:110:0"
