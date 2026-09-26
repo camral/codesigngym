@@ -1,0 +1,782 @@
+{
+ "Ant-v4": {
+  "cmaes": {
+   "duration": 12.55,
+   "kb": 51,
+   "poster": "static/video/Ant-v4/cmaes.jpg",
+   "ret": 4135.0,
+   "seed": 3,
+   "src": "static/video/Ant-v4/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 12.55,
+   "kb": 47,
+   "poster": "static/video/Ant-v4/fasttd3.jpg",
+   "ret": 3718.0,
+   "seed": 2,
+   "src": "static/video/Ant-v4/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 1.1,
+   "kb": 26,
+   "poster": "static/video/Ant-v4/loki.jpg",
+   "ret": 48.04,
+   "seed": 3,
+   "src": "static/video/Ant-v4/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 12.55,
+   "kb": 48,
+   "poster": "static/video/Ant-v4/ppo_ngopt.jpg",
+   "ret": 5126.0,
+   "seed": 2,
+   "src": "static/video/Ant-v4/ppo_ngopt.mp4"
+  }
+ },
+ "BallCatcher-Arc": {
+  "cmaes": {
+   "duration": 0.45,
+   "kb": 11,
+   "poster": "static/video/BallCatcher-Arc/cmaes.jpg",
+   "ret": 0.4556,
+   "seed": 0,
+   "src": "static/video/BallCatcher-Arc/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.4,
+   "kb": 13,
+   "poster": "static/video/BallCatcher-Arc/fasttd3.jpg",
+   "ret": 4.965,
+   "seed": 2,
+   "src": "static/video/BallCatcher-Arc/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 2.65,
+   "kb": 29,
+   "poster": "static/video/BallCatcher-Arc/loki.jpg",
+   "ret": 0.1155,
+   "seed": 2,
+   "src": "static/video/BallCatcher-Arc/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 1.7,
+   "kb": 23,
+   "poster": "static/video/BallCatcher-Arc/ppo_ngopt.jpg",
+   "ret": 1.971,
+   "seed": 1,
+   "src": "static/video/BallCatcher-Arc/ppo_ngopt.mp4"
+  }
+ },
+ "BallCatcher-Fielding": {
+  "cmaes": {
+   "duration": 0.4,
+   "kb": 10,
+   "poster": "static/video/BallCatcher-Fielding/cmaes.jpg",
+   "ret": 0.2157,
+   "seed": 2,
+   "src": "static/video/BallCatcher-Fielding/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.55,
+   "kb": 14,
+   "poster": "static/video/BallCatcher-Fielding/fasttd3.jpg",
+   "ret": 7.803,
+   "seed": 4,
+   "src": "static/video/BallCatcher-Fielding/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 1.2,
+   "kb": 21,
+   "poster": "static/video/BallCatcher-Fielding/loki.jpg",
+   "ret": 0.07705,
+   "seed": 0,
+   "src": "static/video/BallCatcher-Fielding/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 0.45,
+   "kb": 12,
+   "poster": "static/video/BallCatcher-Fielding/ppo_ngopt.jpg",
+   "ret": 0.976,
+   "seed": 3,
+   "src": "static/video/BallCatcher-Fielding/ppo_ngopt.mp4"
+  }
+ },
+ "BallCatcher-Pitch": {
+  "cmaes": {
+   "duration": 0.85,
+   "kb": 13,
+   "poster": "static/video/BallCatcher-Pitch/cmaes.jpg",
+   "ret": 0.5087,
+   "seed": 0,
+   "src": "static/video/BallCatcher-Pitch/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.6,
+   "kb": 13,
+   "poster": "static/video/BallCatcher-Pitch/fasttd3.jpg",
+   "ret": 5.981,
+   "seed": 2,
+   "src": "static/video/BallCatcher-Pitch/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 0.55,
+   "kb": 17,
+   "poster": "static/video/BallCatcher-Pitch/loki.jpg",
+   "ret": 0.06663,
+   "seed": 0,
+   "src": "static/video/BallCatcher-Pitch/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 0.45,
+   "kb": 13,
+   "poster": "static/video/BallCatcher-Pitch/ppo_ngopt.jpg",
+   "ret": 0.8722,
+   "seed": 1,
+   "src": "static/video/BallCatcher-Pitch/ppo_ngopt.mp4"
+  }
+ },
+ "HalfCheetah-v4": {
+  "cmaes": {
+   "duration": 12.55,
+   "kb": 46,
+   "poster": "static/video/HalfCheetah-v4/cmaes.jpg",
+   "ret": 8647.0,
+   "seed": 4,
+   "src": "static/video/HalfCheetah-v4/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 12.55,
+   "kb": 47,
+   "poster": "static/video/HalfCheetah-v4/fasttd3.jpg",
+   "ret": 3382.0,
+   "seed": 1,
+   "src": "static/video/HalfCheetah-v4/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 12.55,
+   "kb": 45,
+   "poster": "static/video/HalfCheetah-v4/loki.jpg",
+   "ret": 3649.0,
+   "seed": 1,
+   "src": "static/video/HalfCheetah-v4/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 12.55,
+   "kb": 245,
+   "poster": "static/video/HalfCheetah-v4/ppo_ngopt.jpg",
+   "ret": 4971.0,
+   "seed": 3,
+   "src": "static/video/HalfCheetah-v4/ppo_ngopt.mp4"
+  }
+ },
+ "Hopper-v4": {
+  "cmaes": {
+   "duration": 12.55,
+   "kb": 77,
+   "poster": "static/video/Hopper-v4/cmaes.jpg",
+   "ret": 1223.0,
+   "seed": 3,
+   "src": "static/video/Hopper-v4/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 3.3,
+   "kb": 40,
+   "poster": "static/video/Hopper-v4/fasttd3.jpg",
+   "ret": 1237.0,
+   "seed": 3,
+   "src": "static/video/Hopper-v4/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 12.55,
+   "kb": 62,
+   "poster": "static/video/Hopper-v4/loki.jpg",
+   "ret": 1832.0,
+   "seed": 4,
+   "src": "static/video/Hopper-v4/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 12.55,
+   "kb": 62,
+   "poster": "static/video/Hopper-v4/ppo_ngopt.jpg",
+   "ret": 2885.0,
+   "seed": 3,
+   "src": "static/video/Hopper-v4/ppo_ngopt.mp4"
+  }
+ },
+ "Humanoid-v4": {
+  "cmaes": {
+   "duration": 2.6,
+   "kb": 54,
+   "poster": "static/video/Humanoid-v4/cmaes.jpg",
+   "ret": 732.7,
+   "seed": 3,
+   "src": "static/video/Humanoid-v4/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 12.55,
+   "kb": 93,
+   "poster": "static/video/Humanoid-v4/fasttd3.jpg",
+   "ret": 5956.0,
+   "seed": 2,
+   "src": "static/video/Humanoid-v4/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 2.8,
+   "kb": 47,
+   "poster": "static/video/Humanoid-v4/loki.jpg",
+   "ret": 402.0,
+   "seed": 0,
+   "src": "static/video/Humanoid-v4/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 2.0,
+   "kb": 48,
+   "poster": "static/video/Humanoid-v4/ppo_ngopt.jpg",
+   "ret": 764.9,
+   "seed": 1,
+   "src": "static/video/Humanoid-v4/ppo_ngopt.mp4"
+  }
+ },
+ "HumanoidStandup-v4": {
+  "cmaes": {
+   "duration": 12.55,
+   "kb": 64,
+   "poster": "static/video/HumanoidStandup-v4/cmaes.jpg",
+   "ret": 263600.0,
+   "seed": 0,
+   "src": "static/video/HumanoidStandup-v4/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 12.55,
+   "kb": 61,
+   "poster": "static/video/HumanoidStandup-v4/fasttd3.jpg",
+   "ret": 127100.0,
+   "seed": 4,
+   "src": "static/video/HumanoidStandup-v4/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 12.55,
+   "kb": 70,
+   "poster": "static/video/HumanoidStandup-v4/loki.jpg",
+   "ret": 81900.0,
+   "seed": 2,
+   "src": "static/video/HumanoidStandup-v4/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 12.55,
+   "kb": 56,
+   "poster": "static/video/HumanoidStandup-v4/ppo_ngopt.jpg",
+   "ret": 142500.0,
+   "seed": 3,
+   "src": "static/video/HumanoidStandup-v4/ppo_ngopt.mp4"
+  }
+ },
+ "LQStructure-LQR-v0": {
+  "loki": {
+   "duration": 2.55,
+   "kb": 14,
+   "poster": "static/video/LQStructure-LQR-v0/loki.jpg",
+   "ret": -4.936,
+   "seed": 0,
+   "src": "static/video/LQStructure-LQR-v0/loki.mp4"
+  }
+ },
+ "MicrogridCampus": {
+  "cmaes": {
+   "duration": 0.3,
+   "kb": 20,
+   "poster": "static/video/MicrogridCampus/cmaes.jpg",
+   "ret": -12020.0,
+   "seed": 1,
+   "src": "static/video/MicrogridCampus/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.3,
+   "kb": 19,
+   "poster": "static/video/MicrogridCampus/fasttd3.jpg",
+   "ret": -4962.0,
+   "seed": 0,
+   "src": "static/video/MicrogridCampus/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 0.3,
+   "kb": 19,
+   "poster": "static/video/MicrogridCampus/ppo_ngopt.jpg",
+   "ret": -77570.0,
+   "seed": 2,
+   "src": "static/video/MicrogridCampus/ppo_ngopt.mp4"
+  }
+ },
+ "MicrogridForecast": {
+  "cmaes": {
+   "duration": 0.3,
+   "kb": 19,
+   "poster": "static/video/MicrogridForecast/cmaes.jpg",
+   "ret": -4464.0,
+   "seed": 3,
+   "src": "static/video/MicrogridForecast/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.3,
+   "kb": 17,
+   "poster": "static/video/MicrogridForecast/fasttd3.jpg",
+   "ret": -999.5,
+   "seed": 0,
+   "src": "static/video/MicrogridForecast/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 0.3,
+   "kb": 18,
+   "poster": "static/video/MicrogridForecast/ppo_ngopt.jpg",
+   "ret": -21970.0,
+   "seed": 4,
+   "src": "static/video/MicrogridForecast/ppo_ngopt.mp4"
+  }
+ },
+ "MicrogridOffGridCampus": {
+  "cmaes": {
+   "duration": 0.9,
+   "kb": 42,
+   "poster": "static/video/MicrogridOffGridCampus/cmaes.jpg",
+   "ret": -33990.0,
+   "seed": 2,
+   "src": "static/video/MicrogridOffGridCampus/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.9,
+   "kb": 37,
+   "poster": "static/video/MicrogridOffGridCampus/fasttd3.jpg",
+   "ret": -45050.0,
+   "seed": 3,
+   "src": "static/video/MicrogridOffGridCampus/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 0.9,
+   "kb": 36,
+   "poster": "static/video/MicrogridOffGridCampus/ppo_ngopt.jpg",
+   "ret": -253200.0,
+   "seed": 1,
+   "src": "static/video/MicrogridOffGridCampus/ppo_ngopt.mp4"
+  }
+ },
+ "MicrogridOffGridSingle": {
+  "cmaes": {
+   "duration": 0.9,
+   "kb": 34,
+   "poster": "static/video/MicrogridOffGridSingle/cmaes.jpg",
+   "ret": -13280.0,
+   "seed": 2,
+   "src": "static/video/MicrogridOffGridSingle/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.9,
+   "kb": 31,
+   "poster": "static/video/MicrogridOffGridSingle/fasttd3.jpg",
+   "ret": -4197.0,
+   "seed": 3,
+   "src": "static/video/MicrogridOffGridSingle/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 0.9,
+   "kb": 30,
+   "poster": "static/video/MicrogridOffGridSingle/ppo_ngopt.jpg",
+   "ret": -79470.0,
+   "seed": 0,
+   "src": "static/video/MicrogridOffGridSingle/ppo_ngopt.mp4"
+  }
+ },
+ "MicrogridRandom": {
+  "cmaes": {
+   "duration": 0.3,
+   "kb": 18,
+   "poster": "static/video/MicrogridRandom/cmaes.jpg",
+   "ret": -2115.0,
+   "seed": 0,
+   "src": "static/video/MicrogridRandom/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.3,
+   "kb": 18,
+   "poster": "static/video/MicrogridRandom/fasttd3.jpg",
+   "ret": -952.2,
+   "seed": 1,
+   "src": "static/video/MicrogridRandom/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 0.3,
+   "kb": 14,
+   "poster": "static/video/MicrogridRandom/loki.jpg",
+   "ret": -24950.0,
+   "seed": 1,
+   "src": "static/video/MicrogridRandom/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 0.3,
+   "kb": 17,
+   "poster": "static/video/MicrogridRandom/ppo_ngopt.jpg",
+   "ret": -18390.0,
+   "seed": 2,
+   "src": "static/video/MicrogridRandom/ppo_ngopt.mp4"
+  }
+ },
+ "NeroGraspAll": {
+  "cmaes": {
+   "duration": 1.3,
+   "kb": 25,
+   "poster": "static/video/NeroGraspAll/cmaes.jpg",
+   "ret": 2.861,
+   "seed": 4,
+   "src": "static/video/NeroGraspAll/cmaes.mp4"
+  },
+  "loki": {
+   "duration": 1.3,
+   "kb": 25,
+   "poster": "static/video/NeroGraspAll/loki.jpg",
+   "ret": 0.1062,
+   "seed": 1,
+   "src": "static/video/NeroGraspAll/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 1.3,
+   "kb": 24,
+   "poster": "static/video/NeroGraspAll/ppo_ngopt.jpg",
+   "ret": 0.5074,
+   "seed": 3,
+   "src": "static/video/NeroGraspAll/ppo_ngopt.mp4"
+  }
+ },
+ "NetworkUrban": {
+  "cmaes": {
+   "duration": 1.3,
+   "kb": 45,
+   "poster": "static/video/NetworkUrban/cmaes.jpg",
+   "ret": -85.4,
+   "seed": 1,
+   "src": "static/video/NetworkUrban/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 1.3,
+   "kb": 31,
+   "poster": "static/video/NetworkUrban/fasttd3.jpg",
+   "ret": -100.0,
+   "seed": 4,
+   "src": "static/video/NetworkUrban/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 1.3,
+   "kb": 64,
+   "poster": "static/video/NetworkUrban/ppo_ngopt.jpg",
+   "ret": -71.43,
+   "seed": 4,
+   "src": "static/video/NetworkUrban/ppo_ngopt.mp4"
+  }
+ },
+ "RacingLevine": {
+  "cmaes": {
+   "duration": 125.05,
+   "kb": 177,
+   "poster": "static/video/RacingLevine/cmaes.jpg",
+   "ret": 7.541,
+   "seed": 2,
+   "src": "static/video/RacingLevine/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 18.05,
+   "kb": 125,
+   "poster": "static/video/RacingLevine/fasttd3.jpg",
+   "ret": 61.11,
+   "seed": 2,
+   "src": "static/video/RacingLevine/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 9.4,
+   "kb": 81,
+   "poster": "static/video/RacingLevine/ppo_ngopt.jpg",
+   "ret": 50.79,
+   "seed": 2,
+   "src": "static/video/RacingLevine/ppo_ngopt.mp4"
+  }
+ },
+ "RacingSpielberg": {
+  "cmaes": {
+   "duration": 12.6,
+   "kb": 110,
+   "poster": "static/video/RacingSpielberg/cmaes.jpg",
+   "ret": 10.63,
+   "seed": 4,
+   "src": "static/video/RacingSpielberg/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 34.75,
+   "kb": 697,
+   "poster": "static/video/RacingSpielberg/fasttd3.jpg",
+   "ret": 134.5,
+   "seed": 4,
+   "src": "static/video/RacingSpielberg/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 7.35,
+   "kb": 228,
+   "poster": "static/video/RacingSpielberg/loki.jpg",
+   "ret": 40.92,
+   "seed": 4,
+   "src": "static/video/RacingSpielberg/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 17.55,
+   "kb": 353,
+   "poster": "static/video/RacingSpielberg/ppo_ngopt.jpg",
+   "ret": 76.14,
+   "seed": 2,
+   "src": "static/video/RacingSpielberg/ppo_ngopt.mp4"
+  }
+ },
+ "SolarCleanerReach": {
+  "cmaes": {
+   "duration": 8.8,
+   "kb": 147,
+   "poster": "static/video/SolarCleanerReach/cmaes.jpg",
+   "ret": 0.02633,
+   "seed": 4,
+   "src": "static/video/SolarCleanerReach/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.3,
+   "kb": 17,
+   "poster": "static/video/SolarCleanerReach/fasttd3.jpg",
+   "ret": 0.009843,
+   "seed": 3,
+   "src": "static/video/SolarCleanerReach/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 8.8,
+   "kb": 74,
+   "poster": "static/video/SolarCleanerReach/loki.jpg",
+   "ret": 0.008752,
+   "seed": 4,
+   "src": "static/video/SolarCleanerReach/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 8.8,
+   "kb": 97,
+   "poster": "static/video/SolarCleanerReach/ppo_ngopt.jpg",
+   "ret": 0.7212,
+   "seed": 0,
+   "src": "static/video/SolarCleanerReach/ppo_ngopt.mp4"
+  }
+ },
+ "SolarCleanerTraverse": {
+  "cmaes": {
+   "duration": 8.1,
+   "kb": 202,
+   "poster": "static/video/SolarCleanerTraverse/cmaes.jpg",
+   "ret": 0.05026,
+   "seed": 2,
+   "src": "static/video/SolarCleanerTraverse/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 0.25,
+   "kb": 18,
+   "poster": "static/video/SolarCleanerTraverse/fasttd3.jpg",
+   "ret": 0.008343,
+   "seed": 4,
+   "src": "static/video/SolarCleanerTraverse/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 7.55,
+   "kb": 126,
+   "poster": "static/video/SolarCleanerTraverse/ppo_ngopt.jpg",
+   "ret": 0.002599,
+   "seed": 2,
+   "src": "static/video/SolarCleanerTraverse/ppo_ngopt.mp4"
+  }
+ },
+ "Swimmer-v4": {
+  "cmaes": {
+   "duration": 12.55,
+   "kb": 45,
+   "poster": "static/video/Swimmer-v4/cmaes.jpg",
+   "ret": 404.3,
+   "seed": 3,
+   "src": "static/video/Swimmer-v4/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 12.55,
+   "kb": 45,
+   "poster": "static/video/Swimmer-v4/fasttd3.jpg",
+   "ret": 85.53,
+   "seed": 4,
+   "src": "static/video/Swimmer-v4/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 12.55,
+   "kb": 58,
+   "poster": "static/video/Swimmer-v4/loki.jpg",
+   "ret": 77.49,
+   "seed": 0,
+   "src": "static/video/Swimmer-v4/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 12.55,
+   "kb": 49,
+   "poster": "static/video/Swimmer-v4/ppo_ngopt.jpg",
+   "ret": 92.73,
+   "seed": 3,
+   "src": "static/video/Swimmer-v4/ppo_ngopt.mp4"
+  }
+ },
+ "TruckUnloadSingle": {
+  "cmaes": {
+   "duration": 2.75,
+   "kb": 40,
+   "poster": "static/video/TruckUnloadSingle/cmaes.jpg",
+   "ret": 1.614,
+   "seed": 1,
+   "src": "static/video/TruckUnloadSingle/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 7.35,
+   "kb": 114,
+   "poster": "static/video/TruckUnloadSingle/fasttd3.jpg",
+   "ret": 6.964,
+   "seed": 0,
+   "src": "static/video/TruckUnloadSingle/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 2.6,
+   "kb": 34,
+   "poster": "static/video/TruckUnloadSingle/loki.jpg",
+   "ret": 0.5194,
+   "seed": 2,
+   "src": "static/video/TruckUnloadSingle/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 0.95,
+   "kb": 22,
+   "poster": "static/video/TruckUnloadSingle/ppo_ngopt.jpg",
+   "ret": 0.9825,
+   "seed": 3,
+   "src": "static/video/TruckUnloadSingle/ppo_ngopt.mp4"
+  }
+ },
+ "Walker2d-v4": {
+  "cmaes": {
+   "duration": 12.55,
+   "kb": 50,
+   "poster": "static/video/Walker2d-v4/cmaes.jpg",
+   "ret": 5549.0,
+   "seed": 3,
+   "src": "static/video/Walker2d-v4/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 12.55,
+   "kb": 56,
+   "poster": "static/video/Walker2d-v4/fasttd3.jpg",
+   "ret": 3981.0,
+   "seed": 4,
+   "src": "static/video/Walker2d-v4/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 9.65,
+   "kb": 37,
+   "poster": "static/video/Walker2d-v4/loki.jpg",
+   "ret": 1630.0,
+   "seed": 4,
+   "src": "static/video/Walker2d-v4/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 12.55,
+   "kb": 52,
+   "poster": "static/video/Walker2d-v4/ppo_ngopt.jpg",
+   "ret": 3677.0,
+   "seed": 4,
+   "src": "static/video/Walker2d-v4/ppo_ngopt.mp4"
+  }
+ },
+ "WarehouseCongested": {
+  "cmaes": {
+   "duration": 6.3,
+   "kb": 51,
+   "poster": "static/video/WarehouseCongested/cmaes.jpg",
+   "ret": 0.0,
+   "seed": 0,
+   "src": "static/video/WarehouseCongested/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 6.3,
+   "kb": 50,
+   "poster": "static/video/WarehouseCongested/fasttd3.jpg",
+   "ret": 0.0,
+   "seed": 0,
+   "src": "static/video/WarehouseCongested/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 6.3,
+   "kb": 55,
+   "poster": "static/video/WarehouseCongested/ppo_ngopt.jpg",
+   "ret": 0.01562,
+   "seed": 4,
+   "src": "static/video/WarehouseCongested/ppo_ngopt.mp4"
+  }
+ },
+ "WarehouseMedium": {
+  "cmaes": {
+   "duration": 0.15,
+   "kb": 13,
+   "poster": "static/video/WarehouseMedium/cmaes.jpg",
+   "ret": 0.0,
+   "seed": 0,
+   "src": "static/video/WarehouseMedium/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 6.3,
+   "kb": 37,
+   "poster": "static/video/WarehouseMedium/fasttd3.jpg",
+   "ret": 0.0,
+   "seed": 1,
+   "src": "static/video/WarehouseMedium/fasttd3.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 6.3,
+   "kb": 33,
+   "poster": "static/video/WarehouseMedium/ppo_ngopt.jpg",
+   "ret": 0.03125,
+   "seed": 1,
+   "src": "static/video/WarehouseMedium/ppo_ngopt.mp4"
+  }
+ },
+ "WarehouseSmall": {
+  "cmaes": {
+   "duration": 6.3,
+   "kb": 21,
+   "poster": "static/video/WarehouseSmall/cmaes.jpg",
+   "ret": 0.007812,
+   "seed": 2,
+   "src": "static/video/WarehouseSmall/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 6.3,
+   "kb": 21,
+   "poster": "static/video/WarehouseSmall/fasttd3.jpg",
+   "ret": 0.0,
+   "seed": 0,
+   "src": "static/video/WarehouseSmall/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 6.3,
+   "kb": 25,
+   "poster": "static/video/WarehouseSmall/loki.jpg",
+   "ret": 1.531,
+   "seed": 4,
+   "src": "static/video/WarehouseSmall/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 6.3,
+   "kb": 47,
+   "poster": "static/video/WarehouseSmall/ppo_ngopt.jpg",
+   "ret": 15.79,
+   "seed": 3,
+   "src": "static/video/WarehouseSmall/ppo_ngopt.mp4"
+  }
+ }
+}

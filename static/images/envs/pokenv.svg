@@ -1,44 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" font-family="'Inter',Arial,sans-serif" role="img" aria-label="Pokemon Showdown battle: team design versus a chosen opponent.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="Inter, Helvetica, Arial, sans-serif" role="img" aria-label="Illustration of the Pokemon co-design task: a six-slot team sheet (the design) facing a gauntlet of five League trainers.">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf1fb"/><stop offset="1" stop-color="#d7e3f5"/></linearGradient>
-    <linearGradient id="field" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe3c2"/><stop offset="1" stop-color="#8fce9a"/></linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#e8dfcd" stroke-width="1"/></pattern>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#3c2d14" flood-opacity="0.14"/></filter>
   </defs>
-  <rect width="640" height="400" fill="url(#bg)"/>
-  <!-- battle field ellipses -->
-  <ellipse cx="180" cy="300" rx="150" ry="42" fill="url(#field)" opacity="0.9"/>
-  <ellipse cx="470" cy="150" rx="120" ry="34" fill="url(#field)" opacity="0.75"/>
-  <!-- HP bars -->
-  <g>
-    <rect x="360" y="70" width="230" height="44" rx="8" fill="#ffffff" opacity="0.92" stroke="#c3ccdb"/>
-    <text x="374" y="90" font-size="13" font-weight="700" fill="#334155">Opponent</text>
-    <rect x="374" y="98" width="200" height="8" rx="4" fill="#e4e8f0"/><rect x="374" y="98" width="120" height="8" rx="4" fill="#e0563b"/>
-    <rect x="50" y="250" width="230" height="44" rx="8" fill="#ffffff" opacity="0.92" stroke="#c3ccdb"/>
-    <text x="64" y="270" font-size="13" font-weight="700" fill="#334155">Your designed team</text>
-    <rect x="64" y="278" width="200" height="8" rx="4" fill="#e4e8f0"/><rect x="64" y="278" width="176" height="8" rx="4" fill="#2ea56a"/>
-  </g>
-  <!-- pokeballs (team of 6) -->
-  <g>
-    <g transform="translate(150 300)">
-      <circle r="34" fill="#ffffff" stroke="#1a2233" stroke-width="3"/>
-      <path d="M -34 0 A 34 34 0 0 1 34 0 Z" fill="#e0563b" stroke="#1a2233" stroke-width="3"/>
-      <line x1="-34" y1="0" x2="34" y2="0" stroke="#1a2233" stroke-width="3"/>
-      <circle r="9" fill="#ffffff" stroke="#1a2233" stroke-width="3"/>
+  <rect width="800" height="500" fill="#f6f1e7"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- team sheet -->
+  <g filter="url(#sh)"><rect x="40" y="46" width="420" height="408" rx="10" fill="#fffdf8" stroke="#e2d8c5"/></g>
+  <text x="64" y="84" font-size="13" font-weight="700" letter-spacing="1.6" fill="#1f6f68">DESIGN &#952; &#183; YOUR TEAM</text>
+  <text x="64" y="106" font-size="12.5" fill="#766f62">species &#183; moves &#183; EVs &#183; item &#183; nature &#183; ability, &#215; 6 slots</text>
+  <g font-size="11" fill="#45413a">
+    <!-- six slots: coloured disc = type, bars = stat spread -->
+    <g transform="translate(64 126)">
+      <rect width="186" height="96" rx="8" fill="#f6f1e7" stroke="#e2d8c5"/><circle cx="30" cy="34" r="17" fill="#c4502f"/><circle cx="30" cy="34" r="6" fill="#fffdf8"/>
+      <text x="58" y="30" font-weight="700" fill="#1f1d1a">slot 1</text><text x="58" y="45" fill="#766f62">fast special attacker</text>
+      <rect x="14" y="62" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="62" width="128" height="6" rx="3" fill="#c4502f"/><rect x="14" y="74" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="74" width="40" height="6" rx="3" fill="#c4502f" opacity=".5"/>
     </g>
-    <g transform="translate(470 150) scale(0.72)">
-      <circle r="34" fill="#ffffff" stroke="#1a2233" stroke-width="3"/>
-      <path d="M -34 0 A 34 34 0 0 1 34 0 Z" fill="#f0a03c" stroke="#1a2233" stroke-width="3"/>
-      <line x1="-34" y1="0" x2="34" y2="0" stroke="#1a2233" stroke-width="3"/>
-      <circle r="9" fill="#ffffff" stroke="#1a2233" stroke-width="3"/>
+    <g transform="translate(250 126)">
+      <rect width="186" height="96" rx="8" fill="#f6f1e7" stroke="#e2d8c5"/><circle cx="30" cy="34" r="17" fill="#2a78d6"/><circle cx="30" cy="34" r="6" fill="#fffdf8"/>
+      <text x="58" y="30" font-weight="700" fill="#1f1d1a">slot 2</text><text x="58" y="45" fill="#766f62">bulky wall</text>
+      <rect x="14" y="62" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="62" width="52" height="6" rx="3" fill="#2a78d6"/><rect x="14" y="74" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="74" width="140" height="6" rx="3" fill="#2a78d6" opacity=".5"/>
+    </g>
+    <g transform="translate(64 232)">
+      <rect width="186" height="96" rx="8" fill="#f6f1e7" stroke="#e2d8c5"/><circle cx="30" cy="34" r="17" fill="#1baf7a"/><circle cx="30" cy="34" r="6" fill="#fffdf8"/>
+      <text x="58" y="30" font-weight="700" fill="#1f1d1a">slot 3</text><text x="58" y="45" fill="#766f62">setup sweeper</text>
+      <rect x="14" y="62" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="62" width="104" height="6" rx="3" fill="#1baf7a"/><rect x="14" y="74" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="74" width="70" height="6" rx="3" fill="#1baf7a" opacity=".5"/>
+    </g>
+    <g transform="translate(250 232)">
+      <rect width="186" height="96" rx="8" fill="#f6f1e7" stroke="#e2d8c5"/><circle cx="30" cy="34" r="17" fill="#eda100"/><circle cx="30" cy="34" r="6" fill="#fffdf8"/>
+      <text x="58" y="30" font-weight="700" fill="#1f1d1a">slot 4</text><text x="58" y="45" fill="#766f62">pivot</text>
+      <rect x="14" y="62" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="62" width="86" height="6" rx="3" fill="#eda100"/><rect x="14" y="74" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="74" width="92" height="6" rx="3" fill="#eda100" opacity=".5"/>
+    </g>
+    <g transform="translate(64 338)">
+      <rect width="186" height="96" rx="8" fill="#f6f1e7" stroke="#e2d8c5"/><circle cx="30" cy="34" r="17" fill="#4a3aa7"/><circle cx="30" cy="34" r="6" fill="#fffdf8"/>
+      <text x="58" y="30" font-weight="700" fill="#1f1d1a">slot 5</text><text x="58" y="45" fill="#766f62">revenge killer</text>
+      <rect x="14" y="62" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="62" width="140" height="6" rx="3" fill="#4a3aa7"/><rect x="14" y="74" width="150" height="6" rx="3" fill="#e8dfcd"/><rect x="14" y="74" width="30" height="6" rx="3" fill="#4a3aa7" opacity=".5"/>
+    </g>
+    <g transform="translate(250 338)">
+      <rect width="186" height="96" rx="8" fill="#fffdf8" stroke="#c4502f" stroke-dasharray="5 4"/>
+      <text x="93" y="44" text-anchor="middle" font-weight="700" fill="#c4502f">slot 6</text><text x="93" y="62" text-anchor="middle" fill="#766f62">still searching&#8230;</text>
     </g>
   </g>
-  <!-- team roster dots -->
-  <g transform="translate(64 320)">
-    <text x="0" y="0" font-size="12" font-weight="600" fill="#55617a">roster</text>
-    <g fill="#12897f">
-      <circle cx="58" cy="-4" r="7"/><circle cx="80" cy="-4" r="7"/><circle cx="102" cy="-4" r="7"/>
-      <circle cx="124" cy="-4" r="7" fill="#c8324a"/><circle cx="146" cy="-4" r="7" fill="#c8324a"/><circle cx="168" cy="-4" r="7" fill="#4b3f9e"/>
-    </g>
+
+  <!-- arrow -->
+  <path d="M476 250 C 510 250, 520 250, 546 250" fill="none" stroke="#1f1d1a" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M538 242 L548 250 L538 258" fill="none" stroke="#1f1d1a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="511" y="236" text-anchor="middle" font-size="12" font-weight="700" fill="#c4502f">&#960;</text>
+
+  <!-- gauntlet -->
+  <text x="566" y="84" font-size="13" font-weight="700" letter-spacing="1.6" fill="#c4502f">POLICY &#960; &#183; THE LEAGUE</text>
+  <text x="566" y="106" font-size="12.5" fill="#766f62">five trainers; one loss ends the run</text>
+  <g font-size="12" fill="#45413a">
+    <g transform="translate(566 126)"><circle cx="24" cy="24" r="22" fill="#fffdf8" stroke="#1baf7a" stroke-width="3"/><circle cx="24" cy="18" r="7" fill="#45413a"/><path d="M10 38 Q24 24 38 38" fill="#45413a"/><text x="58" y="21" font-weight="700" fill="#1f1d1a">Trainer 1</text><text x="58" y="37" fill="#1baf7a">won</text></g>
+    <g transform="translate(566 190)"><circle cx="24" cy="24" r="22" fill="#fffdf8" stroke="#1baf7a" stroke-width="3"/><circle cx="24" cy="18" r="7" fill="#45413a"/><path d="M10 38 Q24 24 38 38" fill="#45413a"/><text x="58" y="21" font-weight="700" fill="#1f1d1a">Trainer 2</text><text x="58" y="37" fill="#1baf7a">won</text></g>
+    <g transform="translate(566 254)"><circle cx="24" cy="24" r="22" fill="#fffdf8" stroke="#c4502f" stroke-width="3"/><circle cx="24" cy="18" r="7" fill="#45413a"/><path d="M10 38 Q24 24 38 38" fill="#45413a"/><text x="58" y="21" font-weight="700" fill="#1f1d1a">Trainer 3</text><text x="58" y="37" fill="#c4502f">battling&#8230;</text></g>
+    <g transform="translate(566 318)" opacity=".45"><circle cx="24" cy="24" r="22" fill="#fffdf8" stroke="#d3c7b0" stroke-width="3"/><circle cx="24" cy="18" r="7" fill="#766f62"/><path d="M10 38 Q24 24 38 38" fill="#766f62"/><text x="58" y="21" font-weight="700">Trainer 4</text></g>
+    <g transform="translate(566 382)" opacity=".45"><circle cx="24" cy="24" r="22" fill="#fffdf8" stroke="#d3c7b0" stroke-width="3"/><circle cx="24" cy="18" r="7" fill="#766f62"/><path d="M10 38 Q24 24 38 38" fill="#766f62"/><text x="58" y="21" font-weight="700">Champion</text></g>
   </g>
-  <text x="24" y="42" font-size="20" font-weight="800" fill="#1a2233">Pok&#233;mon Showdown</text>
-  <text x="24" y="62" font-size="13" fill="#55617a">team composition = embodiment &#183; battle strategy = policy</text>
 </svg>

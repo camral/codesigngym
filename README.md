@@ -1,37 +1,38 @@
 # Codesign Gym — Project Page
 
-The public project page for [**Codesign Gym**](https://github.com/camral/codesign-gym), a
-Gymnasium-like benchmark for co-design (doubly non-stationary optimization where an agent's
-embodiment is optimized alongside its control policy).
+The public project page for [**Codesign Gym**](https://github.com/camral/codesign-gym), a Gymnasium-style benchmark for
+co-design (an agent's embodiment optimized alongside its control policy).
 
-**Live:** publish with GitHub Pages → Settings → Pages → *Deploy from branch* → `main` / `/ (root)`.
-The site is a single static `index.html`; no build step.
+A static site: `index.html` + `static/`, no build step. Publish with GitHub Pages → Settings → Pages →
+*Deploy from branch* → `main` / `/ (root)`. Preview locally with `python -m http.server` (the results explorer
+fetches JSON, so `file://` will not work).
 
-## Layout
+## What's on the page
 
-```
-index.html                     # the page (Nerfies-style academic template)
-static/
-  css/index.css                # styling
-  js/index.js                  # copy-to-clipboard helpers
-  images/envs/                 # environment screenshots (+ drawn pokenv tile)
-  figures/                     # diagrams — SVG + editable .drawio sources
-    codesign-loop.svg/.drawio  # the two-loop co-design teaser
-    architecture.svg/.drawio   # registry / lazy-import / native vectorization
-    api.svg/.drawio            # Gymnasium vs. Codesign Gym signature diff
-```
+| Section | Built from |
+|---|---|
+| Hero video wall, environment explorer | `static/video/showcase/*.mp4` (one clip per family) |
+| Playground | `static/js/playground.js`: exact 1-DOF LQ cost landscape (closed-form Lyapunov solve) |
+| Environment cards + modals | `static/js/envs.js` (facts from the codesign-gym README) |
+| Baseline results explorer | `static/data/results.json`, `static/data/videos.json`, `static/video/<preset>/<method>.mp4` |
+| Diagrams | `static/figures/*.svg` (+ editable `.drawio` sources) |
 
-## Figures
+## Regenerating data and media
 
-All diagrams are hand-authored SVG (crisp at any zoom, themeable) with matching `.drawio` sources
-that open directly in [diagrams.net](https://app.diagrams.net) for editing. To re-render an SVG to
-PNG for a slide or the README:
+All scripts assume `../codesign-gym` is a checkout with `baseline_figures/_wandb_cache.pkl`.
 
 ```bash
-rsvg-convert -w 1200 static/figures/codesign-loop.svg -o loop.png
+python tools/export_results.py              # results.json via codesign-gym/make_figures.py (same numbers as the paper tables)
+python tools/fetch_videos.py                # best-seed final-eval video per (preset, method) from wandb; needs wandb login
+PYTHON=python tools/make_showcase.sh        # per-family showcase clips (+ follow-cropped locomotion montage)
 ```
+
+`tools/track_crop.py` follow-crops fixed-camera MuJoCo rollouts around the robot. The Shape-shifting Hand clip is a
+design sweep rendered from the env's hand model in plain MuJoCo (pad heights blended between random valid designs), and the
+SoftWalker clips are the env's own renders; the page labels both as such. Every other clip is a final-evaluation rollout
+from the baseline runs.
 
 ## Credits
 
-Layout adapted from the [Nerfies](https://github.com/nerfies/nerfies.github.io) academic project
-template (CC-BY-SA-4.0). Environment screenshots are rendered from the Codesign Gym environments.
+Page structure inspired by [Nerfies](https://github.com/nerfies/nerfies.github.io). The Pokémon illustration is original
+artwork (no game sprites; see the licensing note in pokemon-codesign-env's `docs/figures/assets/CREDITS.md`).
