@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen6customgame-1724</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen6customgame-1724<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen6customgame-1724
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|266|
+|player|p2|Opponent|266|
+|gen|6
+|tier|[Gen 6] Custom Game
+|clearpoke
+|poke|p1|Hawlucha, M|
+|poke|p1|Gourgeist-*, F|
+|poke|p1|Mantyke, F|
+|poke|p1|Turtwig, F|
+|poke|p1|Krookodile, M|
+|poke|p1|Salamence, F|
+|poke|p2|Ludicolo, L89, F|item
+|poke|p2|Tyrantrum, L80, M|item
+|poke|p2|Liepard, L85, F|item
+|poke|p2|Simisear, L88, F|item
+|poke|p2|Mewtwo, L69|item
+|poke|p2|Shaymin, L83|item
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Salamence|Salamence, F|394/394
+|switch|p2a: Simisear|Simisear, L88, F|275/275
+|-ability|p1a: Salamence|Intimidate|boost
+|-unboost|p2a: Simisear|atk|1
+|turn|1
+|
+|move|p1a: Salamence|Bulldoze|p2a: Simisear
+|-supereffective|p2a: Simisear
+|-damage|p2a: Simisear|55/275
+|-unboost|p2a: Simisear|spe|1
+|move|p2a: Simisear|Focus Blast|p1a: Salamence
+|-resisted|p1a: Salamence
+|-damage|p1a: Salamence|350/394
+|-damage|p2a: Simisear|28/275|[from] item: Life Orb
+|
+|upkeep
+|turn|2
+|
+|move|p1a: Salamence|Bulldoze|p2a: Simisear
+|-supereffective|p2a: Simisear
+|-damage|p2a: Simisear|0 fnt
+|faint|p2a: Simisear
+|
+|upkeep
+|
+|switch|p2a: Tyrantrum|Tyrantrum, L80, M|262/262
+|turn|3
+|
+|move|p1a: Salamence|Strength|p2a: Tyrantrum
+|-resisted|p2a: Tyrantrum
+|-damage|p2a: Tyrantrum|210/262
+|move|p2a: Tyrantrum|Head Smash|p1a: Salamence|[miss]
+|-miss|p2a: Tyrantrum|p1a: Salamence
+|
+|upkeep
+|turn|4
+|
+|move|p1a: Salamence|Strength|p2a: Tyrantrum
+|-resisted|p2a: Tyrantrum
+|-damage|p2a: Tyrantrum|155/262
+|move|p2a: Tyrantrum|Head Smash|p1a: Salamence
+|-supereffective|p1a: Salamence
+|-damage|p1a: Salamence|42/394
+|debug|damage event failed
+|
+|upkeep
+|turn|5
+|
+|move|p1a: Salamence|Strength|p2a: Tyrantrum
+|-resisted|p2a: Tyrantrum
+|-damage|p2a: Tyrantrum|101/262
+|move|p2a: Tyrantrum|Head Smash|p1a: Salamence
+|-supereffective|p1a: Salamence
+|-damage|p1a: Salamence|0 fnt
+|faint|p1a: Salamence
+|debug|damage event failed
+|
+|upkeep
+|
+|switch|p1a: Gourgeist|Gourgeist-Small, F|314/314
+|turn|6
+|
+|move|p1a: Gourgeist|Giga Impact|p2a: Tyrantrum
+|-resisted|p2a: Tyrantrum
+|-damage|p2a: Tyrantrum|36/262
+|-mustrecharge|p1a: Gourgeist
+|move|p2a: Tyrantrum|Head Smash|p1a: Gourgeist
+|-damage|p1a: Gourgeist|224/314
+|debug|damage event failed
+|
+|upkeep
+|turn|7
+|
+|cant|p1a: Gourgeist|recharge
+|move|p2a: Tyrantrum|Head Smash|p1a: Gourgeist
+|-damage|p1a: Gourgeist|134/314
+|debug|damage event failed
+|
+|upkeep
+|turn|8
+|
+|move|p1a: Gourgeist|Giga Impact|p2a: Tyrantrum
+|-resisted|p2a: Tyrantrum
+|-crit|p2a: Tyrantrum
+|-damage|p2a: Tyrantrum|0 fnt
+|-mustrecharge|p1a: Gourgeist
+|faint|p2a: Tyrantrum
+|
+|upkeep
+|
+|switch|p2a: Shaymin|Shaymin, L83|302/302
+|turn|9
+|
+|cant|p1a: Gourgeist|recharge
+|move|p2a: Shaymin|Seed Flare|p1a: Gourgeist
+|-resisted|p1a: Gourgeist
+|-damage|p1a: Gourgeist|80/314
+|
+|upkeep
+|turn|10
+|
+|move|p1a: Gourgeist|Giga Impact|p2a: Shaymin
+|-damage|p2a: Shaymin|150/302
+|-mustrecharge|p1a: Gourgeist
+|move|p2a: Shaymin|Seed Flare|p1a: Gourgeist
+|-resisted|p1a: Gourgeist
+|-damage|p1a: Gourgeist|29/314
+|
+|-heal|p2a: Shaymin|168/302|[from] item: Leftovers
+|upkeep
+|turn|11
+|
+|cant|p1a: Gourgeist|recharge
+|move|p2a: Shaymin|Seed Flare|p1a: Gourgeist
+|-resisted|p1a: Gourgeist
+|-damage|p1a: Gourgeist|0 fnt
+|faint|p1a: Gourgeist
+|
+|-heal|p2a: Shaymin|186/302|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Mantyke|Mantyke, F|294/294
+|turn|12
+|
+|move|p2a: Shaymin|Seed Flare|p1a: Mantyke
+|-damage|p1a: Mantyke|216/294
+|-unboost|p1a: Mantyke|spd|2
+|move|p1a: Mantyke|Waterfall|p2a: Shaymin
+|-resisted|p2a: Shaymin
+|-damage|p2a: Shaymin|153/302
+|
+|-heal|p2a: Shaymin|171/302|[from] item: Leftovers
+|upkeep
+|turn|13
+|
+|move|p2a: Shaymin|Seed Flare|p1a: Mantyke|[miss]
+|-miss|p2a: Shaymin|p1a: Mantyke
+|move|p1a: Mantyke|Twister|p2a: Shaymin
+|-damage|p2a: Shaymin|136/302
+|
+|-heal|p2a: Shaymin|154/302|[from] item: Leftovers
+|upkeep
+|turn|14
+|
+|move|p2a: Shaymin|Seed Flare|p1a: Mantyke
+|-damage|p1a: Mantyke|68/294
+|-unboost|p1a: Mantyke|spd|2
+|move|p1a: Mantyke|Waterfall|p2a: Shaymin
+|-resisted|p2a: Shaymin
+|-crit|p2a: Shaymin
+|-damage|p2a: Shaymin|106/302
+|
+|-heal|p2a: Shaymin|124/302|[from] item: Leftovers
+|upkeep
+|turn|15
+|
+|move|p2a: Shaymin|Seed Flare|p1a: Mantyke|[miss]
+|-miss|p2a: Shaymin|p1a: Mantyke
+|move|p1a: Mantyke|Twister|p2a: Shaymin
+|-damage|p2a: Shaymin|91/302
+|
+|-heal|p2a: Shaymin|109/302|[from] item: Leftovers
+|upkeep
+|turn|16
+|
+|move|p2a: Shaymin|Seed Flare|p1a: Mantyke
+|-damage|p1a: Mantyke|0 fnt
+|faint|p1a: Mantyke
+|
+|-heal|p2a: Shaymin|127/302|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Turtwig|Turtwig, F|314/314
+|turn|17
+|
+|move|p2a: Shaymin|Air Slash|p1a: Turtwig
+|-supereffective|p1a: Turtwig
+|-damage|p1a: Turtwig|228/314
+|cant|p1a: Turtwig|flinch
+|
+|-heal|p2a: Shaymin|145/302|[from] item: Leftovers
+|upkeep
+|turn|18
+|
+|move|p2a: Shaymin|Air Slash|p1a: Turtwig
+|-supereffective|p1a: Turtwig
+|-damage|p1a: Turtwig|136/314
+|move|p1a: Turtwig|Rock Smash|p2a: Shaymin
+|-damage|p2a: Shaymin|115/302
+|
+|-heal|p2a: Shaymin|133/302|[from] item: Leftovers
+|upkeep
+|turn|19
+|
+|move|p2a: Shaymin|Air Slash|p1a: Turtwig
+|-supereffective|p1a: Turtwig
+|-damage|p1a: Turtwig|34/314
+|move|p1a: Turtwig|Rock Smash|p2a: Shaymin
+|-damage|p2a: Shaymin|103/302
+|
+|-heal|p2a: Shaymin|121/302|[from] item: Leftovers
+|upkeep
+|turn|20
+|
+|move|p2a: Shaymin|Air Slash|p1a: Turtwig
+|-supereffective|p1a: Turtwig
+|-damage|p1a: Turtwig|0 fnt
+|faint|p1a: Turtwig
+|
+|-heal|p2a: Shaymin|139/302|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Hawlucha|Hawlucha, M|360/360
+|turn|21
+|
+|debug|priority charge callback: focuspunch
+|-singleturn|p1a: Hawlucha|move: Focus Punch
+|move|p2a: Shaymin|Air Slash|p1a: Hawlucha
+|-supereffective|p1a: Hawlucha
+|-damage|p1a: Hawlucha|258/360
+|debug|add volatile [flinch] interrupted
+|debug|move failed because it did nothing
+|cant|p1a: Hawlucha|Focus Punch|Focus Punch
+|
+|-heal|p2a: Shaymin|157/302|[from] item: Leftovers
+|upkeep
+|turn|22
+|
+|debug|priority charge callback: focuspunch
+|-singleturn|p1a: Hawlucha|move: Focus Punch
+|move|p2a: Shaymin|Air Slash|p1a: Hawlucha
+|-supereffective|p1a: Hawlucha
+|-damage|p1a: Hawlucha|166/360
+|cant|p1a: Hawlucha|Focus Punch|Focus Punch
+|
+|-heal|p2a: Shaymin|175/302|[from] item: Leftovers
+|upkeep
+|turn|23
+|
+|debug|priority charge callback: focuspunch
+|-singleturn|p1a: Hawlucha|move: Focus Punch
+|move|p2a: Shaymin|Air Slash|p1a: Hawlucha
+|-supereffective|p1a: Hawlucha
+|-damage|p1a: Hawlucha|70/360
+|cant|p1a: Hawlucha|Focus Punch|Focus Punch
+|
+|-heal|p2a: Shaymin|193/302|[from] item: Leftovers
+|upkeep
+|turn|24
+|
+|debug|priority charge callback: focuspunch
+|-singleturn|p1a: Hawlucha|move: Focus Punch
+|move|p2a: Shaymin|Air Slash|p1a: Hawlucha
+|-supereffective|p1a: Hawlucha
+|-damage|p1a: Hawlucha|0 fnt
+|debug|move failed because it did nothing
+|faint|p1a: Hawlucha
+|
+|-heal|p2a: Shaymin|211/302|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Krookodile|Krookodile, M|394/394
+|-ability|p1a: Krookodile|Intimidate|boost
+|-unboost|p2a: Shaymin|atk|1
+|turn|25
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile|[miss]
+|-miss|p2a: Shaymin|p1a: Krookodile
+|move|p1a: Krookodile|Counter||[still]
+|-fail|p1a: Krookodile
+|
+|-heal|p2a: Shaymin|229/302|[from] item: Leftovers
+|upkeep
+|turn|26
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|350/394
+|move|p1a: Krookodile|Counter||[still]
+|-fail|p1a: Krookodile
+|
+|-heal|p2a: Shaymin|247/302|[from] item: Leftovers
+|upkeep
+|turn|27
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|307/394
+|cant|p1a: Krookodile|flinch
+|
+|-heal|p2a: Shaymin|265/302|[from] item: Leftovers
+|upkeep
+|turn|28
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|258/394
+|cant|p1a: Krookodile|flinch
+|
+|-heal|p2a: Shaymin|283/302|[from] item: Leftovers
+|upkeep
+|turn|29
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|213/394
+|cant|p1a: Krookodile|flinch
+|
+|-heal|p2a: Shaymin|301/302|[from] item: Leftovers
+|upkeep
+|turn|30
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|166/394
+|move|p1a: Krookodile|Counter||[still]
+|-fail|p1a: Krookodile
+|
+|-heal|p2a: Shaymin|302/302|[from] item: Leftovers
+|upkeep
+|turn|31
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|118/394
+|cant|p1a: Krookodile|flinch
+|
+|upkeep
+|turn|32
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|77/394
+|move|p1a: Krookodile|Counter||[still]
+|-fail|p1a: Krookodile
+|
+|upkeep
+|turn|33
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|33/394
+|move|p1a: Krookodile|Counter||[still]
+|-fail|p1a: Krookodile
+|
+|upkeep
+|turn|34
+|
+|debug|before turn callback: counter
+|move|p2a: Shaymin|Air Slash|p1a: Krookodile
+|-damage|p1a: Krookodile|0 fnt
+|faint|p1a: Krookodile
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

@@ -152,14 +152,40 @@
     $('.final-wrap').innerHTML = `<table class="final"><thead><tr><th>Method</th><th>Final return</th><th title="seeds">n</th><th title="share of final-eval designs rejected">Rejected</th></tr></thead><tbody>${body}</tbody></table>` + (notes.length ? `<p class="chart-foot">${notes.join(' ')}</p>` : '');
   }
 
+  function replayTiles(R) {
+    const box = $('.rollouts'), ms = Object.keys(cur.methods);
+    box.innerHTML = ms.map(m => {
+      const r = R[m], lab = `<div class="lab" style="--c:${color(m)}"><b>${methodName(m)}</b><span>${r ? 'seed ' + r.seed + ' · ' + fmt(r.ret) : ''}</span></div>`;
+      if (!r || !r.best) return `<div class="rollout"><div class="none">No battle replay was logged for this run.</div>${lab}</div>`;
+      const b = r.best, res = b.won === null ? 'no result' : (b.won ? 'won' : 'lost') + ' in ' + b.turns + ' turns';
+      return `<div class="rollout replay"><div class="team"><span class="res ${b.won ? '' : 'lost'}">${res}</span><ul class="mons">${b.agent.map(x => `<li>${x}</li>`).join('')}</ul>
+        <small>${b.team_preview ? 'designed team of ' + b.agent.length : 'agent Pokémon seen in this battle'} · ${b.format.replace(/^\[|\].*$/g, '')}</small></div>${lab}
+        <div class="replay-btns"><button type="button" data-rp="${m}" data-kind="best">Watch best battle</button>${r.worst ? `<button type="button" class="alt" data-rp="${m}" data-kind="worst">worst battle</button>` : ''}</div></div>`;
+    }).join('');
+    box.onclick = e => {
+      const btn = e.target.closest('button[data-rp]'); if (!btn) return;
+      const r = R[btn.dataset.rp], b = r[btn.dataset.kind];
+      window.openReplay(b.src, `${methodName(btn.dataset.rp)} on ${pretty(cur)}: ${btn.dataset.kind} eval battle`,
+        `seed ${r.seed} · ${b.won ? 'won' : 'lost'} in ${b.turns} turns · agent lost ${b.agent_fainted}, opponent lost ${b.opponent_fainted} · ${b.format}`);
+    };
+    $('.roll-bar h4').textContent = 'Watch the battles';
+    $('.roll-bar .hint').textContent = 'Best seed per method (return = its final mean eval return); open its best or worst evaluation battle in the Showdown replay client.';
+    $('.play-all').hidden = true;
+  }
+
   function rollouts() {
+    $('.roll-bar h4').textContent = 'Watch the four side by side'; $('.play-all').hidden = false;
+    if (cur.id.startsWith('Pokenv') && window.getReplays) {
+      const id = cur.id; window.getReplays().then(R => { if (cur.id === id) replayTiles(R[id] || {}); }); return;
+    }
     const v = V[cur.id] || {};
     const box = $('.rollouts');
+    box.onclick = null;
     box.innerHTML = Object.keys(cur.methods).map(m => {
       const r = v[m];
       const lab = `<div class="lab" style="--c:${color(m)}"><b>${methodName(m)}</b><span>${r ? 'seed ' + r.seed + ' · ' + fmt(r.ret) : ''}</span></div>`;
       return r ? `<div class="rollout"><video muted loop playsinline preload="none" poster="${r.poster}" src="${r.src}" aria-label="${methodName(m)} rollout on ${pretty(cur)}"></video>${lab}</div>`
-        : `<div class="rollout"><div class="none">No rollout video was logged for this run${cur.id.startsWith('Pokenv') ? ' (battles have no renderer)' : ''}.</div>${lab}</div>`;
+        : `<div class="rollout"><div class="none">No rollout video was logged for this run.</div>${lab}</div>`;
     }).join('');
     $('.roll-bar .hint').textContent = Object.keys(v).length ? 'Best seed per method, final evaluation. Short clips loop.' : '';
     if (autoplay) playAll();

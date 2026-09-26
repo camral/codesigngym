@@ -2,6 +2,28 @@
 (function () {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Showdown battle replays: the client needs ~800px, so render at native size and scale to the box width
+  function mountReplay(box, src, title) {
+    box.innerHTML = `<iframe src="${src}" title="${title || 'Pokémon Showdown battle replay'}" loading="lazy" referrerpolicy="no-referrer"></iframe>`;
+    const f = box.querySelector('iframe');
+    const fit = () => { const w = box.clientWidth, k = Math.min(1, w / 800); f.style.width = Math.max(800, w) + 'px'; f.style.transform = `scale(${k})`; box.style.height = Math.round(458 * k) + 'px'; };
+    fit(); if (window.ResizeObserver) new ResizeObserver(fit).observe(box); else window.addEventListener('resize', fit);
+  }
+  const replayDlg = document.getElementById('replay-modal');
+  window.openReplay = function (src, title, meta) {
+    replayDlg.querySelector('#replay-title').textContent = title;
+    replayDlg.querySelector('.replay-meta').textContent = meta || '';
+    replayDlg.showModal();
+    mountReplay(replayDlg.querySelector('.replay-frame'), src, title);
+  };
+  if (replayDlg) {
+    replayDlg.addEventListener('click', e => { if (e.target === replayDlg || e.target.closest('.modal-close')) replayDlg.close(); });
+    replayDlg.addEventListener('close', () => { replayDlg.querySelector('.replay-frame').innerHTML = ''; });
+  }
+  let replayIndex = null;
+  const replays = () => replayIndex || (replayIndex = fetch('static/data/replays.json').then(r => r.json()).catch(() => ({})));
+  window.getReplays = replays;
+
   // nav border + active section
   const nav = document.querySelector('.nav');
   const links = [...document.querySelectorAll('.nav-links a')];
@@ -29,7 +51,7 @@
     grid.innerHTML = fams.map(f => {
       const md = media(f);
       return `<button type="button" class="env reveal" data-id="${f.id}" data-tags="${f.tags.join(' ')}" aria-haspopup="dialog">
-        <div class="media"><img src="${md.poster}" alt="" loading="lazy">${md.video ? `<video muted loop playsinline preload="none" src="${md.video}"></video><span class="play-hint"><i class="fa-solid fa-play"></i> ${touch ? 'tap for details' : 'hover to play'}</span>` : ''}<span class="ids">${f.ids} id${f.ids > 1 ? 's' : ''}</span></div>
+        <div class="media"><img src="${md.poster}" alt="" loading="lazy">${md.video ? `<video muted loop playsinline preload="none" src="${md.video}"></video><span class="play-hint"><i class="fa-solid fa-play"></i> ${touch ? 'tap for details' : 'hover to play'}</span>` : ''}${f.replay ? '<span class="play-hint"><i class="fa-solid fa-play"></i> click to watch a battle</span>' : ''}<span class="ids">${f.ids} id${f.ids > 1 ? 's' : ''}</span></div>
         <div class="body"><h3>${f.name}</h3><div class="sim">${f.sim}</div><p>${f.blurb}</p>
         <dl class="dp"><dt class="d">design</dt><dd>${f.design}</dd><dt class="p">policy</dt><dd>${f.policy}</dd></dl>
         ${f.transition ? '<span class="badge">θ can change mid-episode</span>' : ''}</div></button>`;
@@ -60,7 +82,11 @@
     grid.addEventListener('click', e => {
       const card = e.target.closest('.env'); if (!card) return;
       const f = fams.find(x => x.id === card.dataset.id), md = media(f);
-      dlg.querySelector('.modal-media').innerHTML = md.video ? `<video controls autoplay muted loop playsinline poster="${md.poster}" src="${md.video}"></video>` : `<img src="${md.poster}" alt="${f.name} illustration">`;
+      dlg.classList.toggle('wide', !!f.replay);
+      if (f.replay) {
+        const m = dlg.querySelector('.modal-media'); m.innerHTML = '<div class="replay-frame"></div>';
+        mountReplay(m.querySelector('.replay-frame'), f.replay.src, f.name + ' battle replay');
+      } else dlg.querySelector('.modal-media').innerHTML = md.video ? `<video controls autoplay muted loop playsinline poster="${md.poster}" src="${md.video}"></video>` : `<img src="${md.poster}" alt="${f.name} illustration">`;
       dlg.querySelector('.modal-body').innerHTML = `<h3 id="env-modal-title">${f.name}</h3><div class="sim">${f.sim}</div><p>${f.blurb}</p>
         <dl class="dp"><dt class="d">design θ</dt><dd>${f.design}</dd><dt class="p">policy π</dt><dd>${f.policy}</dd></dl>
         ${f.transition ? '<span class="badge">supports transition-level embodiment: step(action, embodiment)</span>' : ''}
@@ -71,7 +97,7 @@
       dlg.showModal();
     });
     dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('.modal-close')) dlg.close(); });
-    dlg.addEventListener('close', () => { const v = dlg.querySelector('video'); if (v) v.pause(); });
+    dlg.addEventListener('close', () => { const v = dlg.querySelector('video'); if (v) v.pause(); if (dlg.classList.contains('wide')) dlg.querySelector('.modal-media').innerHTML = ''; });
   }
 
   // code tabs

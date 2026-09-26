@@ -1,0 +1,906 @@
+<div style="margin:8px auto;padding:8px;max-width:624px;background:#fff3cd;border:1px solid #d39e00;font-weight:bold">Base-team fallback: the proposed embodiment was rejected and scored -30.</div>
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen6customgame-2434</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen6customgame-2434<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen6customgame-2434
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|102|
+|player|p2|Opponent|101|
+|gen|6
+|tier|[Gen 6] Custom Game
+|clearpoke
+|poke|p1|Girafarig, M|
+|poke|p1|Flaaffy, M|
+|poke|p1|Electabuzz, F|
+|poke|p1|Shellos-East, M|
+|poke|p1|Tangrowth, F|
+|poke|p1|Tentacool, M|
+|poke|p2|Gyarados, L74, F|item
+|poke|p2|Girafarig, L93, M|item
+|poke|p2|Klinklang, L87|item
+|poke|p2|Exploud, L85, M|item
+|poke|p2|Scyther, L82, F|item
+|poke|p2|Lilligant, L86, F|item
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Electabuzz|Electabuzz, F|334/334
+|switch|p2a: Lilligant|Lilligant, L86, F|261/261
+|turn|1
+|
+|move|p1a: Electabuzz|Rain Dance|p1a: Electabuzz
+|-weather|RainDance
+|move|p2a: Lilligant|Petal Dance|p1a: Electabuzz
+|-damage|p1a: Electabuzz|205/334
+|-damage|p2a: Lilligant|235/261|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|
+|move|p1a: Electabuzz|Seismic Toss|p2a: Lilligant
+|-damage|p2a: Lilligant|135/261
+|move|p2a: Lilligant|Petal Dance|p1a: Electabuzz|[from] lockedmove
+|-damage|p1a: Electabuzz|76/334
+|-damage|p2a: Lilligant|109/261|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|
+|move|p1a: Electabuzz|Seismic Toss|p2a: Lilligant
+|-damage|p2a: Lilligant|9/261
+|move|p2a: Lilligant|Petal Dance|p1a: Electabuzz|[from] lockedmove
+|-damage|p1a: Electabuzz|0 fnt
+|-status|p2a: Lilligant|par|[from] ability: Static|[of] p1a: Electabuzz
+|faint|p1a: Electabuzz
+|-damage|p2a: Lilligant|0 fnt|[from] item: Life Orb
+|faint|p2a: Lilligant
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p1a: Shellos|Shellos-East, M|356/356
+|switch|p2a: Exploud|Exploud, L85, M|316/316
+|turn|4
+|
+|move|p1a: Shellos|Memento|p2a: Exploud
+|-unboost|p2a: Exploud|atk|2
+|-unboost|p2a: Exploud|spa|2
+|faint|p1a: Shellos
+|move|p2a: Exploud|Boomburst|p1: Shellos|[notarget]
+|-fail|p2a: Exploud
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p1a: Girafarig|Girafarig, M|344/344
+|turn|5
+|
+|move|p1a: Girafarig|Crunch|p2a: Exploud
+|-damage|p2a: Exploud|219/316
+|move|p2a: Exploud|Boomburst|p1a: Girafarig
+|-damage|p1a: Girafarig|253/344
+|
+|-weather|none
+|upkeep
+|turn|6
+|
+|move|p1a: Girafarig|Crunch|p2a: Exploud
+|-damage|p2a: Exploud|119/316
+|move|p2a: Exploud|Boomburst|p1a: Girafarig
+|-damage|p1a: Girafarig|159/344
+|
+|upkeep
+|turn|7
+|
+|move|p1a: Girafarig|Crunch|p2a: Exploud
+|-damage|p2a: Exploud|11/316
+|move|p2a: Exploud|Boomburst|p1a: Girafarig
+|-damage|p1a: Girafarig|72/344
+|
+|upkeep
+|turn|8
+|
+|move|p1a: Girafarig|Crunch|p2a: Exploud
+|-damage|p2a: Exploud|0 fnt
+|faint|p2a: Exploud
+|
+|upkeep
+|
+|switch|p2a: Klinklang|Klinklang, L87|246/246
+|turn|9
+|
+|move|p1a: Girafarig|Crunch|p2a: Klinklang
+|-damage|p2a: Klinklang|181/246
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Girafarig
+|-damage|p1a: Girafarig|11/344
+|-damage|p2a: Klinklang|166/246|[from] Recoil
+|
+|-heal|p2a: Klinklang|181/246|[from] item: Leftovers
+|upkeep
+|turn|10
+|
+|move|p1a: Girafarig|Crunch|p2a: Klinklang
+|-damage|p2a: Klinklang|118/246
+|move|p2a: Klinklang|Wild Charge|p1a: Girafarig
+|-damage|p1a: Girafarig|0 fnt
+|faint|p1a: Girafarig
+|-damage|p2a: Klinklang|115/246|[from] Recoil
+|
+|-heal|p2a: Klinklang|130/246|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Tangrowth|Tangrowth, F|404/404
+|turn|11
+|
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|385/404
+|-damage|p2a: Klinklang|125/246|[from] Recoil
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang|[miss]
+|-miss|p1a: Tangrowth|p2a: Klinklang
+|
+|-heal|p2a: Klinklang|140/246|[from] item: Leftovers
+|upkeep
+|turn|12
+|
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|364/404
+|-damage|p2a: Klinklang|135/246|[from] Recoil
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-status|p2a: Klinklang|par
+|
+|-heal|p2a: Klinklang|150/246 par|[from] item: Leftovers
+|upkeep
+|turn|13
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|343/404
+|-damage|p2a: Klinklang|145/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|160/246 par|[from] item: Leftovers
+|upkeep
+|turn|14
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|322/404
+|-damage|p2a: Klinklang|155/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|170/246 par|[from] item: Leftovers
+|upkeep
+|turn|15
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|303/404
+|-damage|p2a: Klinklang|165/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|180/246 par|[from] item: Leftovers
+|upkeep
+|turn|16
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang|[miss]
+|-miss|p1a: Tangrowth|p2a: Klinklang
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|285/404
+|-damage|p2a: Klinklang|175/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|190/246 par|[from] item: Leftovers
+|upkeep
+|turn|17
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|cant|p2a: Klinklang|par
+|
+|-heal|p2a: Klinklang|205/246 par|[from] item: Leftovers
+|upkeep
+|turn|18
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|cant|p2a: Klinklang|par
+|
+|-heal|p2a: Klinklang|220/246 par|[from] item: Leftovers
+|upkeep
+|turn|19
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang|[miss]
+|-miss|p1a: Tangrowth|p2a: Klinklang
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|266/404
+|-damage|p2a: Klinklang|215/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|230/246 par|[from] item: Leftovers
+|upkeep
+|turn|20
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|cant|p2a: Klinklang|par
+|
+|-heal|p2a: Klinklang|245/246 par|[from] item: Leftovers
+|upkeep
+|turn|21
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|246/404
+|-damage|p2a: Klinklang|240/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|22
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|cant|p2a: Klinklang|par
+|
+|upkeep
+|turn|23
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|228/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|24
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|208/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|25
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang|[miss]
+|-miss|p1a: Tangrowth|p2a: Klinklang
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|188/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|26
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|170/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|27
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|152/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|28
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|cant|p2a: Klinklang|par
+|
+|upkeep
+|turn|29
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|134/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|30
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|cant|p2a: Klinklang|par
+|
+|upkeep
+|turn|31
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|113/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|32
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang|[miss]
+|-miss|p1a: Tangrowth|p2a: Klinklang
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|95/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|33
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang|[miss]
+|-miss|p1a: Tangrowth|p2a: Klinklang
+|cant|p2a: Klinklang|par
+|
+|upkeep
+|turn|34
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|76/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|35
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|cant|p2a: Klinklang|par
+|
+|upkeep
+|turn|36
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|57/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|37
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang|[miss]
+|-miss|p1a: Tangrowth|p2a: Klinklang
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|39/404
+|-damage|p2a: Klinklang|241/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|38
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|cant|p2a: Klinklang|par
+|
+|upkeep
+|turn|39
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-crit|p1a: Tangrowth
+|-damage|p1a: Tangrowth|12/404
+|-damage|p2a: Klinklang|239/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|turn|40
+|
+|move|p1a: Tangrowth|Stun Spore|p2a: Klinklang
+|-fail|p2a: Klinklang|par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Wild Charge|p1a: Tangrowth
+|-resisted|p1a: Tangrowth
+|-damage|p1a: Tangrowth|0 fnt
+|faint|p1a: Tangrowth
+|-damage|p2a: Klinklang|243/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|246/246 par|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Flaaffy|Flaaffy, M|344/344
+|turn|41
+|
+|move|p1a: Flaaffy|Secret Power|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|223/246 par
+|move|p2a: Klinklang|Wild Charge|p1a: Flaaffy
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|314/344
+|-damage|p2a: Klinklang|215/246 par|[from] Recoil
+|
+|-heal|p2a: Klinklang|230/246 par|[from] item: Leftovers
+|upkeep
+|turn|42
+|
+|move|p1a: Flaaffy|Secret Power|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|207/246 par
+|cant|p2a: Klinklang|par
+|
+|-heal|p2a: Klinklang|222/246 par|[from] item: Leftovers
+|upkeep
+|turn|43
+|
+|move|p1a: Flaaffy|Secret Power|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|201/246 par
+|move|p2a: Klinklang|Gear Grind|p1a: Flaaffy
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|289/344
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|260/344
+|-hitcount|p1a: Flaaffy|2
+|
+|-heal|p2a: Klinklang|216/246 par|[from] item: Leftovers
+|upkeep
+|turn|44
+|
+|move|p1a: Flaaffy|Secret Power|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|192/246 par
+|move|p2a: Klinklang|Gear Grind|p1a: Flaaffy
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|232/344
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|203/344
+|-hitcount|p1a: Flaaffy|2
+|
+|-heal|p2a: Klinklang|207/246 par|[from] item: Leftovers
+|upkeep
+|turn|45
+|
+|move|p1a: Flaaffy|Secret Power|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-crit|p2a: Klinklang
+|-damage|p2a: Klinklang|171/246 par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Gear Grind|p1a: Flaaffy
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|176/344
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|150/344
+|-hitcount|p1a: Flaaffy|2
+|
+|-heal|p2a: Klinklang|186/246 par|[from] item: Leftovers
+|upkeep
+|turn|46
+|
+|move|p1a: Flaaffy|Secret Power|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|163/246 par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Gear Grind|p1a: Flaaffy
+|-resisted|p1a: Flaaffy
+|-crit|p1a: Flaaffy
+|-damage|p1a: Flaaffy|111/344
+|-resisted|p1a: Flaaffy
+|-crit|p1a: Flaaffy
+|-damage|p1a: Flaaffy|67/344
+|-hitcount|p1a: Flaaffy|2
+|
+|-heal|p2a: Klinklang|178/246 par|[from] item: Leftovers
+|upkeep
+|turn|47
+|
+|move|p1a: Flaaffy|Secret Power|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|156/246 par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Gear Grind|p1a: Flaaffy
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|42/344
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|14/344
+|-hitcount|p1a: Flaaffy|2
+|
+|-heal|p2a: Klinklang|171/246 par|[from] item: Leftovers
+|upkeep
+|turn|48
+|
+|move|p1a: Flaaffy|Secret Power|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|147/246 par
+|debug|move failed because it did nothing
+|move|p2a: Klinklang|Gear Grind|p1a: Flaaffy
+|-resisted|p1a: Flaaffy
+|-damage|p1a: Flaaffy|0 fnt
+|faint|p1a: Flaaffy
+|-hitcount|p1: Flaaffy|1
+|
+|-heal|p2a: Klinklang|162/246 par|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Tentacool|Tentacool, M|284/284
+|turn|49
+|
+|move|p1a: Tentacool|Frustration|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|161/246 par
+|move|p2a: Klinklang|Gear Grind|p1a: Tentacool
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|251/284
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|218/284
+|-hitcount|p1a: Tentacool|2
+|
+|-heal|p2a: Klinklang|176/246 par|[from] item: Leftovers
+|upkeep
+|turn|50
+|
+|move|p1a: Tentacool|Frustration|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|175/246 par
+|move|p2a: Klinklang|Gear Grind|p1a: Tentacool
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|184/284
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|148/284
+|-hitcount|p1a: Tentacool|2
+|
+|-heal|p2a: Klinklang|190/246 par|[from] item: Leftovers
+|upkeep
+|turn|51
+|
+|move|p1a: Tentacool|Frustration|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|189/246 par
+|cant|p2a: Klinklang|par
+|
+|-heal|p2a: Klinklang|204/246 par|[from] item: Leftovers
+|upkeep
+|turn|52
+|
+|move|p1a: Tentacool|Frustration|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|203/246 par
+|move|p2a: Klinklang|Gear Grind|p1a: Tentacool
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|113/284
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|82/284
+|-hitcount|p1a: Tentacool|2
+|
+|-heal|p2a: Klinklang|218/246 par|[from] item: Leftovers
+|upkeep
+|turn|53
+|
+|move|p1a: Tentacool|Frustration|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|217/246 par
+|move|p2a: Klinklang|Gear Grind|p1a: Tentacool
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|48/284
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|18/284
+|-hitcount|p1a: Tentacool|2
+|
+|-heal|p2a: Klinklang|232/246 par|[from] item: Leftovers
+|upkeep
+|turn|54
+|
+|move|p1a: Tentacool|Frustration|p2a: Klinklang
+|-resisted|p2a: Klinklang
+|-damage|p2a: Klinklang|231/246 par
+|move|p2a: Klinklang|Gear Grind|p1a: Tentacool
+|-resisted|p1a: Tentacool
+|-damage|p1a: Tentacool|0 fnt
+|faint|p1a: Tentacool
+|-hitcount|p1: Tentacool|1
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

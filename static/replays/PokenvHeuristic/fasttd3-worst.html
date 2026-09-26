@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen9customgame-2257</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9customgame-2257<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9customgame-2257
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|2|
+|player|p2|Opponent|169|
+|gen|9
+|tier|[Gen 9] Custom Game
+|clearpoke
+|poke|p1|Hippopotas, M|
+|poke|p1|Lileep, F|
+|poke|p1|Musharna, M|
+|poke|p1|Tepig, F|
+|poke|p1|Deoxys-Defense|
+|poke|p1|Mime Jr., F|
+|poke|p2|Vespiquen, L99, F|
+|poke|p2|Diancie, L82|
+|poke|p2|Torkoal, L88, F|
+|poke|p2|Florges-Orange, L85, F|
+|poke|p2|Politoed, L88, F|
+|poke|p2|Polteageist, L78|
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Musharna|Musharna, M|436/436
+|switch|p2a: Florges|Florges-Orange, L85, F|271/271
+|-activate|p1a: Musharna|ability: Forewarn|Moonblast|[of] p2a: Florges
+|turn|1
+|
+|move|p2a: Florges|Moonblast|p1a: Musharna
+|-damage|p1a: Musharna|363/436
+|move|p1a: Musharna|Stored Power|p2a: Florges
+|debug|BP: 20
+|-damage|p2a: Florges|246/271
+|
+|-heal|p2a: Florges|262/271|[from] item: Leftovers
+|upkeep
+|turn|2
+|
+|move|p2a: Florges|Moonblast|p1a: Musharna
+|-damage|p1a: Musharna|288/436
+|move|p1a: Musharna|Stored Power|p2a: Florges
+|debug|BP: 20
+|-damage|p2a: Florges|234/271
+|
+|-heal|p2a: Florges|250/271|[from] item: Leftovers
+|upkeep
+|turn|3
+|
+|move|p2a: Florges|Moonblast|p1a: Musharna
+|-damage|p1a: Musharna|215/436
+|-unboost|p1a: Musharna|spa|1
+|move|p1a: Musharna|Stored Power|p2a: Florges
+|debug|BP: 20
+|-damage|p2a: Florges|231/271
+|
+|-heal|p2a: Florges|247/271|[from] item: Leftovers
+|upkeep
+|turn|4
+|
+|move|p2a: Florges|Moonblast|p1a: Musharna
+|-damage|p1a: Musharna|134/436
+|move|p1a: Musharna|Stored Power|p2a: Florges
+|debug|BP: 20
+|-damage|p2a: Florges|228/271
+|
+|-heal|p2a: Florges|244/271|[from] item: Leftovers
+|upkeep
+|turn|5
+|
+|move|p2a: Florges|Moonblast|p1a: Musharna
+|-damage|p1a: Musharna|47/436
+|move|p1a: Musharna|Stored Power|p2a: Florges
+|debug|BP: 20
+|-damage|p2a: Florges|228/271
+|
+|-heal|p2a: Florges|244/271|[from] item: Leftovers
+|upkeep
+|turn|6
+|
+|move|p2a: Florges|Moonblast|p1a: Musharna
+|-damage|p1a: Musharna|0 fnt
+|faint|p1a: Musharna
+|
+|-heal|p2a: Florges|260/271|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Deoxys|Deoxys-Defense|304/304
+|-ability|p1a: Deoxys|Pressure
+|turn|7
+|
+|move|p1a: Deoxys|Snore||[still]
+|-fail|p1a: Deoxys
+|move|p2a: Florges|Moonblast|p1a: Deoxys
+|-damage|p1a: Deoxys|252/304
+|
+|-heal|p2a: Florges|271/271|[from] item: Leftovers
+|upkeep
+|turn|8
+|
+|move|p1a: Deoxys|Snore||[still]
+|-fail|p1a: Deoxys
+|move|p2a: Florges|Moonblast|p1a: Deoxys
+|-damage|p1a: Deoxys|201/304
+|-unboost|p1a: Deoxys|spa|1
+|
+|upkeep
+|turn|9
+|
+|move|p1a: Deoxys|Snore||[still]
+|-fail|p1a: Deoxys
+|move|p2a: Florges|Moonblast|p1a: Deoxys
+|-damage|p1a: Deoxys|143/304
+|
+|upkeep
+|turn|10
+|
+|move|p1a: Deoxys|Snore||[still]
+|-fail|p1a: Deoxys
+|move|p2a: Florges|Moonblast|p1a: Deoxys
+|-damage|p1a: Deoxys|83/304
+|
+|upkeep
+|turn|11
+|
+|move|p1a: Deoxys|Snore||[still]
+|-fail|p1a: Deoxys
+|move|p2a: Florges|Moonblast|p1a: Deoxys
+|-damage|p1a: Deoxys|29/304
+|
+|upkeep
+|turn|12
+|
+|move|p1a: Deoxys|Snore||[still]
+|-fail|p1a: Deoxys
+|move|p2a: Florges|Moonblast|p1a: Deoxys
+|-damage|p1a: Deoxys|0 fnt
+|faint|p1a: Deoxys
+|
+|upkeep
+|
+|switch|p1a: Hippopotas|Hippopotas, M|340/340
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Hippopotas
+|turn|13
+|
+|move|p2a: Florges|Moonblast|p1a: Hippopotas
+|-damage|p1a: Hippopotas|213/340
+|-unboost|p1a: Hippopotas|spa|1
+|move|p1a: Hippopotas|Rock Tomb|p2a: Florges
+|-damage|p2a: Florges|200/271
+|-unboost|p2a: Florges|spe|1
+|
+|-weather|Sandstorm|[upkeep]
+|debug|natural status immunity
+|debug|weather immunity
+|-damage|p2a: Florges|184/271|[from] Sandstorm
+|-heal|p2a: Florges|200/271|[from] item: Leftovers
+|upkeep
+|turn|14
+|
+|move|p1a: Hippopotas|Rock Tomb|p2a: Florges
+|-damage|p2a: Florges|117/271
+|-unboost|p2a: Florges|spe|1
+|move|p2a: Florges|Moonblast|p1a: Hippopotas
+|-damage|p1a: Hippopotas|93/340
+|
+|-weather|Sandstorm|[upkeep]
+|debug|natural status immunity
+|debug|weather immunity
+|-damage|p2a: Florges|101/271|[from] Sandstorm
+|-heal|p2a: Florges|117/271|[from] item: Leftovers
+|upkeep
+|turn|15
+|
+|move|p1a: Hippopotas|Rock Tomb|p2a: Florges
+|-crit|p2a: Florges
+|-damage|p2a: Florges|5/271
+|-unboost|p2a: Florges|spe|1
+|move|p2a: Florges|Moonblast|p1a: Hippopotas
+|-damage|p1a: Hippopotas|0 fnt
+|faint|p1a: Hippopotas
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Florges|0 fnt|[from] Sandstorm
+|faint|p2a: Florges
+|upkeep
+|
+|switch|p2a: Politoed|Politoed, L88, F|302/302
+|switch|p1a: Lileep|Lileep, F|336/336
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Politoed
+|turn|16
+|
+|move|p2a: Politoed|Ice Beam|p1a: Lileep
+|-supereffective|p1a: Lileep
+|-damage|p1a: Lileep|240/336
+|move|p1a: Lileep|Return|p2a: Politoed
+|-damage|p2a: Politoed|228/302
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Politoed|246/302|[from] item: Leftovers
+|upkeep
+|turn|17
+|
+|-terastallize|p1a: Lileep|Rock
+|move|p2a: Politoed|Ice Beam|p1a: Lileep
+|-damage|p1a: Lileep|192/336
+|-status|p1a: Lileep|frz
+|cant|p1a: Lileep|frz
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Politoed|264/302|[from] item: Leftovers
+|upkeep
+|turn|18
+|
+|move|p2a: Politoed|Surf|p1a: Lileep
+|debug|rain water boost
+|-supereffective|p1a: Lileep
+|-damage|p1a: Lileep|0 fnt
+|faint|p1a: Lileep
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Politoed|282/302|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Tepig|Tepig, F|334/334
+|turn|19
+|
+|move|p1a: Tepig|Heat Wave|p2a: Politoed
+|debug|rain fire suppress
+|-resisted|p2a: Politoed
+|-damage|p2a: Politoed|261/302
+|move|p2a: Politoed|Surf|p1a: Tepig
+|debug|rain water boost
+|-supereffective|p1a: Tepig
+|-damage|p1a: Tepig|44/334
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Politoed|279/302|[from] item: Leftovers
+|upkeep
+|turn|20
+|
+|move|p1a: Tepig|Heat Wave|p2a: Politoed|[miss]
+|-miss|p1a: Tepig|p2a: Politoed
+|move|p2a: Politoed|Surf|p1a: Tepig
+|debug|rain water boost
+|-supereffective|p1a: Tepig
+|-damage|p1a: Tepig|0 fnt
+|faint|p1a: Tepig
+|
+|-weather|none
+|-heal|p2a: Politoed|297/302|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Mime Jr.|Mime Jr., F|244/244
+|turn|21
+|
+|move|p1a: Mime Jr.|Future Sight|p2a: Politoed
+|-start|p1a: Mime Jr.|move: Future Sight
+|move|p2a: Politoed|Surf|p1a: Mime Jr.
+|-damage|p1a: Mime Jr.|177/244
+|
+|-heal|p2a: Politoed|302/302|[from] item: Leftovers
+|upkeep
+|turn|22
+|
+|move|p1a: Mime Jr.|Future Sight||[still]
+|-fail|p1a: Mime Jr.
+|move|p2a: Politoed|Surf|p1a: Mime Jr.
+|-damage|p1a: Mime Jr.|102/244
+|
+|upkeep
+|turn|23
+|
+|move|p1a: Mime Jr.|Future Sight||[still]
+|-fail|p1a: Mime Jr.
+|move|p2a: Politoed|Surf|p1a: Mime Jr.
+|-damage|p1a: Mime Jr.|32/244
+|
+|-end|p2a: Politoed|move: Future Sight
+|-damage|p2a: Politoed|167/302
+|-heal|p2a: Politoed|185/302|[from] item: Leftovers
+|upkeep
+|turn|24
+|
+|move|p1a: Mime Jr.|Future Sight|p2a: Politoed
+|-start|p1a: Mime Jr.|move: Future Sight
+|move|p2a: Politoed|Surf|p1a: Mime Jr.
+|-damage|p1a: Mime Jr.|0 fnt
+|faint|p1a: Mime Jr.
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

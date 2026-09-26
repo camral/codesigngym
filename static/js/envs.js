@@ -94,7 +94,8 @@ window.ENV_FAMILIES = [
     design: 'the team: species, moves, EVs, item, nature, ability × 6 slots', policy: 'the battle strategy, turn by turn',
     presets: [['Random / MaxPower / Heuristic opponent', '+28 / −28'], ['League G1–G9, fixed gauntlet', '+140 / −28'], ['League …H: team state carries over', '+140 / −28'], ['League Rand / RandH: random generation', '+140 / −28']],
     example: 'PokenvRandom', credit: 'Aviraj Newatia; built on Pokémon Showdown and poke-env.',
-    poster: 'static/images/envs/pokenv.svg', note: 'Illustration: battles run on a Showdown server cluster and have no rendered video.'
+    poster: 'static/images/envs/pokenv.svg', replay: { src: 'static/replays/PokenvMaxPower/fasttd3-best.html' },
+    note: 'A real final-evaluation battle (FastTD3 on PokenvMaxPower, best seed), replayed by the Pokémon Showdown client. Only the text battle log is hosted here; the client and its artwork load from play.pokemonshowdown.com. Press Play.'
   }
 ];
 

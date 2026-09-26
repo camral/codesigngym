@@ -15,6 +15,7 @@ fetches JSON, so `file://` will not work).
 | Playground | `static/js/playground.js`: exact 1-DOF LQ cost landscape (closed-form Lyapunov solve) |
 | Environment cards + modals | `static/js/envs.js` (facts from the codesign-gym README) |
 | Baseline results explorer | `static/data/results.json`, `static/data/videos.json`, `static/video/<preset>/<method>.mp4` |
+| Pokémon battle replays | `static/replays/<preset>/<method>-{best,worst}.html`, `static/data/replays.json` |
 | Diagrams | `static/figures/*.svg` (+ editable `.drawio` sources) |
 
 ## Regenerating data and media
@@ -25,12 +26,18 @@ All scripts assume `../codesign-gym` is a checkout with `baseline_figures/_wandb
 python tools/export_results.py              # results.json via codesign-gym/make_figures.py (same numbers as the paper tables)
 python tools/fetch_videos.py                # best-seed final-eval video per (preset, method) from wandb; needs wandb login
 PYTHON=python tools/make_showcase.sh        # per-family showcase clips (+ follow-cropped locomotion montage)
+python tools/fetch_replays.py               # Pokémon: best/worst eval battle replays (poke-env HTML) + team/outcome summary
 ```
 
 `tools/track_crop.py` follow-crops fixed-camera MuJoCo rollouts around the robot. The Shape-shifting Hand clip is a
 design sweep rendered from the env's hand model in plain MuJoCo (pad heights blended between random valid designs), and the
 SoftWalker clips are the env's own renders; the page labels both as such. Every other clip is a final-evaluation rollout
 from the baseline runs.
+
+The Pokémon environments have no video; their runs log poke-env battle replays instead. Each replay page holds only the
+text battle log and loads Showdown's `replay-embed.js` client (and its artwork) from play.pokemonshowdown.com at view time,
+the same way Showdown's own shared replays work. The page embeds them in an iframe rendered at the client's native ~800 px
+width and scaled to fit.
 
 ## Credits
 

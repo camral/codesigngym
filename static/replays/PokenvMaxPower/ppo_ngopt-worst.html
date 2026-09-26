@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen6customgame-1857</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen6customgame-1857<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen6customgame-1857
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|102|
+|player|p2|Opponent|169|
+|gen|6
+|tier|[Gen 6] Custom Game
+|clearpoke
+|poke|p1|Gogoat, F|
+|poke|p1|Croagunk, M|
+|poke|p1|Zekrom|
+|poke|p1|Ponyta, M|
+|poke|p1|Moltres|
+|poke|p1|Vanillish, M|
+|poke|p2|Meloetta, L82|item
+|poke|p2|Salamence, L75, F|item
+|poke|p2|Blastoise, L86, M|item
+|poke|p2|Persian, L91, F|item
+|poke|p2|Mawile, L76, M|item
+|poke|p2|Slurpuff, L77, F|item
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Gogoat|Gogoat, F|450/450
+|switch|p2a: Salamence|Salamence, L75, F|266/266
+|turn|1
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|1
+|-boost|p1a: Gogoat|def|1
+|move|p2a: Salamence|Outrage|p1a: Gogoat
+|-damage|p1a: Gogoat|377/450
+|
+|upkeep
+|turn|2
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|1
+|-boost|p1a: Gogoat|def|1
+|move|p2a: Salamence|Outrage|p1a: Gogoat|[from] lockedmove
+|-damage|p1a: Gogoat|317/450
+|
+|upkeep
+|turn|3
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|1
+|-boost|p1a: Gogoat|def|1
+|move|p2a: Salamence|Outrage|p1a: Gogoat|[from] lockedmove
+|-damage|p1a: Gogoat|274/450
+|-start|p2a: Salamence|confusion|[fatigue]
+|-enditem|p2a: Salamence|Lum Berry|[eat]
+|-end|p2a: Salamence|confusion
+|
+|upkeep
+|turn|4
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|1
+|-boost|p1a: Gogoat|def|1
+|move|p2a: Salamence|Outrage|p1a: Gogoat
+|-damage|p1a: Gogoat|238/450
+|
+|upkeep
+|turn|5
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|1
+|-boost|p1a: Gogoat|def|1
+|move|p2a: Salamence|Outrage|p1a: Gogoat|[from] lockedmove
+|-damage|p1a: Gogoat|208/450
+|-start|p2a: Salamence|confusion|[fatigue]
+|
+|upkeep
+|turn|6
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|1
+|-boost|p1a: Gogoat|def|1
+|-activate|p2a: Salamence|confusion
+|move|p2a: Salamence|Outrage|p1a: Gogoat
+|-damage|p1a: Gogoat|178/450
+|
+|upkeep
+|turn|7
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|0
+|-boost|p1a: Gogoat|def|0
+|debug|move failed because it did nothing
+|-activate|p2a: Salamence|confusion
+|-damage|p2a: Salamence|231/266|[from] confusion
+|
+|upkeep
+|turn|8
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|0
+|-boost|p1a: Gogoat|def|0
+|debug|move failed because it did nothing
+|-activate|p2a: Salamence|confusion
+|-damage|p2a: Salamence|192/266|[from] confusion
+|
+|upkeep
+|turn|9
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|0
+|-boost|p1a: Gogoat|def|0
+|debug|move failed because it did nothing
+|-end|p2a: Salamence|confusion
+|move|p2a: Salamence|Outrage|p1a: Gogoat
+|-damage|p1a: Gogoat|148/450
+|
+|upkeep
+|turn|10
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|0
+|-boost|p1a: Gogoat|def|0
+|debug|move failed because it did nothing
+|move|p2a: Salamence|Outrage|p1a: Gogoat|[from] lockedmove
+|-damage|p1a: Gogoat|121/450
+|
+|upkeep
+|turn|11
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|0
+|-boost|p1a: Gogoat|def|0
+|debug|move failed because it did nothing
+|move|p2a: Salamence|Outrage|p1a: Gogoat|[from] lockedmove
+|-damage|p1a: Gogoat|90/450
+|-start|p2a: Salamence|confusion|[fatigue]
+|
+|upkeep
+|turn|12
+|
+|move|p1a: Gogoat|Bulk Up|p1a: Gogoat
+|-boost|p1a: Gogoat|atk|0
+|-boost|p1a: Gogoat|def|0
+|debug|move failed because it did nothing
+|-activate|p2a: Salamence|confusion
+|move|p2a: Salamence|Outrage|p1a: Gogoat
+|debug|Negating (sp)def boost/penalty.
+|-crit|p1a: Gogoat
+|-damage|p1a: Gogoat|0 fnt
+|faint|p1a: Gogoat
+|-ability|p2a: Salamence|Moxie|boost
+|-boost|p2a: Salamence|atk|1
+|
+|upkeep
+|
+|switch|p1a: Zekrom|Zekrom|404/404
+|-ability|p1a: Zekrom|Teravolt
+|turn|13
+|
+|move|p1a: Zekrom|Psychic|p2a: Salamence
+|-damage|p2a: Salamence|65/266
+|-activate|p2a: Salamence|confusion
+|move|p2a: Salamence|Outrage|p1a: Zekrom|[from] lockedmove
+|-supereffective|p1a: Zekrom
+|-crit|p1a: Zekrom
+|-damage|p1a: Zekrom|84/404
+|
+|upkeep
+|turn|14
+|
+|move|p1a: Zekrom|Psychic|p2a: Salamence
+|-damage|p2a: Salamence|0 fnt
+|faint|p2a: Salamence
+|
+|upkeep
+|
+|switch|p2a: Blastoise|Blastoise, L86, M|276/276
+|turn|15
+|
+|move|p1a: Zekrom|Psychic|p2a: Blastoise
+|-damage|p2a: Blastoise|185/276
+|move|p2a: Blastoise|Scald|p1a: Zekrom
+|-resisted|p1a: Zekrom
+|-damage|p1a: Zekrom|57/404
+|-status|p1a: Zekrom|brn
+|
+|-heal|p2a: Blastoise|202/276|[from] item: Leftovers
+|-damage|p1a: Zekrom|7/404 brn|[from] brn
+|upkeep
+|turn|16
+|
+|move|p1a: Zekrom|Psychic|p2a: Blastoise
+|-damage|p2a: Blastoise|114/276
+|move|p2a: Blastoise|Scald|p1a: Zekrom
+|-resisted|p1a: Zekrom
+|-damage|p1a: Zekrom|0 fnt
+|faint|p1a: Zekrom
+|
+|-heal|p2a: Blastoise|131/276|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Moltres|Moltres|384/384
+|-ability|p1a: Moltres|Pressure
+|turn|17
+|
+|move|p1a: Moltres|Double Team|p1a: Moltres
+|-boost|p1a: Moltres|evasion|1
+|move|p2a: Blastoise|Scald|p1a: Moltres
+|-supereffective|p1a: Moltres
+|-damage|p1a: Moltres|268/384
+|
+|-heal|p2a: Blastoise|148/276|[from] item: Leftovers
+|upkeep
+|turn|18
+|
+|move|p1a: Moltres|Double Team|p1a: Moltres
+|-boost|p1a: Moltres|evasion|1
+|move|p2a: Blastoise|Scald|p1a: Moltres
+|-supereffective|p1a: Moltres
+|-damage|p1a: Moltres|152/384
+|
+|-heal|p2a: Blastoise|165/276|[from] item: Leftovers
+|upkeep
+|turn|19
+|
+|move|p1a: Moltres|Double Team|p1a: Moltres
+|-boost|p1a: Moltres|evasion|1
+|move|p2a: Blastoise|Scald|p1a: Moltres|[miss]
+|-miss|p2a: Blastoise|p1a: Moltres
+|
+|-heal|p2a: Blastoise|182/276|[from] item: Leftovers
+|upkeep
+|turn|20
+|
+|move|p1a: Moltres|Double Team|p1a: Moltres
+|-boost|p1a: Moltres|evasion|1
+|move|p2a: Blastoise|Scald|p1a: Moltres|[miss]
+|-miss|p2a: Blastoise|p1a: Moltres
+|
+|-heal|p2a: Blastoise|199/276|[from] item: Leftovers
+|upkeep
+|turn|21
+|
+|move|p1a: Moltres|Double Team|p1a: Moltres
+|-boost|p1a: Moltres|evasion|1
+|move|p2a: Blastoise|Scald|p1a: Moltres
+|-supereffective|p1a: Moltres
+|-damage|p1a: Moltres|30/384
+|debug|natural status immunity
+|debug|immune to status
+|debug|move failed because it did nothing
+|
+|-heal|p2a: Blastoise|216/276|[from] item: Leftovers
+|upkeep
+|turn|22
+|
+|move|p1a: Moltres|Double Team|p1a: Moltres
+|-boost|p1a: Moltres|evasion|1
+|move|p2a: Blastoise|Scald|p1a: Moltres|[miss]
+|-miss|p2a: Blastoise|p1a: Moltres
+|
+|-heal|p2a: Blastoise|233/276|[from] item: Leftovers
+|upkeep
+|turn|23
+|
+|move|p1a: Moltres|Double Team|p1a: Moltres
+|-boost|p1a: Moltres|evasion|0
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Scald|p1a: Moltres
+|-supereffective|p1a: Moltres
+|-damage|p1a: Moltres|0 fnt
+|faint|p1a: Moltres
+|
+|-heal|p2a: Blastoise|250/276|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Croagunk|Croagunk, M|300/300
+|turn|24
+|
+|move|p2a: Blastoise|Scald|p1a: Croagunk
+|-damage|p1a: Croagunk|207/300
+|move|p1a: Croagunk|Me First||[still]
+|-fail|p1a: Croagunk
+|
+|-heal|p2a: Blastoise|267/276|[from] item: Leftovers
+|upkeep
+|turn|25
+|
+|move|p2a: Blastoise|Scald|p1a: Croagunk
+|-damage|p1a: Croagunk|114/300
+|move|p1a: Croagunk|Me First||[still]
+|-fail|p1a: Croagunk
+|
+|-heal|p2a: Blastoise|276/276|[from] item: Leftovers
+|upkeep
+|turn|26
+|
+|move|p2a: Blastoise|Scald|p1a: Croagunk
+|-damage|p1a: Croagunk|23/300
+|move|p1a: Croagunk|Me First||[still]
+|-fail|p1a: Croagunk
+|
+|upkeep
+|turn|27
+|
+|move|p2a: Blastoise|Scald|p1a: Croagunk
+|-damage|p1a: Croagunk|0 fnt
+|debug|move failed because it did nothing
+|faint|p1a: Croagunk
+|
+|upkeep
+|
+|switch|p1a: Ponyta|Ponyta, M|304/304
+|turn|28
+|
+|move|p1a: Ponyta|Round|p2a: Blastoise
+|-damage|p2a: Blastoise|227/276
+|move|p2a: Blastoise|Scald|p1a: Ponyta
+|-supereffective|p1a: Ponyta
+|-damage|p1a: Ponyta|176/304
+|
+|-heal|p2a: Blastoise|244/276|[from] item: Leftovers
+|upkeep
+|turn|29
+|
+|move|p1a: Ponyta|Round|p2a: Blastoise
+|-crit|p2a: Blastoise
+|-damage|p2a: Blastoise|166/276
+|move|p2a: Blastoise|Scald|p1a: Ponyta
+|-supereffective|p1a: Ponyta
+|-damage|p1a: Ponyta|30/304
+|debug|natural status immunity
+|debug|immune to status
+|debug|move failed because it did nothing
+|
+|-heal|p2a: Blastoise|183/276|[from] item: Leftovers
+|upkeep
+|turn|30
+|
+|move|p1a: Ponyta|Round|p2a: Blastoise
+|-damage|p2a: Blastoise|137/276
+|move|p2a: Blastoise|Scald|p1a: Ponyta
+|-supereffective|p1a: Ponyta
+|-damage|p1a: Ponyta|0 fnt
+|faint|p1a: Ponyta
+|
+|-heal|p2a: Blastoise|154/276|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Vanillish|Vanillish, M|306/306
+|turn|31
+|
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-fail|p1a: Vanillish|heal
+|move|p2a: Blastoise|Scald|p1a: Vanillish
+|-damage|p1a: Vanillish|240/306
+|
+|-heal|p2a: Blastoise|171/276|[from] item: Leftovers
+|upkeep
+|turn|32
+|
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|297/306 slp
+|
+|-heal|p2a: Blastoise|188/276|[from] item: Leftovers
+|upkeep
+|turn|33
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|286/306 slp
+|
+|-heal|p2a: Blastoise|205/276|[from] item: Leftovers
+|upkeep
+|turn|34
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|276/306 slp
+|
+|-heal|p2a: Blastoise|222/276|[from] item: Leftovers
+|upkeep
+|turn|35
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-crit|p1a: Vanillish
+|-damage|p1a: Vanillish|293/306 slp
+|
+|-heal|p2a: Blastoise|239/276|[from] item: Leftovers
+|upkeep
+|turn|36
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|283/306 slp
+|
+|-heal|p2a: Blastoise|256/276|[from] item: Leftovers
+|upkeep
+|turn|37
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|274/306 slp
+|
+|-heal|p2a: Blastoise|273/276|[from] item: Leftovers
+|upkeep
+|turn|38
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-crit|p1a: Vanillish
+|-damage|p1a: Vanillish|293/306 slp
+|
+|-heal|p2a: Blastoise|276/276|[from] item: Leftovers
+|upkeep
+|turn|39
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|283/306 slp
+|
+|upkeep
+|turn|40
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|273/306 slp
+|
+|upkeep
+|turn|41
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|296/306 slp
+|
+|upkeep
+|turn|42
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|287/306 slp
+|
+|upkeep
+|turn|43
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|276/306 slp
+|
+|upkeep
+|turn|44
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|296/306 slp
+|
+|upkeep
+|turn|45
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|287/306 slp
+|
+|upkeep
+|turn|46
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|277/306 slp
+|
+|upkeep
+|turn|47
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|296/306 slp
+|
+|upkeep
+|turn|48
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|287/306 slp
+|
+|upkeep
+|turn|49
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|278/306 slp
+|
+|upkeep
+|turn|50
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|296/306 slp
+|
+|upkeep
+|turn|51
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|286/306 slp
+|
+|upkeep
+|turn|52
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|277/306 slp
+|
+|upkeep
+|turn|53
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|297/306 slp
+|
+|upkeep
+|turn|54
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|287/306 slp
+|
+|upkeep
+|turn|55
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|277/306 slp
+|
+|upkeep
+|turn|56
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|296/306 slp
+|
+|upkeep
+|turn|57
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|286/306 slp
+|
+|upkeep
+|turn|58
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|277/306 slp
+|
+|upkeep
+|turn|59
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|297/306 slp
+|
+|upkeep
+|turn|60
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|287/306 slp
+|
+|upkeep
+|turn|61
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|277/306 slp
+|
+|upkeep
+|turn|62
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|296/306 slp
+|
+|upkeep
+|turn|63
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|286/306 slp
+|
+|upkeep
+|turn|64
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|277/306 slp
+|
+|upkeep
+|turn|65
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|297/306 slp
+|
+|upkeep
+|turn|66
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|288/306 slp
+|
+|upkeep
+|turn|67
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-crit|p1a: Vanillish
+|-damage|p1a: Vanillish|273/306 slp
+|
+|upkeep
+|turn|68
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|296/306 slp
+|
+|upkeep
+|turn|69
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|286/306 slp
+|
+|upkeep
+|turn|70
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|277/306 slp
+|
+|upkeep
+|turn|71
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-crit|p1a: Vanillish
+|-damage|p1a: Vanillish|291/306 slp
+|
+|upkeep
+|turn|72
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|281/306 slp
+|
+|upkeep
+|turn|73
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|271/306 slp
+|
+|upkeep
+|turn|74
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Rest|p1a: Vanillish
+|-status|p1a: Vanillish|slp|[from] move: Rest
+|-heal|p1a: Vanillish|306/306 slp|[silent]
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|296/306 slp
+|
+|upkeep
+|turn|75
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|286/306 slp
+|
+|upkeep
+|turn|76
+|
+|cant|p1a: Vanillish|slp
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|277/306 slp
+|
+|upkeep
+|turn|77
+|
+|-curestatus|p1a: Vanillish|slp|[msg]
+|move|p1a: Vanillish|Imprison|p1a: Vanillish
+|-start|p1a: Vanillish|move: Imprison
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|267/306
+|
+|upkeep
+|turn|78
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|257/306
+|
+|upkeep
+|turn|79
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|247/306
+|
+|upkeep
+|turn|80
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|238/306
+|
+|upkeep
+|turn|81
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|228/306
+|
+|upkeep
+|turn|82
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|219/306
+|
+|upkeep
+|turn|83
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-crit|p1a: Vanillish
+|-damage|p1a: Vanillish|203/306
+|
+|upkeep
+|turn|84
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|193/306
+|
+|upkeep
+|turn|85
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|183/306
+|
+|upkeep
+|turn|86
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|174/306
+|
+|upkeep
+|turn|87
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|164/306
+|
+|upkeep
+|turn|88
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|155/306
+|
+|upkeep
+|turn|89
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|146/306
+|
+|upkeep
+|turn|90
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|137/306
+|
+|upkeep
+|turn|91
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|128/306
+|
+|upkeep
+|turn|92
+|
+|move|p1a: Vanillish|Imprison||[still]
+|-fail|p1a: Vanillish
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|118/306
+|
+|upkeep
+|turn|93
+|
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|2
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|debug|Negating (sp)def boost/penalty.
+|-crit|p1a: Vanillish
+|-damage|p1a: Vanillish|103/306
+|
+|upkeep
+|turn|94
+|
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|2
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|99/306
+|
+|upkeep
+|turn|95
+|
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|2
+|move|p2a: Blastoise|Rapid Spin|p1a: Vanillish
+|-damage|p1a: Vanillish|96/306
+|
+|upkeep
+|turn|96
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|97
+|
+|move|p2a: Blastoise|Protect||[still]
+|debug|Success chance: 33%
+|-fail|p2a: Blastoise
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|98
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|99
+|
+|move|p2a: Blastoise|Protect||[still]
+|debug|Success chance: 33%
+|-fail|p2a: Blastoise
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|100
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|101
+|
+|move|p2a: Blastoise|Protect||[still]
+|debug|Success chance: 33%
+|-fail|p2a: Blastoise
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|102
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|103
+|
+|move|p2a: Blastoise|Protect||[still]
+|debug|Success chance: 33%
+|-fail|p2a: Blastoise
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|104
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|105
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|debug|Success chance: 33%
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|106
+|
+|move|p2a: Blastoise|Protect||[still]
+|debug|Success chance: 11%
+|-fail|p2a: Blastoise
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|107
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|108
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|debug|Success chance: 33%
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|109
+|
+|move|p2a: Blastoise|Protect||[still]
+|debug|Success chance: 11%
+|-fail|p2a: Blastoise
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|110
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|111
+|
+|move|p2a: Blastoise|Protect|p2a: Blastoise
+|debug|Success chance: 33%
+|-singleturn|p2a: Blastoise|Protect
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|112
+|
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Toxic|p1a: Vanillish
+|-status|p1a: Vanillish|tox
+|
+|-damage|p1a: Vanillish|77/306 tox|[from] psn
+|upkeep
+|turn|113
+|
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Toxic|p1a: Vanillish|[miss]
+|-miss|p2a: Blastoise|p1a: Vanillish
+|
+|-damage|p1a: Vanillish|39/306 tox|[from] psn
+|upkeep
+|turn|114
+|
+|move|p1a: Vanillish|Acid Armor|p1a: Vanillish
+|-boost|p1a: Vanillish|def|0
+|debug|move failed because it did nothing
+|move|p2a: Blastoise|Toxic|p1a: Vanillish
+|-fail|p1a: Vanillish|tox
+|debug|move failed because it did nothing
+|
+|-damage|p1a: Vanillish|0 fnt|[from] psn
+|faint|p1a: Vanillish
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

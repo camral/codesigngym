@@ -1,0 +1,530 @@
+{
+ "PokenvHeuristic": {
+  "cmaes": {
+   "best": {
+    "agent": [
+     "Indeedee-F",
+     "Cubchoo",
+     "Celesteela",
+     "Spectrier",
+     "Chespin",
+     "Archen"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 9] Custom Game",
+    "opponent": [
+     "Amoonguss",
+     "Reuniclus",
+     "Latios",
+     "Venusaur",
+     "Quagsire",
+     "Ceruledge"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvHeuristic/cmaes-best.html",
+    "team_preview": true,
+    "turns": 15,
+    "won": true
+   },
+   "ret": -11.71,
+   "seed": 4,
+   "worst": {
+    "agent": [
+     "Indeedee-F",
+     "Cubchoo",
+     "Celesteela",
+     "Spectrier",
+     "Chespin",
+     "Archen"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 9] Custom Game",
+    "opponent": [
+     "Vivillon-Modern",
+     "Avalugg-Hisui",
+     "Urshifu",
+     "Chi-Yu",
+     "Okidogi",
+     "Basculegion"
+    ],
+    "opponent_fainted": 1,
+    "src": "static/replays/PokenvHeuristic/cmaes-worst.html",
+    "team_preview": true,
+    "turns": 39,
+    "won": false
+   }
+  },
+  "fasttd3": {
+   "best": {
+    "agent": [
+     "Pawmo",
+     "Registeel",
+     "Marowak-Alola-Totem",
+     "Goodra-Hisui",
+     "Farfetch\u2019d-Galar",
+     "Hydreigon"
+    ],
+    "agent_fainted": 3,
+    "format": "[Gen 9] Custom Game",
+    "opponent": [
+     "Mew",
+     "Toxicroak",
+     "Solgaleo",
+     "Meganium",
+     "Dunsparce",
+     "Golduck"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvHeuristic/fasttd3-best.html",
+    "team_preview": true,
+    "turns": 29,
+    "won": true
+   },
+   "ret": -3.993,
+   "seed": 2,
+   "worst": {
+    "agent": [
+     "Hippopotas",
+     "Lileep",
+     "Musharna",
+     "Tepig",
+     "Deoxys-Defense",
+     "Mime Jr."
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 9] Custom Game",
+    "opponent": [
+     "Vespiquen",
+     "Diancie",
+     "Torkoal",
+     "Florges-Orange",
+     "Politoed",
+     "Polteageist"
+    ],
+    "opponent_fainted": 1,
+    "src": "static/replays/PokenvHeuristic/fasttd3-worst.html",
+    "team_preview": true,
+    "turns": 24,
+    "won": false
+   }
+  },
+  "ppo_ngopt": {
+   "best": {
+    "agent": [
+     "Vivillon-Modern",
+     "Pincurchin",
+     "Stunky",
+     "Alomomola",
+     "Eternatus-Eternamax",
+     "Granbull"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 9] Custom Game",
+    "opponent": [
+     "Vivillon-Modern",
+     "Avalugg-Hisui",
+     "Urshifu",
+     "Chi-Yu",
+     "Okidogi",
+     "Basculegion"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvHeuristic/ppo_ngopt-best.html",
+    "team_preview": true,
+    "turns": 37,
+    "won": true
+   },
+   "ret": 3.43,
+   "seed": 1,
+   "worst": {
+    "agent": [
+     "Vivillon-Modern",
+     "Pincurchin",
+     "Stunky",
+     "Alomomola",
+     "Eternatus-Eternamax",
+     "Granbull"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 9] Custom Game",
+    "opponent": [
+     "Sandy Shocks",
+     "Snorlax",
+     "Infernape",
+     "Vespiquen",
+     "Leafeon",
+     "Slowbro"
+    ],
+    "opponent_fainted": 1,
+    "src": "static/replays/PokenvHeuristic/ppo_ngopt-worst.html",
+    "team_preview": true,
+    "turns": 43,
+    "won": false
+   }
+  }
+ },
+ "PokenvMaxPower": {
+  "cmaes": {
+   "best": {
+    "agent": [
+     "Hawlucha",
+     "Gourgeist",
+     "Mantyke",
+     "Turtwig",
+     "Krookodile",
+     "Salamence"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 6] Custom Game",
+    "opponent": [
+     "Gastrodon",
+     "Hitmontop",
+     "Landorus",
+     "Purugly",
+     "Dusknoir",
+     "Dedenne"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvMaxPower/cmaes-best.html",
+    "team_preview": true,
+    "turns": 75,
+    "won": true
+   },
+   "ret": 1.779,
+   "seed": 1,
+   "worst": {
+    "agent": [
+     "Hawlucha",
+     "Gourgeist",
+     "Mantyke",
+     "Turtwig",
+     "Krookodile",
+     "Salamence"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 6] Custom Game",
+    "opponent": [
+     "Ludicolo",
+     "Tyrantrum",
+     "Liepard",
+     "Simisear",
+     "Mewtwo",
+     "Shaymin"
+    ],
+    "opponent_fainted": 2,
+    "src": "static/replays/PokenvMaxPower/cmaes-worst.html",
+    "team_preview": true,
+    "turns": 34,
+    "won": false
+   }
+  },
+  "fasttd3": {
+   "best": {
+    "agent": [
+     "Blaziken",
+     "Vullaby",
+     "Voltorb",
+     "Ho-Oh",
+     "Electabuzz",
+     "Arceus"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 6] Custom Game",
+    "opponent": [
+     "Terrakion",
+     "Deoxys",
+     "Clawitzer",
+     "Persian",
+     "Avalugg",
+     "Virizion"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvMaxPower/fasttd3-best.html",
+    "team_preview": true,
+    "turns": 15,
+    "won": true
+   },
+   "ret": 0.7162,
+   "seed": 2,
+   "worst": {
+    "agent": [
+     "Girafarig",
+     "Flaaffy",
+     "Electabuzz",
+     "Shellos-East",
+     "Tangrowth",
+     "Tentacool"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 6] Custom Game",
+    "opponent": [
+     "Gyarados",
+     "Girafarig",
+     "Klinklang",
+     "Exploud",
+     "Scyther",
+     "Lilligant"
+    ],
+    "opponent_fainted": 2,
+    "src": "static/replays/PokenvMaxPower/fasttd3-worst.html",
+    "team_preview": true,
+    "turns": 54,
+    "won": false
+   }
+  },
+  "ppo_ngopt": {
+   "best": {
+    "agent": [
+     "Gogoat",
+     "Croagunk",
+     "Zekrom",
+     "Ponyta",
+     "Moltres",
+     "Vanillish"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 6] Custom Game",
+    "opponent": [
+     "Heatmor",
+     "Gothitelle",
+     "Roserade",
+     "Cloyster",
+     "Porygon-Z",
+     "Gyarados"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvMaxPower/ppo_ngopt-best.html",
+    "team_preview": true,
+    "turns": 12,
+    "won": true
+   },
+   "ret": 3.081,
+   "seed": 4,
+   "worst": {
+    "agent": [
+     "Gogoat",
+     "Croagunk",
+     "Zekrom",
+     "Ponyta",
+     "Moltres",
+     "Vanillish"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 6] Custom Game",
+    "opponent": [
+     "Meloetta",
+     "Salamence",
+     "Blastoise",
+     "Persian",
+     "Mawile",
+     "Slurpuff"
+    ],
+    "opponent_fainted": 1,
+    "src": "static/replays/PokenvMaxPower/ppo_ngopt-worst.html",
+    "team_preview": true,
+    "turns": 114,
+    "won": false
+   }
+  }
+ },
+ "PokenvRandom": {
+  "cmaes": {
+   "best": {
+    "agent": [
+     "Entei"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 4] Custom Game",
+    "opponent": [
+     "Farfetch\u2019d",
+     "Pikachu",
+     "Mamoswine",
+     "Exploud",
+     "Mew",
+     "Darkrai"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvRandom/cmaes-best.html",
+    "team_preview": false,
+    "turns": 10,
+    "won": true
+   },
+   "ret": 6.429,
+   "seed": 0,
+   "worst": {
+    "agent": [
+     "Entei",
+     "Arceus-Fighting",
+     "Vileplume",
+     "Monferno",
+     "Kricketune",
+     "Mamoswine"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 4] Custom Game",
+    "opponent": [
+     "Dewgong",
+     "Omastar",
+     "Yanmega",
+     "Hariyama",
+     "Ampharos"
+    ],
+    "opponent_fainted": 2,
+    "src": "static/replays/PokenvRandom/cmaes-worst.html",
+    "team_preview": false,
+    "turns": 59,
+    "won": false
+   }
+  },
+  "fasttd3": {
+   "best": {
+    "agent": [
+     "Rayquaza",
+     "Arceus-Ice"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 4] Custom Game",
+    "opponent": [
+     "Farfetch\u2019d",
+     "Mew",
+     "Exploud",
+     "Darkrai",
+     "Mamoswine",
+     "Pikachu"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvRandom/fasttd3-best.html",
+    "team_preview": false,
+    "turns": 9,
+    "won": true
+   },
+   "ret": 8.61,
+   "seed": 2,
+   "worst": {
+    "agent": [
+     "Dugtrio",
+     "Spheal",
+     "Jirachi",
+     "Poliwrath",
+     "Steelix",
+     "Glameow"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 4] Custom Game",
+    "opponent": [
+     "Regigigas",
+     "Arceus-Grass",
+     "Armaldo",
+     "Empoleon",
+     "Kingdra",
+     "Exeggutor"
+    ],
+    "opponent_fainted": 3,
+    "src": "static/replays/PokenvRandom/fasttd3-worst.html",
+    "team_preview": false,
+    "turns": 75,
+    "won": false
+   }
+  },
+  "loki": {
+   "best": {
+    "agent": [
+     "Luvdisc",
+     "Arceus-Electric"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 4] Custom Game",
+    "opponent": [
+     "Mesprit",
+     "Ursaring",
+     "Pinsir",
+     "Electivire",
+     "Camerupt",
+     "Mamoswine"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvRandom/loki-best.html",
+    "team_preview": false,
+    "turns": 12,
+    "won": true
+   },
+   "ret": 12.9,
+   "seed": 0,
+   "worst": {
+    "agent": [
+     "Chatot",
+     "Venomoth",
+     "Spearow",
+     "Volbeat",
+     "Mothim",
+     "Swalot"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 4] Custom Game",
+    "opponent": [
+     "Raichu",
+     "Walrein",
+     "Wormadam-Trash",
+     "Mr. Mime",
+     "Weavile",
+     "Hippowdon"
+    ],
+    "opponent_fainted": 3,
+    "src": "static/replays/PokenvRandom/loki-worst.html",
+    "team_preview": false,
+    "turns": 74,
+    "won": false
+   }
+  },
+  "ppo_ngopt": {
+   "best": {
+    "agent": [
+     "Rhydon",
+     "Dialga"
+    ],
+    "agent_fainted": 0,
+    "format": "[Gen 4] Custom Game",
+    "opponent": [
+     "Raticate",
+     "Suicune",
+     "Arceus-Ground",
+     "Pikachu",
+     "Quagsire",
+     "Dragonite"
+    ],
+    "opponent_fainted": 6,
+    "src": "static/replays/PokenvRandom/ppo_ngopt-best.html",
+    "team_preview": false,
+    "turns": 9,
+    "won": true
+   },
+   "ret": 11.12,
+   "seed": 3,
+   "worst": {
+    "agent": [
+     "Rhydon",
+     "Dialga",
+     "Swampert",
+     "Crawdaunt",
+     "Torkoal",
+     "Celebi"
+    ],
+    "agent_fainted": 6,
+    "format": "[Gen 4] Custom Game",
+    "opponent": [
+     "Magnezone",
+     "Manaphy",
+     "Clefable",
+     "Blaziken",
+     "Articuno",
+     "Registeel"
+    ],
+    "opponent_fainted": 1,
+    "src": "static/replays/PokenvRandom/ppo_ngopt-worst.html",
+    "team_preview": false,
+    "turns": 67,
+    "won": false
+   }
+  }
+ }
+}

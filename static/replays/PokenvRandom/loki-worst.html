@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen4customgame-1430</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen4customgame-1430<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen4customgame-1430
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|101|
+|player|p2|Opponent|169|
+|gen|4
+|tier|[Gen 4] Custom Game
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Chatot|Chatot, M|356/356
+|switch|p2a: Raichu|Raichu, L86, M|243/243
+|turn|1
+|
+|move|p1a: Chatot|Endure|p1a: Chatot
+|-singleturn|p1a: Chatot|move: Endure
+|move|p2a: Raichu|Surf|p1a: Chatot
+|-damage|p1a: Chatot|264/356
+|-damage|p2a: Raichu|219/243|[from] item: Life Orb
+|
+|upkeep
+|turn|2
+|
+|switch|p1a: Venomoth|Venomoth, M|344/344
+|switch|p2a: Walrein|Walrein, L84, F|322/322
+|
+|upkeep
+|turn|3
+|
+|move|p1a: Venomoth|Sunny Day|p1a: Venomoth
+|-weather|SunnyDay
+|move|p2a: Walrein|Surf|p1a: Venomoth
+|debug|Sunny Day water suppress
+|-damage|p1a: Venomoth|304/344
+|
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|4
+|
+|move|p1a: Venomoth|Sunny Day||[still]
+|-fail|p1a: Venomoth
+|debug|move failed because it did nothing
+|move|p2a: Walrein|Encore|p1a: Venomoth
+|-start|p1a: Venomoth|Encore
+|
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|5
+|
+|move|p1a: Venomoth|Sunny Day||[still]
+|-fail|p1a: Venomoth
+|debug|move failed because it did nothing
+|move|p2a: Walrein|Toxic|p1a: Venomoth
+|debug|natural status immunity
+|debug|immune to status
+|-immune|p1a: Venomoth
+|debug|move failed because it did nothing
+|
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|6
+|
+|switch|p2a: Wormadam|Wormadam-Trash, L95, F|268/268
+|move|p1a: Venomoth|Sunny Day||[still]
+|-fail|p1a: Venomoth
+|debug|move failed because it did nothing
+|
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|7
+|
+|switch|p1a: Spearow|Spearow, F|284/284
+|move|p2a: Wormadam|Toxic|p1a: Spearow
+|-status|p1a: Spearow|tox
+|
+|-weather|none
+|-damage|p1a: Spearow|267/284 tox|[from] psn
+|upkeep
+|turn|8
+|
+|move|p1a: Spearow|Captivate|p2a: Wormadam
+|-immune|p2a: Wormadam
+|move|p2a: Wormadam|Sleep Talk||[still]
+|-fail|p2a: Wormadam
+|
+|-damage|p1a: Spearow|233/284 tox|[from] psn
+|upkeep
+|turn|9
+|
+|move|p1a: Spearow|Captivate|p2a: Wormadam
+|-immune|p2a: Wormadam
+|move|p2a: Wormadam|Sleep Talk||[still]
+|-fail|p2a: Wormadam
+|
+|-damage|p1a: Spearow|182/284 tox|[from] psn
+|upkeep
+|turn|10
+|
+|move|p1a: Spearow|Captivate|p2a: Wormadam
+|-immune|p2a: Wormadam
+|move|p2a: Wormadam|Sleep Talk||[still]
+|-fail|p2a: Wormadam
+|
+|-damage|p1a: Spearow|114/284 tox|[from] psn
+|upkeep
+|turn|11
+|
+|move|p1a: Spearow|Sleep Talk||[still]
+|-fail|p1a: Spearow
+|move|p2a: Wormadam|Toxic|p1a: Spearow
+|-fail|p1a: Spearow|tox
+|debug|move failed because it did nothing
+|
+|-damage|p1a: Spearow|29/284 tox|[from] psn
+|upkeep
+|turn|12
+|
+|move|p1a: Spearow|Captivate|p2a: Wormadam
+|-immune|p2a: Wormadam
+|move|p2a: Wormadam|Toxic|p1a: Spearow|[miss]
+|-miss|p2a: Wormadam|p1a: Spearow
+|
+|-damage|p1a: Spearow|0 fnt|[from] psn
+|faint|p1a: Spearow
+|upkeep
+|
+|switch|p1a: Volbeat|Volbeat, M|334/334
+|turn|13
+|
+|move|p1a: Volbeat|Swift|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|247/268
+|move|p2a: Wormadam|Flash Cannon|p1a: Volbeat
+|-damage|p1a: Volbeat|262/334
+|
+|-heal|p2a: Wormadam|263/268|[from] item: Leftovers
+|upkeep
+|turn|14
+|
+|switch|p2a: Raichu|Raichu, L86, M|219/243
+|move|p1a: Volbeat|Swift|p2a: Raichu
+|-damage|p2a: Raichu|167/243
+|
+|upkeep
+|turn|15
+|
+|move|p1a: Volbeat|Swift|p2a: Raichu
+|-damage|p2a: Raichu|119/243
+|move|p2a: Raichu|Surf|p1a: Volbeat
+|-damage|p1a: Volbeat|194/334
+|-damage|p2a: Raichu|95/243|[from] item: Life Orb
+|
+|upkeep
+|turn|16
+|
+|move|p1a: Volbeat|Swift|p2a: Raichu
+|-damage|p2a: Raichu|49/243
+|move|p2a: Raichu|Focus Blast|p1a: Volbeat
+|-resisted|p1a: Volbeat
+|-damage|p1a: Volbeat|154/334
+|-damage|p2a: Raichu|25/243|[from] item: Life Orb
+|
+|upkeep
+|turn|17
+|
+|move|p1a: Volbeat|Swift|p2a: Raichu
+|-damage|p2a: Raichu|0 fnt
+|faint|p2a: Raichu
+|
+|upkeep
+|
+|switch|p2a: Wormadam|Wormadam-Trash, L95, F|263/268
+|turn|18
+|
+|move|p1a: Volbeat|Helping Hand|null|[notarget]
+|-notarget|p1a: Volbeat
+|move|p2a: Wormadam|Rest|p2a: Wormadam
+|-status|p2a: Wormadam|slp|[from] move: Rest
+|-heal|p2a: Wormadam|268/268 slp|[silent]
+|
+|upkeep
+|turn|19
+|
+|move|p1a: Volbeat|Swift|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|249/268 slp
+|cant|p2a: Wormadam|slp
+|
+|-heal|p2a: Wormadam|265/268 slp|[from] item: Leftovers
+|upkeep
+|turn|20
+|
+|switch|p2a: Walrein|Walrein, L84, F|322/322
+|move|p1a: Volbeat|Helping Hand|null|[notarget]
+|-notarget|p1a: Volbeat
+|
+|upkeep
+|turn|21
+|
+|switch|p2a: Wormadam|Wormadam-Trash, L95, F|265/268 slp
+|move|p1a: Volbeat|Swift|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|245/268 slp
+|
+|-heal|p2a: Wormadam|261/268 slp|[from] item: Leftovers
+|upkeep
+|turn|22
+|
+|move|p1a: Volbeat|Helping Hand|null|[notarget]
+|-notarget|p1a: Volbeat
+|cant|p2a: Wormadam|slp
+|
+|-heal|p2a: Wormadam|268/268 slp|[from] item: Leftovers
+|upkeep
+|turn|23
+|
+|move|p1a: Volbeat|Swift|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|249/268 slp
+|-curestatus|p2a: Wormadam|slp|[msg]
+|move|p2a: Wormadam|Toxic|p1a: Volbeat|[miss]
+|-miss|p2a: Wormadam|p1a: Volbeat
+|
+|-heal|p2a: Wormadam|265/268|[from] item: Leftovers
+|upkeep
+|turn|24
+|
+|move|p1a: Volbeat|Helping Hand|null|[notarget]
+|-notarget|p1a: Volbeat
+|move|p2a: Wormadam|Sleep Talk||[still]
+|-fail|p2a: Wormadam
+|
+|-heal|p2a: Wormadam|268/268|[from] item: Leftovers
+|upkeep
+|turn|25
+|
+|move|p1a: Volbeat|Helping Hand|null|[notarget]
+|-notarget|p1a: Volbeat
+|move|p2a: Wormadam|Flash Cannon|p1a: Volbeat
+|-damage|p1a: Volbeat|91/334
+|
+|upkeep
+|turn|26
+|
+|switch|p2a: Mr. Mime|Mr. Mime, L88, M|214/214
+|move|p1a: Volbeat|Air Cutter|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|184/214
+|
+|-heal|p2a: Mr. Mime|197/214|[from] item: Leftovers
+|upkeep
+|turn|27
+|
+|move|p1a: Volbeat|Air Cutter|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|165/214
+|move|p2a: Mr. Mime|Substitute|p2a: Mr. Mime
+|-start|p2a: Mr. Mime|Substitute
+|-damage|p2a: Mr. Mime|112/214
+|
+|-heal|p2a: Mr. Mime|125/214|[from] item: Leftovers
+|upkeep
+|turn|28
+|
+|move|p1a: Volbeat|Swift|p2a: Mr. Mime
+|-activate|p2a: Mr. Mime|Substitute|[damage]
+|move|p2a: Mr. Mime|Psychic|p1a: Volbeat
+|-crit|p1a: Volbeat
+|-damage|p1a: Volbeat|0 fnt
+|faint|p1a: Volbeat
+|
+|-heal|p2a: Mr. Mime|138/214|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Chatot|Chatot, M|264/356
+|turn|29
+|
+|move|p1a: Chatot|Endure|p1a: Chatot
+|-singleturn|p1a: Chatot|move: Endure
+|move|p2a: Mr. Mime|Psychic|p1a: Chatot
+|-damage|p1a: Chatot|150/356
+|
+|-heal|p2a: Mr. Mime|151/214|[from] item: Leftovers
+|upkeep
+|turn|30
+|
+|move|p1a: Chatot|Double Team|p1a: Chatot
+|-boost|p1a: Chatot|evasion|1
+|move|p2a: Mr. Mime|Psychic|p1a: Chatot
+|-damage|p1a: Chatot|41/356
+|
+|-heal|p2a: Mr. Mime|164/214|[from] item: Leftovers
+|upkeep
+|turn|31
+|
+|move|p1a: Chatot|Double Team|p1a: Chatot
+|-boost|p1a: Chatot|evasion|1
+|move|p2a: Mr. Mime|Substitute|p2a: Mr. Mime
+|-fail|p2a: Mr. Mime|move: Substitute
+|
+|-heal|p2a: Mr. Mime|177/214|[from] item: Leftovers
+|upkeep
+|turn|32
+|
+|move|p1a: Chatot|Double Team|p1a: Chatot
+|-boost|p1a: Chatot|evasion|1
+|move|p2a: Mr. Mime|Psychic|p1a: Chatot
+|-damage|p1a: Chatot|0 fnt
+|faint|p1a: Chatot
+|
+|-heal|p2a: Mr. Mime|190/214|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Venomoth|Venomoth, M|304/344
+|turn|33
+|
+|move|p1a: Venomoth|Stun Spore|p2a: Mr. Mime|[miss]
+|-miss|p1a: Venomoth|p2a: Mr. Mime
+|move|p2a: Mr. Mime|Substitute|p2a: Mr. Mime
+|-fail|p2a: Mr. Mime|move: Substitute
+|
+|-heal|p2a: Mr. Mime|203/214|[from] item: Leftovers
+|upkeep
+|turn|34
+|
+|switch|p2a: Walrein|Walrein, L84, F|322/322
+|move|p1a: Venomoth|Stun Spore|p2a: Walrein
+|-status|p2a: Walrein|par
+|
+|upkeep
+|turn|35
+|
+|switch|p2a: Weavile|Weavile, L75, M|229/229
+|-ability|p2a: Weavile|Pressure
+|move|p1a: Venomoth|Air Cutter|p2a: Weavile|[miss]
+|-miss|p1a: Venomoth|p2a: Weavile
+|
+|upkeep
+|turn|36
+|
+|move|p1a: Venomoth|Air Cutter|p2a: Weavile
+|-damage|p2a: Weavile|145/229
+|move|p2a: Weavile|Ice Punch|p1a: Venomoth
+|-damage|p1a: Venomoth|186/344
+|debug|Shield Dust prevent secondary
+|
+|upkeep
+|turn|37
+|
+|move|p1a: Venomoth|Air Cutter|p2a: Weavile
+|-damage|p2a: Weavile|67/229
+|move|p2a: Weavile|Ice Punch|p1a: Venomoth
+|-damage|p1a: Venomoth|80/344
+|debug|Shield Dust prevent secondary
+|
+|upkeep
+|turn|38
+|
+|move|p1a: Venomoth|Air Cutter|p2a: Weavile
+|-damage|p2a: Weavile|0 fnt
+|faint|p2a: Weavile
+|
+|upkeep
+|
+|switch|p2a: Wormadam|Wormadam-Trash, L95, F|268/268
+|turn|39
+|
+|move|p1a: Venomoth|Air Cutter|p2a: Wormadam
+|-damage|p2a: Wormadam|213/268
+|move|p2a: Wormadam|Toxic|p1a: Venomoth
+|debug|natural status immunity
+|debug|immune to status
+|-immune|p1a: Venomoth
+|debug|move failed because it did nothing
+|
+|-heal|p2a: Wormadam|229/268|[from] item: Leftovers
+|upkeep
+|turn|40
+|
+|move|p1a: Venomoth|Stun Spore|p2a: Wormadam
+|-status|p2a: Wormadam|par
+|move|p2a: Wormadam|Flash Cannon|p1a: Venomoth
+|-damage|p1a: Venomoth|8/344
+|debug|Shield Dust prevent secondary
+|
+|-heal|p2a: Wormadam|245/268 par|[from] item: Leftovers
+|upkeep
+|turn|41
+|
+|move|p1a: Venomoth|Air Cutter|p2a: Wormadam
+|-damage|p2a: Wormadam|187/268 par
+|move|p2a: Wormadam|Sleep Talk||[still]
+|-fail|p2a: Wormadam
+|
+|-heal|p2a: Wormadam|203/268 par|[from] item: Leftovers
+|upkeep
+|turn|42
+|
+|move|p1a: Venomoth|Stun Spore|p2a: Wormadam
+|-fail|p2a: Wormadam|par
+|debug|move failed because it did nothing
+|move|p2a: Wormadam|Sleep Talk||[still]
+|-fail|p2a: Wormadam
+|
+|-heal|p2a: Wormadam|219/268 par|[from] item: Leftovers
+|upkeep
+|turn|43
+|
+|move|p1a: Venomoth|Stun Spore|p2a: Wormadam
+|-fail|p2a: Wormadam|par
+|debug|move failed because it did nothing
+|move|p2a: Wormadam|Toxic|p1a: Venomoth
+|debug|natural status immunity
+|debug|immune to status
+|-immune|p1a: Venomoth
+|debug|move failed because it did nothing
+|
+|-heal|p2a: Wormadam|235/268 par|[from] item: Leftovers
+|upkeep
+|turn|44
+|
+|move|p1a: Venomoth|Stun Spore|p2a: Wormadam|[miss]
+|-miss|p1a: Venomoth|p2a: Wormadam
+|move|p2a: Wormadam|Flash Cannon|p1a: Venomoth
+|-damage|p1a: Venomoth|0 fnt
+|debug|Shield Dust prevent secondary
+|faint|p1a: Venomoth
+|
+|-heal|p2a: Wormadam|251/268 par|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Mothim|Mothim, M|344/344
+|turn|45
+|
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|234/268 par
+|cant|p2a: Wormadam|flinch
+|
+|-heal|p2a: Wormadam|250/268 par|[from] item: Leftovers
+|upkeep
+|turn|46
+|
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|232/268 par
+|cant|p2a: Wormadam|par
+|
+|-heal|p2a: Wormadam|248/268 par|[from] item: Leftovers
+|upkeep
+|turn|47
+|
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|230/268 par
+|move|p2a: Wormadam|Rest|p2a: Wormadam
+|-status|p2a: Wormadam|slp|[from] move: Rest
+|-heal|p2a: Wormadam|268/268 slp|[silent]
+|
+|upkeep
+|turn|48
+|
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|252/268 slp
+|cant|p2a: Wormadam|slp
+|move|p2a: Wormadam|Sleep Talk|p2a: Wormadam
+|move|p2a: Wormadam|Rest||[from] move: Sleep Talk|[still]
+|-fail|p2a: Wormadam
+|
+|-heal|p2a: Wormadam|268/268 slp|[from] item: Leftovers
+|upkeep
+|turn|49
+|
+|move|p1a: Mothim|Return|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|217/268 slp
+|cant|p2a: Wormadam|slp
+|
+|-heal|p2a: Wormadam|233/268 slp|[from] item: Leftovers
+|upkeep
+|turn|50
+|
+|move|p1a: Mothim|Return|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|181/268 slp
+|-curestatus|p2a: Wormadam|slp|[msg]
+|move|p2a: Wormadam|Rest|p2a: Wormadam
+|-status|p2a: Wormadam|slp|[from] move: Rest
+|-heal|p2a: Wormadam|268/268 slp|[silent]
+|
+|upkeep
+|turn|51
+|
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|251/268 slp
+|cant|p2a: Wormadam|slp
+|move|p2a: Wormadam|Sleep Talk|p2a: Wormadam
+|move|p2a: Wormadam|Flash Cannon|p1a: Mothim|[from] move: Sleep Talk
+|-damage|p1a: Mothim|263/344
+|
+|-heal|p2a: Wormadam|267/268 slp|[from] item: Leftovers
+|upkeep
+|turn|52
+|
+|switch|p2a: Mr. Mime|Mr. Mime, L88, M|203/214
+|move|p1a: Mothim|Return|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|63/214
+|
+|-heal|p2a: Mr. Mime|76/214|[from] item: Leftovers
+|upkeep
+|turn|53
+|
+|move|p1a: Mothim|Twister|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|46/214
+|move|p2a: Mr. Mime|Focus Blast|p1a: Mothim
+|-resisted|p1a: Mothim
+|-damage|p1a: Mothim|238/344
+|
+|-heal|p2a: Mr. Mime|59/214|[from] item: Leftovers
+|upkeep
+|turn|54
+|
+|switch|p2a: Wormadam|Wormadam-Trash, L95, F|267/268 slp
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|250/268 slp
+|
+|-heal|p2a: Wormadam|266/268 slp|[from] item: Leftovers
+|upkeep
+|turn|55
+|
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|248/268 slp
+|cant|p2a: Wormadam|slp
+|
+|-heal|p2a: Wormadam|264/268 slp|[from] item: Leftovers
+|upkeep
+|turn|56
+|
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-damage|p2a: Wormadam|247/268 slp
+|-curestatus|p2a: Wormadam|slp|[msg]
+|cant|p2a: Wormadam|flinch
+|
+|-heal|p2a: Wormadam|263/268|[from] item: Leftovers
+|upkeep
+|turn|57
+|
+|move|p1a: Mothim|Twister|p2a: Wormadam
+|-resisted|p2a: Wormadam
+|-crit|p2a: Wormadam
+|-damage|p2a: Wormadam|226/268
+|move|p2a: Wormadam|Rest|p2a: Wormadam
+|-status|p2a: Wormadam|slp|[from] move: Rest
+|-heal|p2a: Wormadam|268/268 slp|[silent]
+|
+|upkeep
+|turn|58
+|
+|switch|p2a: Hippowdon|Hippowdon, L79, F|300/300
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Hippowdon
+|move|p1a: Mothim|Twister|p2a: Hippowdon
+|-damage|p2a: Hippowdon|250/300
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Mothim|217/344|[from] Sandstorm
+|debug|natural status immunity
+|debug|weather immunity
+|-heal|p2a: Hippowdon|268/300|[from] item: Leftovers
+|upkeep
+|turn|59
+|
+|move|p1a: Mothim|Return|p2a: Hippowdon
+|-damage|p2a: Hippowdon|153/300
+|move|p2a: Hippowdon|Toxic|p1a: Mothim
+|-status|p1a: Mothim|tox
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Mothim|196/344 tox|[from] Sandstorm
+|debug|natural status immunity
+|debug|weather immunity
+|-damage|p1a: Mothim|175/344 tox|[from] psn
+|-heal|p2a: Hippowdon|171/300|[from] item: Leftovers
+|upkeep
+|turn|60
+|
+|switch|p2a: Mr. Mime|Mr. Mime, L88, M|59/214
+|move|p1a: Mothim|Return|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|0 fnt
+|faint|p2a: Mr. Mime
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Mothim|154/344 tox|[from] Sandstorm
+|-damage|p1a: Mothim|112/344 tox|[from] psn
+|upkeep
+|
+|switch|p2a: Walrein|Walrein, L84, F|322/322 par
+|turn|61
+|
+|move|p1a: Mothim|Return|p2a: Walrein
+|-damage|p2a: Walrein|203/322 par
+|move|p2a: Walrein|Toxic|p1a: Mothim
+|-fail|p1a: Mothim|tox
+|debug|move failed because it did nothing
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Mothim|91/344 tox|[from] Sandstorm
+|-damage|p2a: Walrein|183/322 par|[from] Sandstorm
+|-damage|p1a: Mothim|28/344 tox|[from] psn
+|-heal|p2a: Walrein|203/322 par|[from] item: Leftovers
+|upkeep
+|turn|62
+|
+|move|p1a: Mothim|Return|p2a: Walrein
+|-damage|p2a: Walrein|82/322 par
+|cant|p2a: Walrein|par
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Mothim|7/344 tox|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-damage|p1a: Mothim|0 fnt|[from] psn
+|faint|p1a: Mothim
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Swalot|Swalot, M|404/404
+|turn|63
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|1
+|move|p2a: Walrein|Ice Beam|p1a: Swalot
+|-damage|p1a: Swalot|335/404
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|310/404|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|turn|64
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|1
+|cant|p2a: Walrein|par
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|285/404|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|turn|65
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|1
+|move|p2a: Walrein|Toxic|p1a: Swalot|[miss]
+|-miss|p2a: Walrein|p1a: Swalot
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|260/404|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|turn|66
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|1
+|cant|p2a: Walrein|par
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|235/404|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|turn|67
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|1
+|move|p2a: Walrein|Encore|p1a: Swalot
+|-start|p1a: Swalot|Encore
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|210/404|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|turn|68
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|1
+|cant|p2a: Walrein|par
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|185/404|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|turn|69
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|0
+|debug|move failed because it did nothing
+|move|p2a: Walrein|Encore||[still]
+|-fail|p2a: Walrein
+|debug|move failed because it did nothing
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|160/404|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|turn|70
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|0
+|debug|move failed because it did nothing
+|cant|p2a: Walrein|par
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|135/404|[from] Sandstorm
+|-damage|p2a: Walrein|62/322 par|[from] Sandstorm
+|-heal|p2a: Walrein|82/322 par|[from] item: Leftovers
+|upkeep
+|turn|71
+|
+|switch|p2a: Hippowdon|Hippowdon, L79, F|171/300
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|0
+|debug|move failed because it did nothing
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|110/404|[from] Sandstorm
+|debug|natural status immunity
+|debug|weather immunity
+|-end|p1a: Swalot|Encore
+|-heal|p2a: Hippowdon|189/300|[from] item: Leftovers
+|upkeep
+|turn|72
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|0
+|debug|move failed because it did nothing
+|move|p2a: Hippowdon|Slack Off|p2a: Hippowdon
+|-heal|p2a: Hippowdon|300/300
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|85/404|[from] Sandstorm
+|debug|natural status immunity
+|debug|weather immunity
+|upkeep
+|turn|73
+|
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|0
+|debug|move failed because it did nothing
+|move|p2a: Hippowdon|Earthquake|p1a: Swalot
+|-supereffective|p1a: Swalot
+|-damage|p1a: Swalot|43/404
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|18/404|[from] Sandstorm
+|debug|natural status immunity
+|debug|weather immunity
+|upkeep
+|turn|74
+|
+|switch|p2a: Wormadam|Wormadam-Trash, L95, F|268/268 slp
+|move|p1a: Swalot|Defense Curl|p1a: Swalot
+|-boost|p1a: Swalot|def|0
+|debug|move failed because it did nothing
+|
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swalot|0 fnt|[from] Sandstorm
+|debug|natural status immunity
+|debug|weather immunity
+|faint|p1a: Swalot
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

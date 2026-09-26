@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen4customgame-1606</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen4customgame-1606<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen4customgame-1606
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|265|
+|player|p2|Opponent|2|
+|gen|4
+|tier|[Gen 4] Custom Game
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Entei|Entei|434/434
+|switch|p2a: Dewgong|Dewgong, L90, M|308/308
+|-ability|p1a: Entei|Pressure
+|turn|1
+|
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|1
+|move|p2a: Dewgong|Rain Dance|p2a: Dewgong
+|-weather|RainDance
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|1
+|move|p2a: Dewgong|Rain Dance||[still]
+|-fail|p2a: Dewgong
+|debug|move failed because it did nothing
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|1
+|move|p2a: Dewgong|Rain Dance||[still]
+|-fail|p2a: Dewgong
+|debug|move failed because it did nothing
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|1
+|move|p2a: Dewgong|Rest|p2a: Dewgong
+|-fail|p2a: Dewgong|heal
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|5
+|
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|1
+|move|p2a: Dewgong|Toxic|p1a: Entei
+|-status|p1a: Entei|tox
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Entei|407/434 tox|[from] psn
+|upkeep
+|turn|6
+|
+|switch|p2a: Omastar|Omastar, L86, F|261/261
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|1
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Entei|353/434 tox|[from] psn
+|upkeep
+|turn|7
+|
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|0
+|debug|move failed because it did nothing
+|move|p2a: Omastar|Ice Beam|p1a: Entei|[miss]
+|-miss|p2a: Omastar|p1a: Entei
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Entei|272/434 tox|[from] psn
+|upkeep
+|turn|8
+|
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|0
+|debug|move failed because it did nothing
+|move|p2a: Omastar|Hydro Pump|p1a: Entei|[miss]
+|-miss|p2a: Omastar|p1a: Entei
+|
+|-weather|none
+|-damage|p1a: Entei|164/434 tox|[from] psn
+|upkeep
+|turn|9
+|
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|0
+|debug|move failed because it did nothing
+|move|p2a: Omastar|Ice Beam|p1a: Entei|[miss]
+|-miss|p2a: Omastar|p1a: Entei
+|
+|-damage|p1a: Entei|29/434 tox|[from] psn
+|upkeep
+|turn|10
+|
+|switch|p2a: Yanmega|Yanmega, L77, F|259/259
+|move|p1a: Entei|Double Team|p1a: Entei
+|-boost|p1a: Entei|evasion|0
+|debug|move failed because it did nothing
+|
+|-damage|p1a: Entei|0 fnt|[from] psn
+|faint|p1a: Entei
+|upkeep
+|
+|switch|p1a: Arceus|Arceus-Fighting|444/444
+|-formechange|p1a: Arceus|Arceus|
+|turn|11
+|
+|switch|p2a: Hariyama|Hariyama, L85, F|384/384
+|move|p1a: Arceus|Trick|p2a: Hariyama
+|-activate|p1a: Arceus|move: Trick|[of] p2a: Hariyama
+|-enditem|p2a: Hariyama|Choice Band|[silent]|[from] move: Trick
+|-item|p1a: Arceus|Choice Band|[from] move: Trick
+|
+|upkeep
+|turn|12
+|
+|move|p1a: Arceus|Trick||[still]
+|-fail|p1a: Arceus
+|debug|move failed because it did nothing
+|move|p2a: Hariyama|Close Combat|p1a: Arceus
+|-supereffective|p1a: Arceus
+|-damage|p1a: Arceus|288/444
+|-unboost|p2a: Hariyama|def|1
+|-unboost|p2a: Hariyama|spd|1
+|
+|upkeep
+|turn|13
+|
+|switch|p2a: Yanmega|Yanmega, L77, F|259/259
+|move|p1a: Arceus|Trick||[still]
+|-fail|p1a: Arceus
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|14
+|
+|move|p1a: Arceus|Trick||[still]
+|-fail|p1a: Arceus
+|debug|move failed because it did nothing
+|move|p2a: Yanmega|Hidden Power|p1a: Arceus
+|debug|BP: 70
+|-damage|p1a: Arceus|250/444
+|-damage|p2a: Yanmega|234/259|[from] item: Life Orb
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|15
+|
+|move|p2a: Yanmega|Protect|p2a: Yanmega
+|-singleturn|p2a: Yanmega|Protect
+|move|p1a: Arceus|Trick|p2a: Yanmega
+|-activate|p2a: Yanmega|Protect
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|16
+|
+|move|p2a: Yanmega|Air Slash|p1a: Arceus
+|-damage|p1a: Arceus|192/444
+|-damage|p2a: Yanmega|209/259|[from] item: Life Orb
+|cant|p1a: Arceus|flinch
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|17
+|
+|move|p2a: Yanmega|Protect|p2a: Yanmega
+|-singleturn|p2a: Yanmega|Protect
+|move|p1a: Arceus|Trick|p2a: Yanmega
+|-activate|p2a: Yanmega|Protect
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|18
+|
+|move|p2a: Yanmega|Protect|p2a: Yanmega
+|debug|Success chance: 50%
+|-singleturn|p2a: Yanmega|Protect
+|move|p1a: Arceus|Trick|p2a: Yanmega
+|-activate|p2a: Yanmega|Protect
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|19
+|
+|move|p2a: Yanmega|Protect||[still]
+|debug|Success chance: 25%
+|-fail|p2a: Yanmega
+|move|p1a: Arceus|Trick||[still]
+|-fail|p1a: Arceus
+|debug|move failed because it did nothing
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|20
+|
+|move|p2a: Yanmega|Air Slash|p1a: Arceus
+|-damage|p1a: Arceus|140/444
+|-damage|p2a: Yanmega|184/259|[from] item: Life Orb
+|cant|p1a: Arceus|flinch
+|
+|upkeep
+|turn|21
+|
+|move|p2a: Yanmega|Hidden Power|p1a: Arceus
+|debug|BP: 70
+|-damage|p1a: Arceus|103/444
+|-damage|p2a: Yanmega|159/259|[from] item: Life Orb
+|move|p1a: Arceus|Trick||[still]
+|-fail|p1a: Arceus
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|22
+|
+|move|p2a: Yanmega|Hidden Power|p1a: Arceus
+|debug|BP: 70
+|-damage|p1a: Arceus|69/444
+|-damage|p2a: Yanmega|134/259|[from] item: Life Orb
+|move|p1a: Arceus|Trick||[still]
+|-fail|p1a: Arceus
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|23
+|
+|move|p2a: Yanmega|Air Slash|p1a: Arceus
+|-damage|p1a: Arceus|8/444
+|-damage|p2a: Yanmega|109/259|[from] item: Life Orb
+|cant|p1a: Arceus|flinch
+|
+|upkeep
+|turn|24
+|
+|move|p2a: Yanmega|Hidden Power|p1a: Arceus
+|debug|BP: 70
+|-damage|p1a: Arceus|0 fnt
+|faint|p1a: Arceus
+|-damage|p2a: Yanmega|84/259|[from] item: Life Orb
+|
+|upkeep
+|
+|switch|p1a: Vileplume|Vileplume, F|354/354
+|turn|25
+|
+|switch|p2a: Ampharos|Ampharos, L86, M|295/295
+|move|p1a: Vileplume|Attract|p2a: Ampharos
+|-start|p2a: Ampharos|Attract
+|
+|upkeep
+|turn|26
+|
+|move|p1a: Vileplume|Attract||[still]
+|-fail|p1a: Vileplume
+|debug|move failed because it did nothing
+|-activate|p2a: Ampharos|move: Attract|[of] p1a: Vileplume
+|move|p2a: Ampharos|Heal Bell|p2a: Ampharos
+|-activate|p2a: Ampharos|move: Heal Bell
+|
+|upkeep
+|turn|27
+|
+|move|p1a: Vileplume|Attract||[still]
+|-fail|p1a: Vileplume
+|debug|move failed because it did nothing
+|-activate|p2a: Ampharos|move: Attract|[of] p1a: Vileplume
+|move|p2a: Ampharos|Thunderbolt|p1a: Vileplume
+|-resisted|p1a: Vileplume
+|-damage|p1a: Vileplume|309/354
+|
+|upkeep
+|turn|28
+|
+|move|p1a: Vileplume|Grass Knot|p2a: Ampharos
+|debug|BP: 80
+|-damage|p2a: Ampharos|136/295
+|-status|p1a: Vileplume|par|[from] ability: Static|[of] p2a: Ampharos
+|-activate|p2a: Ampharos|move: Attract|[of] p1a: Vileplume
+|cant|p2a: Ampharos|Attract
+|
+|-heal|p2a: Ampharos|154/295|[from] item: Leftovers
+|upkeep
+|turn|29
+|
+|switch|p2a: Yanmega|Yanmega, L77, F|84/259
+|move|p1a: Vileplume|Grass Knot|p2a: Yanmega
+|debug|BP: 80
+|-resisted|p2a: Yanmega
+|-damage|p2a: Yanmega|29/259
+|
+|upkeep
+|turn|30
+|
+|switch|p2a: Omastar|Omastar, L86, F|261/261
+|move|p1a: Vileplume|Attract|p2a: Omastar
+|-immune|p2a: Omastar
+|
+|upkeep
+|turn|31
+|
+|move|p2a: Omastar|Hydro Pump|p1a: Vileplume
+|-resisted|p1a: Vileplume
+|-damage|p1a: Vileplume|243/354 par
+|-damage|p2a: Omastar|235/261|[from] item: Life Orb
+|cant|p1a: Vileplume|par
+|
+|upkeep
+|turn|32
+|
+|move|p2a: Omastar|Ice Beam|p1a: Vileplume
+|-supereffective|p1a: Vileplume
+|-damage|p1a: Vileplume|91/354 par
+|-damage|p2a: Omastar|209/261|[from] item: Life Orb
+|move|p1a: Vileplume|Grass Knot|p2a: Omastar
+|debug|BP: 60
+|-supereffective|p2a: Omastar
+|-damage|p2a: Omastar|0 fnt
+|faint|p2a: Omastar
+|
+|upkeep
+|
+|switch|p2a: Yanmega|Yanmega, L77, F|29/259
+|turn|33
+|
+|move|p2a: Yanmega|Protect|p2a: Yanmega
+|-singleturn|p2a: Yanmega|Protect
+|move|p1a: Vileplume|Attract|p2a: Yanmega
+|-immune|p2a: Yanmega
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|34
+|
+|move|p2a: Yanmega|Bug Buzz|p1a: Vileplume
+|-crit|p1a: Vileplume
+|-damage|p1a: Vileplume|0 fnt
+|faint|p1a: Vileplume
+|-damage|p2a: Yanmega|4/259|[from] item: Life Orb
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|
+|switch|p1a: Monferno|Monferno, M|332/332
+|turn|35
+|
+|move|p2a: Yanmega|Protect|p2a: Yanmega
+|-singleturn|p2a: Yanmega|Protect
+|move|p1a: Monferno|Natural Gift||[still]
+|-fail|p1a: Monferno
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|36
+|
+|move|p2a: Yanmega|Protect||[still]
+|debug|Success chance: 50%
+|-fail|p2a: Yanmega
+|move|p1a: Monferno|Natural Gift||[still]
+|-fail|p1a: Monferno
+|
+|-ability|p2a: Yanmega|Speed Boost|boost
+|-boost|p2a: Yanmega|spe|1
+|upkeep
+|turn|37
+|
+|move|p2a: Yanmega|Hidden Power|p1a: Monferno
+|debug|BP: 70
+|-supereffective|p1a: Monferno
+|-damage|p1a: Monferno|202/332
+|-damage|p2a: Yanmega|0 fnt|[from] item: Life Orb
+|faint|p2a: Yanmega
+|move|p1a: Monferno|Natural Gift|p2: Yanmega|[notarget]
+|-notarget|p1a: Monferno
+|
+|upkeep
+|
+|switch|p2a: Ampharos|Ampharos, L86, M|154/295
+|turn|38
+|
+|move|p1a: Monferno|Natural Gift||[still]
+|-fail|p1a: Monferno
+|move|p2a: Ampharos|Focus Blast|p1a: Monferno
+|-damage|p1a: Monferno|89/332
+|
+|-heal|p2a: Ampharos|172/295|[from] item: Leftovers
+|upkeep
+|turn|39
+|
+|move|p1a: Monferno|Natural Gift||[still]
+|-fail|p1a: Monferno
+|move|p2a: Ampharos|Thunderbolt|p1a: Monferno
+|-damage|p1a: Monferno|0 fnt
+|faint|p1a: Monferno
+|
+|-heal|p2a: Ampharos|190/295|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Kricketune|Kricketune, M|358/358
+|turn|40
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-start|p1a: Kricketune|Substitute
+|-damage|p1a: Kricketune|269/358
+|move|p2a: Ampharos|Focus Blast|p1a: Kricketune
+|-resisted|p1a: Kricketune
+|-activate|p1a: Kricketune|Substitute|[damage]
+|
+|-heal|p2a: Ampharos|208/295|[from] item: Leftovers
+|upkeep
+|turn|41
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|move|p2a: Ampharos|Hidden Power|p1a: Kricketune
+|debug|BP: 70
+|-end|p1a: Kricketune|Substitute
+|
+|-heal|p2a: Ampharos|226/295|[from] item: Leftovers
+|upkeep
+|turn|42
+|
+|switch|p2a: Hariyama|Hariyama, L85, F|384/384
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-start|p1a: Kricketune|Substitute
+|-damage|p1a: Kricketune|180/358
+|
+|upkeep
+|turn|43
+|
+|switch|p2a: Ampharos|Ampharos, L86, M|226/295
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|
+|-heal|p2a: Ampharos|244/295|[from] item: Leftovers
+|upkeep
+|turn|44
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|move|p2a: Ampharos|Thunderbolt|p1a: Kricketune
+|-end|p1a: Kricketune|Substitute
+|
+|-heal|p2a: Ampharos|262/295|[from] item: Leftovers
+|upkeep
+|turn|45
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-start|p1a: Kricketune|Substitute
+|-damage|p1a: Kricketune|91/358
+|move|p2a: Ampharos|Heal Bell|p2a: Ampharos
+|-activate|p2a: Ampharos|move: Heal Bell
+|
+|-heal|p2a: Ampharos|280/295|[from] item: Leftovers
+|upkeep
+|turn|46
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|move|p2a: Ampharos|Focus Blast|p1a: Kricketune
+|-resisted|p1a: Kricketune
+|-activate|p1a: Kricketune|Substitute|[damage]
+|
+|-heal|p2a: Ampharos|295/295|[from] item: Leftovers
+|upkeep
+|turn|47
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|move|p2a: Ampharos|Hidden Power|p1a: Kricketune
+|debug|BP: 70
+|-end|p1a: Kricketune|Substitute
+|
+|upkeep
+|turn|48
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-start|p1a: Kricketune|Substitute
+|-damage|p1a: Kricketune|2/358
+|move|p2a: Ampharos|Heal Bell|p2a: Ampharos
+|-activate|p2a: Ampharos|move: Heal Bell
+|
+|upkeep
+|turn|49
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|move|p2a: Ampharos|Heal Bell|p2a: Ampharos
+|-activate|p2a: Ampharos|move: Heal Bell
+|
+|upkeep
+|turn|50
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|move|p2a: Ampharos|Hidden Power|p1a: Kricketune
+|debug|BP: 70
+|-activate|p1a: Kricketune|Substitute|[damage]
+|
+|upkeep
+|turn|51
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|move|p2a: Ampharos|Focus Blast|p1a: Kricketune|[miss]
+|-miss|p2a: Ampharos|p1a: Kricketune
+|
+|upkeep
+|turn|52
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute
+|move|p2a: Ampharos|Hidden Power|p1a: Kricketune
+|debug|BP: 70
+|-end|p1a: Kricketune|Substitute
+|
+|upkeep
+|turn|53
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute|[weak]
+|move|p2a: Ampharos|Focus Blast|p1a: Kricketune|[miss]
+|-miss|p2a: Ampharos|p1a: Kricketune
+|
+|upkeep
+|turn|54
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute|[weak]
+|move|p2a: Ampharos|Focus Blast|p1a: Kricketune|[miss]
+|-miss|p2a: Ampharos|p1a: Kricketune
+|
+|upkeep
+|turn|55
+|
+|move|p1a: Kricketune|Substitute|p1a: Kricketune
+|-fail|p1a: Kricketune|move: Substitute|[weak]
+|move|p2a: Ampharos|Hidden Power|p1a: Kricketune
+|debug|BP: 70
+|-damage|p1a: Kricketune|0 fnt
+|faint|p1a: Kricketune
+|
+|upkeep
+|
+|switch|p1a: Mamoswine|Mamoswine, M|424/424
+|turn|56
+|
+|switch|p2a: Dewgong|Dewgong, L90, M|308/308
+|move|p1a: Mamoswine|Captivate|p2a: Dewgong
+|-immune|p2a: Dewgong
+|
+|upkeep
+|turn|57
+|
+|move|p1a: Mamoswine|Hail|p1a: Mamoswine
+|-weather|Hail
+|move|p2a: Dewgong|Toxic|p1a: Mamoswine
+|-status|p1a: Mamoswine|tox
+|
+|-weather|Hail|[upkeep]
+|debug|natural status immunity
+|debug|weather immunity
+|debug|natural status immunity
+|debug|weather immunity
+|-damage|p1a: Mamoswine|398/424 tox|[from] psn
+|upkeep
+|turn|58
+|
+|move|p1a: Mamoswine|Hail||[still]
+|-fail|p1a: Mamoswine
+|debug|move failed because it did nothing
+|move|p2a: Dewgong|Rest|p2a: Dewgong
+|-fail|p2a: Dewgong|heal
+|
+|-weather|Hail|[upkeep]
+|debug|natural status immunity
+|debug|weather immunity
+|debug|natural status immunity
+|debug|weather immunity
+|-damage|p1a: Mamoswine|346/424 tox|[from] psn
+|upkeep
+|turn|59
+|
+|move|p1a: Mamoswine|Hail||[still]
+|-fail|p1a: Mamoswine
+|debug|move failed because it did nothing
+|move|p2a: Dewgong|Surf|p1a: Mamoswine
+|-supereffective|p1a: Mamoswine
+|-crit|p1a: Mamoswine
+|-damage|p1a: Mamoswine|38/424 tox
+|
+|-weather|Hail|[upkeep]
+|debug|natural status immunity
+|debug|weather immunity
+|debug|natural status immunity
+|debug|weather immunity
+|-damage|p1a: Mamoswine|0 fnt|[from] psn
+|faint|p1a: Mamoswine
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

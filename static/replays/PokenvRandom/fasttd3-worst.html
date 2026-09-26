@@ -1,0 +1,1000 @@
+<div style="margin:8px auto;padding:8px;max-width:624px;background:#fff3cd;border:1px solid #d39e00;font-weight:bold">Base-team fallback: the proposed embodiment was rejected and scored -30.</div>
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen4customgame-2201</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen4customgame-2201<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen4customgame-2201
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|266|
+|player|p2|Opponent|169|
+|gen|4
+|tier|[Gen 4] Custom Game
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Dugtrio|Dugtrio, M|274/274
+|switch|p2a: Regigigas|Regigigas, L83|318/318
+|-start|p2a: Regigigas|ability: Slow Start
+|turn|1
+|
+|switch|p2a: Arceus|Arceus-Grass, L69|280/280
+|move|p1a: Dugtrio|Body Slam|p2a: Arceus
+|-damage|p2a: Arceus|211/280
+|-status|p2a: Arceus|par
+|
+|upkeep
+|turn|2
+|
+|move|p1a: Dugtrio|Body Slam|p2a: Arceus
+|-damage|p2a: Arceus|140/280 par
+|move|p2a: Arceus|Judgment|p1a: Dugtrio
+|-supereffective|p1a: Dugtrio
+|-damage|p1a: Dugtrio|112/274
+|
+|upkeep
+|turn|3
+|
+|move|p1a: Dugtrio|Body Slam|p2a: Arceus
+|-damage|p2a: Arceus|62/280 par
+|debug|move failed because it did nothing
+|cant|p2a: Arceus|par
+|
+|upkeep
+|turn|4
+|
+|move|p1a: Dugtrio|Body Slam|p2a: Arceus
+|-damage|p2a: Arceus|0 fnt
+|faint|p2a: Arceus
+|
+|upkeep
+|
+|switch|p2a: Armaldo|Armaldo, L83, F|260/260
+|turn|5
+|
+|move|p1a: Dugtrio|Body Slam|p2a: Armaldo
+|-resisted|p2a: Armaldo
+|-damage|p2a: Armaldo|221/260
+|move|p2a: Armaldo|Stone Edge|p1a: Dugtrio
+|-resisted|p1a: Dugtrio
+|-damage|p1a: Dugtrio|46/274
+|
+|-heal|p2a: Armaldo|237/260|[from] item: Leftovers
+|upkeep
+|turn|6
+|
+|move|p1a: Dugtrio|Body Slam|p2a: Armaldo
+|-resisted|p2a: Armaldo
+|-damage|p2a: Armaldo|203/260
+|-status|p2a: Armaldo|par
+|move|p2a: Armaldo|Aqua Tail|p1a: Dugtrio
+|-supereffective|p1a: Dugtrio
+|-damage|p1a: Dugtrio|0 fnt
+|faint|p1a: Dugtrio
+|
+|-heal|p2a: Armaldo|219/260 par|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Spheal|Spheal, M|344/344
+|turn|7
+|
+|switch|p2a: Empoleon|Empoleon, L79, M|262/262
+|move|p1a: Spheal|Dive||[still]
+|-prepare|p1a: Spheal|Dive
+|
+|upkeep
+|turn|8
+|
+|move|p1a: Spheal|Dive|p2a: Empoleon|[from] lockedmove
+|-resisted|p2a: Empoleon
+|-damage|p2a: Empoleon|217/262
+|move|p2a: Empoleon|Roar|p1a: Spheal
+|drag|p1a: Jirachi|Jirachi|404/404
+|
+|-heal|p2a: Empoleon|233/262|[from] item: Leftovers
+|upkeep
+|turn|9
+|
+|debug|doubling secondary chance
+|move|p1a: Jirachi|Energy Ball|p2a: Empoleon
+|-damage|p2a: Empoleon|137/262
+|move|p2a: Empoleon|Ice Beam|p1a: Jirachi
+|-resisted|p1a: Jirachi
+|-crit|p1a: Jirachi
+|-damage|p1a: Jirachi|359/404
+|
+|-heal|p2a: Empoleon|153/262|[from] item: Leftovers
+|upkeep
+|turn|10
+|
+|debug|doubling secondary chance
+|move|p1a: Jirachi|Energy Ball|p2a: Empoleon
+|-damage|p2a: Empoleon|54/262
+|move|p2a: Empoleon|Ice Beam|p1a: Jirachi
+|-resisted|p1a: Jirachi
+|-damage|p1a: Jirachi|335/404
+|
+|-heal|p2a: Empoleon|70/262|[from] item: Leftovers
+|upkeep
+|turn|11
+|
+|switch|p2a: Armaldo|Armaldo, L83, F|219/260 par
+|debug|doubling secondary chance
+|move|p1a: Jirachi|Energy Ball|p2a: Armaldo
+|-damage|p2a: Armaldo|112/260 par
+|
+|-heal|p2a: Armaldo|128/260 par|[from] item: Leftovers
+|upkeep
+|turn|12
+|
+|switch|p2a: Kingdra|Kingdra, L78, M|245/245
+|debug|doubling secondary chance
+|move|p1a: Jirachi|Energy Ball|p2a: Kingdra
+|-damage|p2a: Kingdra|149/245
+|
+|upkeep
+|turn|13
+|
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|move|p2a: Kingdra|Rest|p2a: Kingdra
+|-status|p2a: Kingdra|slp|[from] move: Rest
+|-heal|p2a: Kingdra|245/245 slp|[silent]
+|-enditem|p2a: Kingdra|Chesto Berry|[eat]
+|-curestatus|p2a: Kingdra|slp|[msg]
+|
+|upkeep
+|turn|14
+|
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|move|p2a: Kingdra|Rest|p2a: Kingdra
+|-fail|p2a: Kingdra|heal
+|
+|upkeep
+|turn|15
+|
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|move|p2a: Kingdra|Rest|p2a: Kingdra
+|-fail|p2a: Kingdra|heal
+|
+|upkeep
+|turn|16
+|
+|switch|p2a: Regigigas|Regigigas, L83|318/318
+|-start|p2a: Regigigas|ability: Slow Start
+|debug|doubling secondary chance
+|move|p1a: Jirachi|Energy Ball|p2a: Regigigas
+|-damage|p2a: Regigigas|238/318
+|-unboost|p2a: Regigigas|spd|1
+|
+|-heal|p2a: Regigigas|257/318|[from] item: Leftovers
+|upkeep
+|turn|17
+|
+|move|p1a: Jirachi|Psych Up|p2a: Regigigas
+|-copyboost|p1a: Jirachi|p2a: Regigigas|[from] move: Psych Up
+|move|p2a: Regigigas|Return|p1a: Jirachi
+|-resisted|p1a: Jirachi
+|-damage|p1a: Jirachi|308/404
+|
+|-heal|p2a: Regigigas|276/318|[from] item: Leftovers
+|upkeep
+|turn|18
+|
+|move|p1a: Jirachi|Psych Up|p2a: Regigigas
+|-copyboost|p1a: Jirachi|p2a: Regigigas|[from] move: Psych Up
+|move|p2a: Regigigas|Earthquake|p1a: Jirachi
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|240/404
+|
+|-heal|p2a: Regigigas|295/318|[from] item: Leftovers
+|upkeep
+|turn|19
+|
+|move|p1a: Jirachi|Psych Up|p2a: Regigigas
+|-copyboost|p1a: Jirachi|p2a: Regigigas|[from] move: Psych Up
+|move|p2a: Regigigas|Thunder Wave|p1a: Jirachi
+|-status|p1a: Jirachi|par
+|
+|-heal|p2a: Regigigas|314/318|[from] item: Leftovers
+|upkeep
+|turn|20
+|
+|move|p2a: Regigigas|Substitute|p2a: Regigigas
+|-start|p2a: Regigigas|Substitute
+|-damage|p2a: Regigigas|235/318
+|cant|p1a: Jirachi|par
+|
+|-heal|p2a: Regigigas|254/318|[from] item: Leftovers
+|upkeep
+|turn|21
+|
+|switch|p2a: Kingdra|Kingdra, L78, M|245/245
+|debug|doubling secondary chance
+|move|p1a: Jirachi|Energy Ball|p2a: Kingdra
+|-damage|p2a: Kingdra|153/245
+|
+|upkeep
+|turn|22
+|
+|move|p2a: Kingdra|Outrage|p1a: Jirachi
+|-resisted|p1a: Jirachi
+|-damage|p1a: Jirachi|206/404 par
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|
+|upkeep
+|turn|23
+|
+|move|p2a: Kingdra|Outrage|p1a: Jirachi|[from] lockedmove
+|-resisted|p1a: Jirachi
+|-damage|p1a: Jirachi|170/404 par
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|
+|-start|p2a: Kingdra|confusion|[fatigue]
+|upkeep
+|turn|24
+|
+|-activate|p2a: Kingdra|confusion
+|-damage|p2a: Kingdra|129/245|[from] confusion
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|
+|upkeep
+|turn|25
+|
+|-activate|p2a: Kingdra|confusion
+|move|p2a: Kingdra|Waterfall|p1a: Jirachi
+|-damage|p1a: Jirachi|116/404 par
+|cant|p1a: Jirachi|flinch
+|
+|upkeep
+|turn|26
+|
+|-activate|p2a: Kingdra|confusion
+|move|p2a: Kingdra|Rest|p2a: Kingdra
+|-status|p2a: Kingdra|slp|[from] move: Rest
+|-heal|p2a: Kingdra|245/245 slp|[silent]
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|
+|upkeep
+|turn|27
+|
+|cant|p2a: Kingdra|slp
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|
+|upkeep
+|turn|28
+|
+|cant|p2a: Kingdra|slp
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|
+|upkeep
+|turn|29
+|
+|-curestatus|p2a: Kingdra|slp|[msg]
+|-activate|p2a: Kingdra|confusion
+|-damage|p2a: Kingdra|219/245|[from] confusion
+|move|p1a: Jirachi|Psych Up|p2a: Kingdra
+|-copyboost|p1a: Jirachi|p2a: Kingdra|[from] move: Psych Up
+|
+|upkeep
+|turn|30
+|
+|switch|p2a: Exeggutor|Exeggutor, L88, M|310/310
+|move|p1a: Jirachi|Psych Up|p2a: Exeggutor
+|-copyboost|p1a: Jirachi|p2a: Exeggutor|[from] move: Psych Up
+|
+|upkeep
+|turn|31
+|
+|move|p2a: Exeggutor|Hidden Power|p1a: Jirachi
+|debug|BP: 70
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|18/404 par
+|move|p1a: Jirachi|Psych Up|p2a: Exeggutor
+|-copyboost|p1a: Jirachi|p2a: Exeggutor|[from] move: Psych Up
+|
+|upkeep
+|turn|32
+|
+|move|p2a: Exeggutor|Hidden Power|p1a: Jirachi
+|debug|BP: 70
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|0 fnt
+|faint|p1a: Jirachi
+|
+|upkeep
+|
+|switch|p1a: Poliwrath|Poliwrath, M|384/384
+|turn|33
+|
+|move|p1a: Poliwrath|Submission|p2a: Exeggutor
+|-resisted|p2a: Exeggutor
+|-damage|p2a: Exeggutor|250/310
+|-damage|p1a: Poliwrath|369/384|[from] Recoil
+|move|p2a: Exeggutor|Synthesis|p2a: Exeggutor
+|-heal|p2a: Exeggutor|310/310
+|
+|upkeep
+|turn|34
+|
+|move|p1a: Poliwrath|Submission|p2a: Exeggutor
+|-resisted|p2a: Exeggutor
+|-damage|p2a: Exeggutor|247/310
+|-damage|p1a: Poliwrath|354/384|[from] Recoil
+|move|p2a: Exeggutor|Hidden Power|p1a: Poliwrath
+|debug|BP: 70
+|-resisted|p1a: Poliwrath
+|-damage|p1a: Poliwrath|332/384
+|
+|-heal|p2a: Exeggutor|266/310|[from] item: Leftovers
+|upkeep
+|turn|35
+|
+|move|p1a: Poliwrath|Submission|p2a: Exeggutor
+|-resisted|p2a: Exeggutor
+|-damage|p2a: Exeggutor|206/310
+|-damage|p1a: Poliwrath|317/384|[from] Recoil
+|move|p2a: Exeggutor|Psychic|p1a: Poliwrath
+|-supereffective|p1a: Poliwrath
+|-damage|p1a: Poliwrath|125/384
+|
+|-heal|p2a: Exeggutor|225/310|[from] item: Leftovers
+|upkeep
+|turn|36
+|
+|move|p1a: Poliwrath|Submission|p2a: Exeggutor
+|-resisted|p2a: Exeggutor
+|-damage|p2a: Exeggutor|162/310
+|-damage|p1a: Poliwrath|110/384|[from] Recoil
+|move|p2a: Exeggutor|Synthesis|p2a: Exeggutor
+|-heal|p2a: Exeggutor|310/310
+|
+|upkeep
+|turn|37
+|
+|move|p1a: Poliwrath|Submission|p2a: Exeggutor
+|-resisted|p2a: Exeggutor
+|-damage|p2a: Exeggutor|248/310
+|-damage|p1a: Poliwrath|95/384|[from] Recoil
+|move|p2a: Exeggutor|Hidden Power|p1a: Poliwrath
+|debug|BP: 70
+|-resisted|p1a: Poliwrath
+|-damage|p1a: Poliwrath|70/384
+|
+|-heal|p2a: Exeggutor|267/310|[from] item: Leftovers
+|upkeep
+|turn|38
+|
+|move|p1a: Poliwrath|Submission|p2a: Exeggutor|[miss]
+|-miss|p1a: Poliwrath|p2a: Exeggutor
+|move|p2a: Exeggutor|Psychic|p1a: Poliwrath
+|-supereffective|p1a: Poliwrath
+|-damage|p1a: Poliwrath|0 fnt
+|faint|p1a: Poliwrath
+|
+|-heal|p2a: Exeggutor|286/310|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Steelix|Steelix, M|354/354
+|turn|39
+|
+|move|p1a: Steelix|Tackle|p2a: Exeggutor
+|-crit|p2a: Exeggutor
+|-damage|p2a: Exeggutor|208/310
+|move|p2a: Exeggutor|Leaf Storm|p1a: Steelix
+|-damage|p1a: Steelix|198/354
+|-unboost|p2a: Exeggutor|spa|2
+|
+|-heal|p2a: Exeggutor|227/310|[from] item: Leftovers
+|upkeep
+|turn|40
+|
+|switch|p2a: Regigigas|Regigigas, L83|254/318
+|-start|p2a: Regigigas|ability: Slow Start
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-damage|p2a: Regigigas|224/318
+|
+|-heal|p2a: Regigigas|243/318|[from] item: Leftovers
+|upkeep
+|turn|41
+|
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-damage|p2a: Regigigas|209/318
+|move|p2a: Regigigas|Return|p1a: Steelix
+|-resisted|p1a: Steelix
+|-damage|p1a: Steelix|183/354
+|
+|-heal|p2a: Regigigas|228/318|[from] item: Leftovers
+|upkeep
+|turn|42
+|
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-damage|p2a: Regigigas|194/318
+|move|p2a: Regigigas|Earthquake|p1a: Steelix
+|-supereffective|p1a: Steelix
+|-damage|p1a: Steelix|145/354
+|
+|-heal|p2a: Regigigas|213/318|[from] item: Leftovers
+|upkeep
+|turn|43
+|
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-damage|p2a: Regigigas|180/318
+|move|p2a: Regigigas|Return|p1a: Steelix
+|-resisted|p1a: Steelix
+|-damage|p1a: Steelix|130/354
+|
+|-heal|p2a: Regigigas|199/318|[from] item: Leftovers
+|upkeep
+|turn|44
+|
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-crit|p2a: Regigigas
+|-damage|p2a: Regigigas|137/318
+|move|p2a: Regigigas|Earthquake|p1a: Steelix
+|-supereffective|p1a: Steelix
+|-damage|p1a: Steelix|92/354
+|
+|-heal|p2a: Regigigas|156/318|[from] item: Leftovers
+|upkeep
+|turn|45
+|
+|switch|p2a: Kingdra|Kingdra, L78, M|219/245
+|move|p1a: Steelix|Tackle|p2a: Kingdra
+|-damage|p2a: Kingdra|183/245
+|
+|upkeep
+|turn|46
+|
+|move|p2a: Kingdra|Rest|p2a: Kingdra
+|-status|p2a: Kingdra|slp|[from] move: Rest
+|-heal|p2a: Kingdra|245/245 slp|[silent]
+|move|p1a: Steelix|Tackle|p2a: Kingdra
+|-damage|p2a: Kingdra|204/245 slp
+|
+|upkeep
+|turn|47
+|
+|switch|p2a: Regigigas|Regigigas, L83|156/318
+|-start|p2a: Regigigas|ability: Slow Start
+|move|p1a: Steelix|Tackle|p2a: Regigigas|[miss]
+|-miss|p1a: Steelix|p2a: Regigigas
+|
+|-heal|p2a: Regigigas|175/318|[from] item: Leftovers
+|upkeep
+|turn|48
+|
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-damage|p2a: Regigigas|145/318
+|move|p2a: Regigigas|Thunder Wave|p1a: Steelix
+|-immune|p1a: Steelix
+|
+|-heal|p2a: Regigigas|164/318|[from] item: Leftovers
+|upkeep
+|turn|49
+|
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-damage|p2a: Regigigas|130/318
+|move|p2a: Regigigas|Return|p1a: Steelix
+|-resisted|p1a: Steelix
+|-damage|p1a: Steelix|79/354
+|
+|-heal|p2a: Regigigas|149/318|[from] item: Leftovers
+|upkeep
+|turn|50
+|
+|switch|p2a: Armaldo|Armaldo, L83, F|128/260 par
+|move|p1a: Steelix|Tackle|p2a: Armaldo
+|-resisted|p2a: Armaldo
+|-damage|p2a: Armaldo|111/260 par
+|
+|-heal|p2a: Armaldo|127/260 par|[from] item: Leftovers
+|upkeep
+|turn|51
+|
+|move|p1a: Steelix|Tackle|p2a: Armaldo
+|-resisted|p2a: Armaldo
+|-damage|p2a: Armaldo|109/260 par
+|cant|p2a: Armaldo|par
+|
+|-heal|p2a: Armaldo|125/260 par|[from] item: Leftovers
+|upkeep
+|turn|52
+|
+|move|p1a: Steelix|Tackle|p2a: Armaldo
+|-resisted|p2a: Armaldo
+|-damage|p2a: Armaldo|108/260 par
+|cant|p2a: Armaldo|par
+|
+|-heal|p2a: Armaldo|124/260 par|[from] item: Leftovers
+|upkeep
+|turn|53
+|
+|move|p1a: Steelix|Tackle|p2a: Armaldo
+|-resisted|p2a: Armaldo
+|-damage|p2a: Armaldo|107/260 par
+|move|p2a: Armaldo|Swords Dance|p2a: Armaldo
+|-boost|p2a: Armaldo|atk|2
+|
+|-heal|p2a: Armaldo|123/260 par|[from] item: Leftovers
+|upkeep
+|turn|54
+|
+|switch|p2a: Kingdra|Kingdra, L78, M|204/245 slp
+|move|p1a: Steelix|Tackle|p2a: Kingdra
+|-damage|p2a: Kingdra|168/245 slp
+|
+|upkeep
+|turn|55
+|
+|switch|p2a: Regigigas|Regigigas, L83|149/318
+|-start|p2a: Regigigas|ability: Slow Start
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-damage|p2a: Regigigas|115/318
+|
+|-heal|p2a: Regigigas|134/318|[from] item: Leftovers
+|upkeep
+|turn|56
+|
+|move|p1a: Steelix|Tackle|p2a: Regigigas|[miss]
+|-miss|p1a: Steelix|p2a: Regigigas
+|move|p2a: Regigigas|Return|p1a: Steelix
+|-resisted|p1a: Steelix
+|-damage|p1a: Steelix|66/354
+|
+|-heal|p2a: Regigigas|153/318|[from] item: Leftovers
+|upkeep
+|turn|57
+|
+|move|p1a: Steelix|Tackle|p2a: Regigigas
+|-damage|p2a: Regigigas|119/318
+|move|p2a: Regigigas|Substitute|p2a: Regigigas
+|-start|p2a: Regigigas|Substitute
+|-damage|p2a: Regigigas|40/318
+|
+|-heal|p2a: Regigigas|59/318|[from] item: Leftovers
+|upkeep
+|turn|58
+|
+|switch|p2a: Exeggutor|Exeggutor, L88, M|227/310
+|move|p1a: Steelix|Rock Blast|p2a: Exeggutor
+|-damage|p2a: Exeggutor|202/310
+|-damage|p2a: Exeggutor|176/310
+|-damage|p2a: Exeggutor|151/310
+|-hitcount|p2a: Exeggutor|3
+|
+|-heal|p2a: Exeggutor|170/310|[from] item: Leftovers
+|upkeep
+|turn|59
+|
+|move|p1a: Steelix|Tackle|p2a: Exeggutor
+|-damage|p2a: Exeggutor|135/310
+|move|p2a: Exeggutor|Hidden Power|p1a: Steelix
+|debug|BP: 70
+|-supereffective|p1a: Steelix
+|-damage|p1a: Steelix|0 fnt
+|faint|p1a: Steelix
+|
+|-heal|p2a: Exeggutor|154/310|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Glameow|Glameow, M|302/302
+|turn|60
+|
+|move|p1a: Glameow|Assurance|p2a: Exeggutor
+|-supereffective|p2a: Exeggutor
+|-damage|p2a: Exeggutor|78/310
+|move|p2a: Exeggutor|Hidden Power|p1a: Glameow
+|debug|BP: 70
+|-damage|p1a: Glameow|224/302
+|
+|-heal|p2a: Exeggutor|97/310|[from] item: Leftovers
+|upkeep
+|turn|61
+|
+|switch|p2a: Armaldo|Armaldo, L83, F|123/260 par
+|move|p1a: Glameow|Assurance|p2a: Armaldo
+|-damage|p2a: Armaldo|85/260 par
+|
+|-heal|p2a: Armaldo|101/260 par|[from] item: Leftovers
+|upkeep
+|turn|62
+|
+|move|p1a: Glameow|Assurance|p2a: Armaldo
+|-damage|p2a: Armaldo|66/260 par
+|move|p2a: Armaldo|Earthquake|p1a: Glameow
+|-damage|p1a: Glameow|127/302
+|
+|-heal|p2a: Armaldo|82/260 par|[from] item: Leftovers
+|upkeep
+|turn|63
+|
+|move|p1a: Glameow|Assurance|p2a: Armaldo
+|-damage|p2a: Armaldo|46/260 par
+|move|p2a: Armaldo|Earthquake|p1a: Glameow
+|-damage|p1a: Glameow|31/302
+|
+|-heal|p2a: Armaldo|62/260 par|[from] item: Leftovers
+|upkeep
+|turn|64
+|
+|move|p1a: Glameow|Assurance|p2a: Armaldo
+|-damage|p2a: Armaldo|29/260 par
+|move|p2a: Armaldo|Aqua Tail|p1a: Glameow
+|-crit|p1a: Glameow
+|-damage|p1a: Glameow|0 fnt
+|faint|p1a: Glameow
+|
+|-heal|p2a: Armaldo|45/260 par|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Spheal|Spheal, M|344/344
+|turn|65
+|
+|move|p1a: Spheal|Dive||[still]
+|-prepare|p1a: Spheal|Dive
+|move|p2a: Armaldo|Earthquake|p1a: Spheal|[miss]
+|-miss|p2a: Armaldo|p1a: Spheal
+|
+|-heal|p2a: Armaldo|61/260 par|[from] item: Leftovers
+|upkeep
+|turn|66
+|
+|move|p1a: Spheal|Dive|p2a: Armaldo|[from] lockedmove
+|-supereffective|p2a: Armaldo
+|-damage|p2a: Armaldo|0 fnt
+|faint|p2a: Armaldo
+|
+|upkeep
+|
+|switch|p2a: Regigigas|Regigigas, L83|59/318
+|-start|p2a: Regigigas|ability: Slow Start
+|turn|67
+|
+|move|p1a: Spheal|Dive||[still]
+|-prepare|p1a: Spheal|Dive
+|move|p2a: Regigigas|Earthquake|p1a: Spheal|[miss]
+|-miss|p2a: Regigigas|p1a: Spheal
+|
+|-heal|p2a: Regigigas|78/318|[from] item: Leftovers
+|upkeep
+|turn|68
+|
+|move|p1a: Spheal|Dive|p2a: Regigigas|[from] lockedmove
+|-damage|p2a: Regigigas|3/318
+|move|p2a: Regigigas|Thunder Wave|p1a: Spheal
+|-status|p1a: Spheal|par
+|
+|-heal|p2a: Regigigas|22/318|[from] item: Leftovers
+|upkeep
+|turn|69
+|
+|move|p2a: Regigigas|Thunder Wave|p1a: Spheal
+|-fail|p1a: Spheal|par
+|debug|move failed because it did nothing
+|move|p1a: Spheal|Dive||[still]
+|-prepare|p1a: Spheal|Dive
+|
+|-heal|p2a: Regigigas|41/318|[from] item: Leftovers
+|upkeep
+|turn|70
+|
+|move|p2a: Regigigas|Earthquake|p1a: Spheal|[miss]
+|-miss|p2a: Regigigas|p1a: Spheal
+|move|p1a: Spheal|Dive|p2a: Regigigas|[from] lockedmove
+|-damage|p2a: Regigigas|0 fnt
+|faint|p2a: Regigigas
+|-end|p2a: Regigigas|Slow Start|[silent]
+|
+|upkeep
+|
+|switch|p2a: Empoleon|Empoleon, L79, M|70/262
+|turn|71
+|
+|move|p2a: Empoleon|Toxic||[still]
+|-fail|p2a: Empoleon
+|debug|move failed because it did nothing
+|cant|p1a: Spheal|par
+|
+|-heal|p2a: Empoleon|86/262|[from] item: Leftovers
+|upkeep
+|turn|72
+|
+|move|p2a: Empoleon|Surf|p1a: Spheal
+|debug|Torrent boost
+|-resisted|p1a: Spheal
+|-damage|p1a: Spheal|268/344 par
+|move|p1a: Spheal|Dive||[still]
+|-prepare|p1a: Spheal|Dive
+|
+|-heal|p2a: Empoleon|102/262|[from] item: Leftovers
+|upkeep
+|turn|73
+|
+|switch|p2a: Exeggutor|Exeggutor, L88, M|97/310
+|move|p1a: Spheal|Dive|p2a: Exeggutor|[from] lockedmove
+|-resisted|p2a: Exeggutor
+|-damage|p2a: Exeggutor|54/310
+|
+|-heal|p2a: Exeggutor|73/310|[from] item: Leftovers
+|upkeep
+|turn|74
+|
+|move|p2a: Exeggutor|Synthesis|p2a: Exeggutor
+|-heal|p2a: Exeggutor|228/310
+|cant|p1a: Spheal|par
+|
+|-heal|p2a: Exeggutor|247/310|[from] item: Leftovers
+|upkeep
+|turn|75
+|
+|move|p2a: Exeggutor|Leaf Storm|p1a: Spheal
+|-supereffective|p1a: Spheal
+|-damage|p1a: Spheal|0 fnt
+|-unboost|p2a: Exeggutor|spa|2
+|faint|p1a: Spheal
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen9customgame-1761</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9customgame-1761<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9customgame-1761
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|102|
+|player|p2|Opponent|102|
+|gen|9
+|tier|[Gen 9] Custom Game
+|clearpoke
+|poke|p1|Vivillon-Modern, M|
+|poke|p1|Pincurchin, M|
+|poke|p1|Stunky, F|
+|poke|p1|Alomomola, F|
+|poke|p1|Eternatus-Eternamax|
+|poke|p1|Granbull, M|
+|poke|p2|Sandy Shocks, L80|
+|poke|p2|Snorlax, L82, M|
+|poke|p2|Infernape, L82, F|
+|poke|p2|Vespiquen, L99, F|
+|poke|p2|Leafeon, L88, F|
+|poke|p2|Slowbro, L85, F|
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Alomomola|Alomomola, F|534/534
+|switch|p2a: Slowbro|Slowbro, L85, F|300/300
+|turn|1
+|
+|switch|p1a: Eternatus|Eternatus-Eternamax|714/714
+|-ability|p1a: Eternatus|Pressure
+|move|p2a: Slowbro|Psychic Noise|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-crit|p1a: Eternatus
+|-damage|p1a: Eternatus|636/714
+|-start|p1a: Eternatus|move: Heal Block
+|
+|upkeep
+|turn|2
+|
+|move|p1a: Eternatus|Rain Dance|p1a: Eternatus
+|-weather|RainDance
+|move|p2a: Slowbro|Psychic Noise|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|576/714
+|
+|-weather|RainDance|[upkeep]
+|-end|p1a: Eternatus|move: Heal Block
+|upkeep
+|turn|3
+|
+|move|p1a: Eternatus|Rain Dance||[still]
+|-fail|p1a: Eternatus
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Psychic Noise|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|516/714
+|-start|p1a: Eternatus|move: Heal Block
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|
+|move|p1a: Eternatus|Rain Dance||[still]
+|-fail|p1a: Eternatus
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Psychic Noise|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|460/714
+|
+|-weather|RainDance|[upkeep]
+|-end|p1a: Eternatus|move: Heal Block
+|upkeep
+|turn|5
+|
+|move|p1a: Eternatus|Rain Dance||[still]
+|-fail|p1a: Eternatus
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Psychic Noise|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|400/714
+|-start|p1a: Eternatus|move: Heal Block
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|6
+|
+|move|p1a: Eternatus|Rain Dance||[still]
+|-fail|p1a: Eternatus
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Psychic Noise|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-crit|p1a: Eternatus
+|-damage|p1a: Eternatus|322/714
+|
+|-weather|none
+|-end|p1a: Eternatus|move: Heal Block
+|upkeep
+|turn|7
+|
+|move|p1a: Eternatus|Rain Dance|p1a: Eternatus
+|-weather|RainDance
+|move|p2a: Slowbro|Psychic Noise|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|268/714
+|-start|p1a: Eternatus|move: Heal Block
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|8
+|
+|move|p1a: Eternatus|Rain Dance||[still]
+|-fail|p1a: Eternatus
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Psychic Noise|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|208/714
+|
+|-weather|RainDance|[upkeep]
+|-end|p1a: Eternatus|move: Heal Block
+|upkeep
+|turn|9
+|
+|move|p1a: Eternatus|Rain Dance||[still]
+|-fail|p1a: Eternatus
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Ice Beam|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|164/714
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|10
+|
+|move|p1a: Eternatus|Light Screen|p1a: Eternatus
+|-sidestart|p1: Agent|move: Light Screen
+|move|p2a: Slowbro|Ice Beam|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|debug|Light Screen weaken
+|-damage|p1a: Eternatus|142/714
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|11
+|
+|move|p1a: Eternatus|Light Screen||[still]
+|-fail|p1a: Eternatus
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Ice Beam|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|debug|Light Screen weaken
+|-damage|p1a: Eternatus|119/714
+|-status|p1a: Eternatus|frz
+|
+|-weather|none
+|upkeep
+|turn|12
+|
+|cant|p1a: Eternatus|frz
+|move|p2a: Slowbro|Ice Beam|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|debug|Light Screen weaken
+|-damage|p1a: Eternatus|95/714 frz
+|
+|upkeep
+|turn|13
+|
+|cant|p1a: Eternatus|frz
+|move|p2a: Slowbro|Ice Beam|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|debug|Light Screen weaken
+|-damage|p1a: Eternatus|73/714 frz
+|
+|upkeep
+|turn|14
+|
+|cant|p1a: Eternatus|frz
+|move|p2a: Slowbro|Ice Beam|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|debug|Light Screen weaken
+|-damage|p1a: Eternatus|52/714 frz
+|
+|-sideend|p1: Agent|move: Light Screen
+|upkeep
+|turn|15
+|
+|cant|p1a: Eternatus|frz
+|move|p2a: Slowbro|Ice Beam|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|4/714 frz
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|16
+|
+|cant|p1a: Eternatus|frz
+|move|p2a: Slowbro|Ice Beam|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|0 fnt
+|debug|move failed because it did nothing
+|faint|p1a: Eternatus
+|
+|upkeep
+|
+|switch|p1a: Granbull|Granbull, M|384/384
+|-ability|p1a: Granbull|Intimidate|boost
+|-unboost|p2a: Slowbro|atk|1
+|turn|17
+|
+|move|p1a: Granbull|Sleep Talk||[still]
+|-fail|p1a: Granbull
+|move|p2a: Slowbro|Scald|p1a: Granbull
+|-damage|p1a: Granbull|306/384
+|
+|upkeep
+|turn|18
+|
+|move|p1a: Granbull|Sleep Talk||[still]
+|-fail|p1a: Granbull
+|move|p2a: Slowbro|Scald|p1a: Granbull
+|-damage|p1a: Granbull|225/384
+|
+|upkeep
+|turn|19
+|
+|move|p1a: Granbull|Sleep Talk||[still]
+|-fail|p1a: Granbull
+|move|p2a: Slowbro|Scald|p1a: Granbull
+|-damage|p1a: Granbull|141/384
+|
+|upkeep
+|turn|20
+|
+|move|p1a: Granbull|Sleep Talk||[still]
+|-fail|p1a: Granbull
+|move|p2a: Slowbro|Scald|p1a: Granbull
+|-damage|p1a: Granbull|66/384
+|
+|upkeep
+|turn|21
+|
+|move|p1a: Granbull|Sleep Talk||[still]
+|-fail|p1a: Granbull
+|move|p2a: Slowbro|Scald|p1a: Granbull
+|-damage|p1a: Granbull|0 fnt
+|debug|move failed because it did nothing
+|faint|p1a: Granbull
+|
+|upkeep
+|
+|switch|p1a: Alomomola|Alomomola, F|534/534
+|turn|22
+|
+|move|p1a: Alomomola|Safeguard|p1a: Alomomola
+|-sidestart|p1: Agent|Safeguard
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|485/534
+|
+|upkeep
+|turn|23
+|
+|move|p1a: Alomomola|Safeguard||[still]
+|-fail|p1a: Alomomola
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|434/534
+|
+|upkeep
+|turn|24
+|
+|move|p1a: Alomomola|Safeguard||[still]
+|-fail|p1a: Alomomola
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|384/534
+|debug|interrupting setStatus
+|debug|set status [brn] interrupted
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|25
+|
+|move|p1a: Alomomola|Safeguard||[still]
+|-fail|p1a: Alomomola
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|328/534
+|
+|upkeep
+|turn|26
+|
+|move|p1a: Alomomola|Safeguard||[still]
+|-fail|p1a: Alomomola
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|277/534
+|debug|interrupting setStatus
+|debug|set status [brn] interrupted
+|debug|move failed because it did nothing
+|
+|-sideend|p1: Agent|Safeguard
+|upkeep
+|turn|27
+|
+|move|p1a: Alomomola|Safeguard|p1a: Alomomola
+|-sidestart|p1: Agent|Safeguard
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|228/534
+|debug|interrupting setStatus
+|debug|set status [brn] interrupted
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|28
+|
+|move|p1a: Alomomola|Safeguard||[still]
+|-fail|p1a: Alomomola
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|171/534
+|
+|upkeep
+|turn|29
+|
+|move|p1a: Alomomola|Safeguard||[still]
+|-fail|p1a: Alomomola
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|117/534
+|
+|upkeep
+|turn|30
+|
+|move|p1a: Alomomola|Safeguard||[still]
+|-fail|p1a: Alomomola
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|67/534
+|
+|upkeep
+|turn|31
+|
+|move|p1a: Alomomola|Safeguard||[still]
+|-fail|p1a: Alomomola
+|debug|move failed because it did nothing
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|16/534
+|
+|-sideend|p1: Agent|Safeguard
+|upkeep
+|turn|32
+|
+|move|p1a: Alomomola|Safeguard|p1a: Alomomola
+|-sidestart|p1: Agent|Safeguard
+|move|p2a: Slowbro|Scald|p1a: Alomomola
+|-resisted|p1a: Alomomola
+|-damage|p1a: Alomomola|0 fnt
+|faint|p1a: Alomomola
+|
+|upkeep
+|
+|switch|p1a: Stunky|Stunky, F|330/330
+|turn|33
+|
+|debug|Adding Stench flinch
+|move|p1a: Stunky|Rock Smash|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|284/300
+|-unboost|p2a: Slowbro|def|1
+|move|p2a: Slowbro|Scald|p1a: Stunky
+|-damage|p1a: Stunky|227/330
+|
+|upkeep
+|turn|34
+|
+|debug|Adding Stench flinch
+|move|p1a: Stunky|Rock Smash|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|262/300
+|-unboost|p2a: Slowbro|def|1
+|move|p2a: Slowbro|Scald|p1a: Stunky
+|-damage|p1a: Stunky|136/330
+|debug|interrupting setStatus
+|debug|set status [brn] interrupted
+|debug|move failed because it did nothing
+|
+|upkeep
+|turn|35
+|
+|debug|Adding Stench flinch
+|move|p1a: Stunky|Rock Smash|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-crit|p2a: Slowbro
+|-damage|p2a: Slowbro|219/300
+|-unboost|p2a: Slowbro|def|1
+|move|p2a: Slowbro|Scald|p1a: Stunky
+|-damage|p1a: Stunky|42/330
+|
+|upkeep
+|turn|36
+|
+|switch|p2a: Sandy Shocks|Sandy Shocks, L80|267/267
+|debug|Adding Stench flinch
+|move|p1a: Stunky|Rock Smash|p2a: Sandy Shocks
+|-damage|p2a: Sandy Shocks|232/267
+|-unboost|p2a: Sandy Shocks|def|1
+|
+|-sideend|p1: Agent|Safeguard
+|upkeep
+|turn|37
+|
+|debug|Adding Stench flinch
+|move|p1a: Stunky|Rock Smash|p2a: Sandy Shocks
+|-damage|p2a: Sandy Shocks|177/267
+|-unboost|p2a: Sandy Shocks|def|1
+|move|p2a: Sandy Shocks|Stealth Rock|p1a: Stunky
+|-sidestart|p1: Agent|move: Stealth Rock
+|
+|upkeep
+|turn|38
+|
+|debug|Adding Stench flinch
+|move|p1a: Stunky|Rock Smash|p2a: Sandy Shocks
+|-damage|p2a: Sandy Shocks|101/267
+|-unboost|p2a: Sandy Shocks|def|1
+|move|p2a: Sandy Shocks|Earth Power|p1a: Stunky
+|-supereffective|p1a: Stunky
+|-damage|p1a: Stunky|0 fnt
+|faint|p1a: Stunky
+|
+|upkeep
+|
+|switch|p1a: Pincurchin|Pincurchin, M|300/300
+|-damage|p1a: Pincurchin|263/300|[from] Stealth Rock
+|turn|39
+|
+|-end|p2a: Sandy Shocks|Protosynthesis|[silent]
+|switch|p2a: Leafeon|Leafeon, L88, F|258/258
+|move|p1a: Pincurchin|Venoshock|p2a: Leafeon
+|-supereffective|p2a: Leafeon
+|-damage|p2a: Leafeon|76/258
+|
+|upkeep
+|turn|40
+|
+|move|p2a: Leafeon|Leaf Blade|p1a: Pincurchin
+|-damage|p1a: Pincurchin|168/300
+|-damage|p2a: Leafeon|51/258|[from] item: Life Orb
+|move|p1a: Pincurchin|Venoshock|p2a: Leafeon
+|-supereffective|p2a: Leafeon
+|-damage|p2a: Leafeon|0 fnt
+|faint|p2a: Leafeon
+|
+|upkeep
+|
+|switch|p2a: Sandy Shocks|Sandy Shocks, L80|101/267
+|turn|41
+|
+|move|p2a: Sandy Shocks|Earth Power|p1a: Pincurchin
+|-supereffective|p1a: Pincurchin
+|-damage|p1a: Pincurchin|28/300
+|move|p1a: Pincurchin|Venoshock|p2a: Sandy Shocks
+|-resisted|p2a: Sandy Shocks
+|-crit|p2a: Sandy Shocks
+|-damage|p2a: Sandy Shocks|38/267
+|
+|upkeep
+|turn|42
+|
+|move|p2a: Sandy Shocks|Earth Power|p1a: Pincurchin
+|-supereffective|p1a: Pincurchin
+|-damage|p1a: Pincurchin|0 fnt
+|faint|p1a: Pincurchin
+|
+|upkeep
+|
+|switch|p1a: Vivillon|Vivillon-Modern, M|364/364
+|-damage|p1a: Vivillon|182/364|[from] Stealth Rock
+|turn|43
+|
+|move|p1a: Vivillon|Endeavor|p2a: Sandy Shocks
+|-immune|p2a: Sandy Shocks
+|move|p2a: Sandy Shocks|Thunderbolt|p1a: Vivillon
+|-supereffective|p1a: Vivillon
+|-damage|p1a: Vivillon|0 fnt
+|debug|Shield Dust prevent secondary
+|faint|p1a: Vivillon
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

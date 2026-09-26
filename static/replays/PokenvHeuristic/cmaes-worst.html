@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<base href="https://play.pokemonshowdown.com/" target="_blank">
+<style>html, body { overflow: hidden; background: #3b3b3b; } body { padding: 0 !important; }</style>
+<!-- version 1 -->
+<title>battle-gen9customgame-1709</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9customgame-1709<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">Agent</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Opponent</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9customgame-1709
+|init|battle
+|title|Agent vs. Opponent
+|j|☆Agent
+|j|☆Opponent
+|gametype|singles
+|player|p1|Agent|1|
+|player|p2|Opponent|265|
+|gen|9
+|tier|[Gen 9] Custom Game
+|clearpoke
+|poke|p1|Indeedee-F, F|
+|poke|p1|Cubchoo, M|
+|poke|p1|Celesteela|
+|poke|p1|Spectrier|
+|poke|p1|Chespin, F|
+|poke|p1|Archen, F|
+|poke|p2|Vivillon-Modern, L83, F|
+|poke|p2|Avalugg-Hisui, L91, M|
+|poke|p2|Urshifu-*, L74, F|
+|poke|p2|Chi-Yu, L77|
+|poke|p2|Okidogi, L77, M|
+|poke|p2|Basculegion, L80, M|
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Chespin|Chespin, F|316/316
+|switch|p2a: Vivillon|Vivillon-Modern, L83, F|268/268
+|turn|1
+|
+|switch|p1a: Spectrier|Spectrier|404/404
+|move|p2a: Vivillon|Bug Buzz|p1a: Spectrier
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Spectrier
+|-damage|p1a: Spectrier|373/404
+|
+|upkeep
+|turn|2
+|
+|move|p1a: Spectrier|Snore||[still]
+|-fail|p1a: Spectrier
+|move|p2a: Vivillon|Hurricane|p1a: Spectrier
+|debug|compoundeyes - enhancing accuracy
+|-damage|p1a: Spectrier|295/404
+|-start|p1a: Spectrier|confusion
+|
+|upkeep
+|turn|3
+|
+|-terastallize|p1a: Spectrier|Ghost
+|-activate|p1a: Spectrier|confusion
+|move|p1a: Spectrier|Dark Pulse|p2a: Vivillon
+|-damage|p2a: Vivillon|72/268
+|move|p2a: Vivillon|Hurricane|p1a: Spectrier
+|debug|compoundeyes - enhancing accuracy
+|-damage|p1a: Spectrier|214/404
+|
+|upkeep
+|turn|4
+|
+|-end|p1a: Spectrier|confusion
+|move|p1a: Spectrier|Snore||[still]
+|-fail|p1a: Spectrier
+|move|p2a: Vivillon|Hurricane|p1a: Spectrier
+|debug|compoundeyes - enhancing accuracy
+|-crit|p1a: Spectrier
+|-damage|p1a: Spectrier|88/404
+|-start|p1a: Spectrier|confusion
+|
+|upkeep
+|turn|5
+|
+|switch|p1a: Chespin|Chespin, F|316/316
+|move|p2a: Vivillon|Hurricane|p1a: Chespin
+|debug|compoundeyes - enhancing accuracy
+|-supereffective|p1a: Chespin
+|-damage|p1a: Chespin|94/316
+|
+|upkeep
+|turn|6
+|
+|switch|p1a: Spectrier|Spectrier, tera:Ghost|88/404
+|move|p2a: Vivillon|Bug Buzz|p1a: Spectrier
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Spectrier
+|-damage|p1a: Spectrier|53/404
+|-unboost|p1a: Spectrier|spd|1
+|
+|upkeep
+|turn|7
+|
+|move|p1a: Spectrier|Snore||[still]
+|-fail|p1a: Spectrier
+|move|p2a: Vivillon|Hurricane|p1a: Spectrier
+|debug|compoundeyes - enhancing accuracy
+|-damage|p1a: Spectrier|0 fnt
+|faint|p1a: Spectrier
+|
+|upkeep
+|
+|switch|p1a: Celesteela|Celesteela|398/398
+|turn|8
+|
+|move|p1a: Celesteela|Mega Drain|p2a: Vivillon
+|-resisted|p2a: Vivillon
+|-damage|p2a: Vivillon|56/268
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|365/398
+|
+|upkeep
+|turn|9
+|
+|move|p1a: Celesteela|Ingrain|p1a: Celesteela
+|-start|p1a: Celesteela|move: Ingrain
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|332/398
+|-start|p1a: Celesteela|confusion
+|
+|-heal|p1a: Celesteela|356/398|[from] Ingrain
+|upkeep
+|turn|10
+|
+|-activate|p1a: Celesteela|confusion
+|-damage|p1a: Celesteela|323/398|[from] confusion
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|290/398
+|debug|move failed because it did nothing
+|
+|-heal|p1a: Celesteela|314/398|[from] Ingrain
+|upkeep
+|turn|11
+|
+|-end|p1a: Celesteela|confusion
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|281/398
+|
+|-heal|p1a: Celesteela|305/398|[from] Ingrain
+|upkeep
+|turn|12
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|271/398
+|
+|-heal|p1a: Celesteela|295/398|[from] Ingrain
+|upkeep
+|turn|13
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|262/398
+|
+|-heal|p1a: Celesteela|286/398|[from] Ingrain
+|upkeep
+|turn|14
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|252/398
+|
+|-heal|p1a: Celesteela|276/398|[from] Ingrain
+|upkeep
+|turn|15
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|245/398
+|
+|-heal|p1a: Celesteela|269/398|[from] Ingrain
+|upkeep
+|turn|16
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|238/398
+|
+|-heal|p1a: Celesteela|262/398|[from] Ingrain
+|upkeep
+|turn|17
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|232/398
+|
+|-heal|p1a: Celesteela|256/398|[from] Ingrain
+|upkeep
+|turn|18
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Hurricane|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|224/398
+|
+|-heal|p1a: Celesteela|248/398|[from] Ingrain
+|upkeep
+|turn|19
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Bug Buzz|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|235/398
+|-unboost|p1a: Celesteela|spd|1
+|
+|-heal|p1a: Celesteela|259/398|[from] Ingrain
+|upkeep
+|turn|20
+|
+|move|p1a: Celesteela|Mega Drain|p2a: Vivillon
+|-resisted|p2a: Vivillon
+|-damage|p2a: Vivillon|40/268
+|-heal|p1a: Celesteela|267/398|[from] drain|[of] p2a: Vivillon
+|move|p2a: Vivillon|Bug Buzz|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|247/398
+|
+|-heal|p1a: Celesteela|271/398|[from] Ingrain
+|upkeep
+|turn|21
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Bug Buzz|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|252/398
+|
+|-heal|p1a: Celesteela|276/398|[from] Ingrain
+|upkeep
+|turn|22
+|
+|move|p1a: Celesteela|Mega Drain|p2a: Vivillon
+|-resisted|p2a: Vivillon
+|-damage|p2a: Vivillon|23/268
+|-heal|p1a: Celesteela|285/398|[from] drain|[of] p2a: Vivillon
+|move|p2a: Vivillon|Bug Buzz|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|266/398
+|
+|-heal|p1a: Celesteela|290/398|[from] Ingrain
+|upkeep
+|turn|23
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Bug Buzz|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|272/398
+|
+|-heal|p1a: Celesteela|296/398|[from] Ingrain
+|upkeep
+|turn|24
+|
+|move|p1a: Celesteela|Mega Drain|p2a: Vivillon
+|-resisted|p2a: Vivillon
+|-damage|p2a: Vivillon|6/268
+|-heal|p1a: Celesteela|305/398|[from] drain|[of] p2a: Vivillon
+|move|p2a: Vivillon|Bug Buzz|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|285/398
+|
+|-heal|p1a: Celesteela|309/398|[from] Ingrain
+|upkeep
+|turn|25
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Vivillon|Bug Buzz|p1a: Celesteela
+|debug|compoundeyes - enhancing accuracy
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|289/398
+|
+|-heal|p1a: Celesteela|313/398|[from] Ingrain
+|upkeep
+|turn|26
+|
+|move|p1a: Celesteela|Mega Drain|p2a: Vivillon
+|-resisted|p2a: Vivillon
+|-damage|p2a: Vivillon|0 fnt
+|-heal|p1a: Celesteela|316/398|[from] drain|[of] p2a: Vivillon
+|faint|p2a: Vivillon
+|-ability|p1a: Celesteela|Beast Boost|boost
+|-boost|p1a: Celesteela|spd|1
+|
+|-heal|p1a: Celesteela|340/398|[from] Ingrain
+|upkeep
+|
+|switch|p2a: Chi-Yu|Chi-Yu, L77|211/211
+|-ability|p2a: Chi-Yu|Beads of Ruin
+|turn|27
+|
+|move|p1a: Celesteela|Mega Drain|p2a: Chi-Yu
+|-resisted|p2a: Chi-Yu
+|-damage|p2a: Chi-Yu|192/211
+|-heal|p1a: Celesteela|350/398|[from] drain|[of] p2a: Chi-Yu
+|move|p2a: Chi-Yu|Fire Blast|p1a: Celesteela
+|debug|Beads of Ruin SpD drop
+|-supereffective|p1a: Celesteela
+|-damage|p1a: Celesteela|158/398
+|
+|-heal|p1a: Celesteela|182/398|[from] Ingrain
+|upkeep
+|turn|28
+|
+|move|p1a: Celesteela|Ingrain||[still]
+|-fail|p1a: Celesteela
+|debug|move failed because it did nothing
+|move|p2a: Chi-Yu|Fire Blast|p1a: Celesteela
+|debug|Beads of Ruin SpD drop
+|-supereffective|p1a: Celesteela
+|-damage|p1a: Celesteela|0 fnt
+|faint|p1a: Celesteela
+|
+|upkeep
+|
+|switch|p1a: Archen|Archen, F|314/314
+|turn|29
+|
+|move|p1a: Archen|Substitute|p1a: Archen
+|-start|p1a: Archen|Substitute
+|-damage|p1a: Archen|236/314
+|move|p2a: Chi-Yu|Dark Pulse|p1a: Archen
+|debug|Beads of Ruin SpD drop
+|-end|p1a: Archen|Substitute
+|
+|upkeep
+|turn|30
+|
+|move|p1a: Archen|Substitute|p1a: Archen
+|-start|p1a: Archen|Substitute
+|-damage|p1a: Archen|158/314
+|move|p2a: Chi-Yu|Dark Pulse|p1a: Archen
+|debug|Beads of Ruin SpD drop
+|-end|p1a: Archen|Substitute
+|
+|upkeep
+|turn|31
+|
+|move|p1a: Archen|Substitute|p1a: Archen
+|-start|p1a: Archen|Substitute
+|-damage|p1a: Archen|80/314
+|move|p2a: Chi-Yu|Dark Pulse|p1a: Archen
+|debug|Beads of Ruin SpD drop
+|-end|p1a: Archen|Substitute
+|
+|upkeep
+|turn|32
+|
+|move|p1a: Archen|Substitute|p1a: Archen
+|-start|p1a: Archen|Substitute
+|-damage|p1a: Archen|2/314
+|move|p2a: Chi-Yu|Dark Pulse|p1a: Archen
+|debug|Beads of Ruin SpD drop
+|-crit|p1a: Archen
+|-end|p1a: Archen|Substitute
+|
+|upkeep
+|turn|33
+|
+|move|p1a: Archen|Substitute|p1a: Archen
+|-fail|p1a: Archen|move: Substitute|[weak]
+|move|p2a: Chi-Yu|Dark Pulse|p1a: Archen
+|debug|Beads of Ruin SpD drop
+|-damage|p1a: Archen|0 fnt
+|debug|move failed because it did nothing
+|faint|p1a: Archen
+|
+|upkeep
+|
+|switch|p1a: Chespin|Chespin, F|94/316
+|turn|34
+|
+|move|p2a: Chi-Yu|Fire Blast|p1a: Chespin
+|debug|Beads of Ruin SpD drop
+|-supereffective|p1a: Chespin
+|-damage|p1a: Chespin|0 fnt
+|faint|p1a: Chespin
+|
+|upkeep
+|
+|switch|p1a: Cubchoo|Cubchoo, M|314/314
+|turn|35
+|
+|move|p2a: Chi-Yu|Fire Blast|p1a: Cubchoo
+|debug|Beads of Ruin SpD drop
+|-supereffective|p1a: Cubchoo
+|-damage|p1a: Cubchoo|0 fnt
+|faint|p1a: Cubchoo
+|
+|upkeep
+|
+|switch|p1a: Indeedee|Indeedee-F, F|344/344
+|turn|36
+|
+|move|p1a: Indeedee|Fake Out|p2a: Chi-Yu
+|-damage|p2a: Chi-Yu|143/211
+|cant|p2a: Chi-Yu|flinch
+|
+|upkeep
+|turn|37
+|
+|move|p1a: Indeedee|Fake Out||[still]
+|-hint|Fake Out only works on your first turn out.
+|-fail|p1a: Indeedee
+|move|p2a: Chi-Yu|Dark Pulse|p1a: Indeedee
+|debug|Beads of Ruin SpD drop
+|-supereffective|p1a: Indeedee
+|-damage|p1a: Indeedee|198/344
+|
+|upkeep
+|turn|38
+|
+|move|p1a: Indeedee|Fake Out||[still]
+|-hint|Fake Out only works on your first turn out.
+|-fail|p1a: Indeedee
+|move|p2a: Chi-Yu|Dark Pulse|p1a: Indeedee
+|debug|Beads of Ruin SpD drop
+|-supereffective|p1a: Indeedee
+|-damage|p1a: Indeedee|52/344
+|
+|upkeep
+|turn|39
+|
+|move|p1a: Indeedee|Fake Out||[still]
+|-hint|Fake Out only works on your first turn out.
+|-fail|p1a: Indeedee
+|move|p2a: Chi-Yu|Dark Pulse|p1a: Indeedee
+|debug|Beads of Ruin SpD drop
+|-supereffective|p1a: Indeedee
+|-damage|p1a: Indeedee|0 fnt
+|faint|p1a: Indeedee
+|
+|win|Opponent
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>
