@@ -1,10 +1,10 @@
-# Codesign Gym — Project Page
+# Co-Design Gym — Project Page
 
-The public project page for [**Codesign Gym**](https://github.com/camral/codesign-gym), a Gymnasium-style benchmark for
-co-design (an agent's embodiment optimized alongside its control policy).
+The public project page for [**Co-Design Gym**](https://github.com/camral/codesign-gym), a unified benchmark for
+embodiment-policy co-optimization.
 
-A static site: `index.html` + `static/`, no build step. Publish with GitHub Pages → Settings → Pages →
-*Deploy from branch* → `main` / `/ (root)`. Preview locally with `python -m http.server` (the results explorer
+**Live:** https://camral.github.io/codesigngym/ (GitHub Pages from `main` / root of `camral/codesigngym`; every push to
+`main` redeploys in about a minute). A static site: `index.html` + `static/`, no build step. Preview locally with `python -m http.server` (the results explorer
 fetches JSON, so `file://` will not work).
 
 ## What's on the page
