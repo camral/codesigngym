@@ -92,8 +92,7 @@
         ${f.transition ? '<span class="badge">supports transition-level embodiment: step(action, embodiment)</span>' : ''}
         <h4>Presets · per-episode return window [max / min]</h4><ul class="presets">${f.presets.map(([a, b]) => `<li><span>${a}</span><span>${b}</span></li>`).join('')}</ul>
         <h4>Try it</h4><div class="snippet">env, theta0 = cg.make_vec("${f.example}", num_envs=8)</div>
-        ${f.note ? `<p class="media-note">About the clip: ${f.note}</p>` : '<p class="media-note">About the clip: a final-evaluation rollout from one of our baseline runs.</p>'}
-        <p class="credit">Built by ${f.credit}</p>`;
+        ${f.note ? `<p class="media-note">About the clip: ${f.note}</p>` : '<p class="media-note">About the clip: a final-evaluation rollout from one of our baseline runs.</p>'}`;
       dlg.showModal();
     });
     dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('.modal-close')) dlg.close(); });
