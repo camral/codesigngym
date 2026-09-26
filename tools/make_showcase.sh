@@ -32,3 +32,19 @@ ffmpeg -v error -y -i $T/hopper.mp4 -i $V/HalfCheetah-v4/ppo_ngopt.mp4 -i $T/swi
   "${enc[@]}" "$O/gym.mp4"
 ffmpeg -v error -y -ss 3 -i "$O/gym.mp4" -frames:v 1 -q:v 3 "$O/gym.jpg"
 ls -la "$O"; du -sh "$O"
+
+# hero wall: the six most dynamic final-eval rollouts, one per domain (picked by mean frame-to-frame motion), square-cropped on the action
+Hh=$V/hero; mkdir -p "$Hh"
+hero() { # name src crop_filter [trim_start] [trim_len]
+  local ss=(); [ -n "${4:-}" ] && ss=(-ss "$4"); local t=(); [ -n "${5:-}" ] && t=(-t "$5")
+  ffmpeg -v error -y ${ss[@]+"${ss[@]}"} -i "$2" ${t[@]+"${t[@]}"} -vf "$3,scale=360:360:flags=lanczos" "${enc[@]}" "$Hh/$1.mp4"
+  local d; d=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$Hh/$1.mp4")
+  ffmpeg -v error -y -ss "$(python3 -c "print(float('$d')*0.4)")" -i "$Hh/$1.mp4" -frames:v 1 -q:v 3 "$Hh/$1.jpg"
+}
+hero cheetah   $V/HalfCheetah-v4/ppo_ngopt.mp4      "crop=480:480:0:0"          ""   10
+hero solar     $V/SolarCleanerTraverse/cmaes.mp4    "crop=400:400:40:60"
+hero racing    $V/RacingSpielberg/ppo_ngopt.mp4     "crop=420:420:0:0"          ""   12
+hero warehouse $V/WarehouseSmall/ppo_ngopt.mp4      "crop=302:302:0:0"
+hero grasp     $V/NeroGraspAll/ppo_ngopt.mp4        "crop=360:360:110:0"
+hero network   $V/NetworkUrban/ppo_ngopt.mp4        "crop=372:372:0:14"         0.05
+ls -la "$Hh"
