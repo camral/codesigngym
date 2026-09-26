@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Co-Design Gym</title>
-  <meta name="description" content="Co-Design Gym: a unified benchmark for embodiment-policy co-optimization. 20 environment families and 85+ presets where the body and the policy are optimized together.">
+  <meta name="description" content="Co-Design Gym: a unified benchmark for embodiment-policy co-optimization. 20 environment families and 86 presets where the body and the policy are optimized together.">
   <meta name="author" content="Aviraj Newatia, Yordan Tsvetkov, Leonard Pleiss, Andrew Spielberg, Rika Antonova">
   <meta property="og:title" content="Co-Design Gym">
-  <meta property="og:description" content="Optimize the body and the brain together: 20 domains, 85+ co-design presets, one Gymnasium-style API.">
+  <meta property="og:description" content="Optimize the body and the brain together: 20 domains, 86 co-design presets, one Gymnasium-style API.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="static/video/hero/softwalker.jpg">
   <meta name="theme-color" content="#f6f1e7">
@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="static/css/site.css?v=8ea4e742cd">
+  <link rel="stylesheet" href="static/css/site.css?v=ccbd5049c8">
 </head>
 <body>
 
@@ -69,11 +69,20 @@
       </div>
     </div>
 
-    <div class="stats reveal">
-      <div class="stat"><b>20</b><span>environment families</span></div>
-      <div class="stat"><b>85+</b><span>co-design presets</span></div>
-      <div class="stat"><b>0</b><span>methods that win everywhere</span></div>
-      <div class="stat"><b>1</b><span>Gymnasium-style API</span></div>
+    <div class="apitree reveal" aria-label="One API, twenty environment families, 86 presets, no single winning method">
+      <a class="at-hub" href="#api">
+        <b>1</b><span class="at-hub-t">API</span>
+        <span class="at-hub-s">Gymnasium, plus a design axis</span>
+        <code>env, &theta;&#8320; = make_vec("&hellip;")</code>
+      </a>
+      <svg class="at-lines" viewBox="0 0 900 90" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M450 0 C 450 45, 150 45, 150 90"/><path d="M450 0 L 450 90"/><path d="M450 0 C 450 45, 750 45, 750 90"/>
+      </svg>
+      <div class="at-leaves">
+        <a class="at-leaf" href="#environments"><b>20</b><span class="at-l">environment families</span><span class="at-s">Native &middot; Unlocked/Reframed &middot; Extended</span></a>
+        <a class="at-leaf" href="#results"><b>86</b><span class="at-l">co-design presets</span><span class="at-s">from sanity checks to unsolved</span></a>
+        <a class="at-leaf at-win" href="#results"><b>0</b><span class="at-l">methods that win everywhere</span><span class="at-s">room to innovate</span></a>
+      </div>
     </div>
   </div>
 </header>
@@ -170,7 +179,7 @@
 <!-- ======================================================= 3 ENVIRONMENTS -->
 <section class="block" id="environments">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§3</span><div><h2>20 families. 85+ presets.</h2><p>Hover a card to watch it; tap for presets and code.</p></div></div>
+    <div class="sec-head reveal"><span class="sec-num">§3</span><div><h2>20 families. 86 presets.</h2><p>Hover a card to watch it; tap for presets and code.</p></div></div>
     <figure class="paper-fig envs-fig reveal"><a class="zoom" href="static/images/paper/environments.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/environments.jpg" alt="Grid of all environment families, grouped as Native, Unlocked/Reframed and Extended." loading="lazy"></a></figure>
     <div class="filters" id="env-filters" role="toolbar" aria-label="Filter environments"></div>
     <div class="env-groups" id="env-grid"></div>
