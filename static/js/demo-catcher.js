@@ -5,13 +5,14 @@
   const $ = s => root.querySelector(s);
   const cv = $('canvas'), ctx = cv.getContext('2d');
   const throws = C.makeThrows();
-  let W = 960, H = 420, S = 118, X0 = 150, Y0 = 372;     // world -> px: x' = X0 + x*S, y' = Y0 - y*S (a tighter frame on phones)
+  let W = 960, H = 360, S = 118, X0 = 150, Y0 = 318;     // world -> px: x' = X0 + x*S, y' = Y0 - y*S (a tighter frame on phones)
   const px = (x, y) => [X0 + x * S, Y0 - y * S], wx = (X, Y) => [(X - X0) / S, (Y0 - Y) / S];
   let dpr = 1;
+  let FS = 1;   // canvas font scale: the canvas is drawn wide and shrunk on phones, so text is drawn larger there
   function resize() {
     dpr = Math.min(2, window.devicePixelRatio || 1);
-    [W, H, S, X0, Y0] = (cv.clientWidth || 960) < 620 ? [640, 360, 80, 96, 318] : [960, 420, 118, 150, 372];
-    cv.style.aspectRatio = `${W} / ${H}`; cv.width = W * dpr; cv.height = H * dpr; draw();
+    [W, H, S, X0, Y0] = (cv.clientWidth || 960) < 620 ? [640, 320, 80, 96, 276] : [960, 360, 118, 150, 318];
+    FS = W < 700 ? 1.5 : 1; cv.style.aspectRatio = `${W} / ${H}`; cv.width = W * dpr; cv.height = H * dpr; draw();
   }
 
   const st = { d: { ...C.BASE }, lead: 0, q: C.Q0.slice(), ball: null, trail: [], results: Array(throws.length).fill(null), busy: false, anim: null };
@@ -50,16 +51,20 @@
     const g = ctx.createLinearGradient(0, 0, 0, Y0); g.addColorStop(0, '#fbf7ef'); g.addColorStop(1, '#f1e9da'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, Y0);
     ctx.fillStyle = '#e4d9c4'; ctx.fillRect(0, Y0, W, H - Y0);
     ctx.strokeStyle = '#cdbfa5'; ctx.lineWidth = 1;
-    for (let m = -1; m <= 7; m++) { const [x] = px(m, 0); ctx.beginPath(); ctx.moveTo(x, Y0); ctx.lineTo(x, Y0 + 7); ctx.stroke(); ctx.fillStyle = '#9b917f'; ctx.font = '11px Inter, sans-serif'; ctx.fillText(m + ' m', x - 8, Y0 + 20); }
+    ctx.textAlign = 'center'; ctx.fillStyle = '#9b917f'; ctx.font = `${11 * FS}px Inter, sans-serif`;
+    for (let m = -1; m <= 7; m++) { const [x] = px(m, 0); if (x < 18 || x > W - 18) continue; ctx.beginPath(); ctx.moveTo(x, Y0); ctx.lineTo(x, Y0 + 6); ctx.stroke(); ctx.fillText(m + ' m', x, Y0 + 22); }
+    ctx.textAlign = 'left';
     // reach circle (where the hand can get to)
     const [sx, sy] = px(0, st.d.h);
+    ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, Y0); ctx.clip();
     ctx.setLineDash([4, 6]); ctx.strokeStyle = 'rgba(31,111,104,.45)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(sx, sy, (st.d.L1 + st.d.L2) * S, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.restore();
     // past landing spots
     throws.forEach((b, i) => { const r = st.results[i]; if (r !== false) return; const lx = b.x0 + b.vx * b.T; const [x] = px(lx, 0); ctx.fillStyle = '#c4502f'; ctx.font = 'bold 13px Inter, sans-serif'; ctx.fillText('×', x - 4, Y0 - 3); });
     // pitcher
     const [pxx, pyy] = px(6.05, 0);
     ctx.fillStyle = '#b9ad96'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(pxx - 16, pyy - 64, 32, 64, 6) : ctx.rect(pxx - 16, pyy - 64, 32, 64); ctx.fill();
-    ctx.fillStyle = '#766f62'; ctx.font = '600 11px Inter, sans-serif'; ctx.fillText('pitcher', pxx - 19, pyy - 72);
+    ctx.fillStyle = '#766f62'; ctx.font = `600 ${11 * FS}px Inter, sans-serif`; ctx.textAlign = 'center'; ctx.fillText('pitcher', pxx, pyy - 72); ctx.textAlign = 'left';
     // ball trail + ball
     if (st.trail.length) { ctx.strokeStyle = 'rgba(196,80,47,.35)'; ctx.lineWidth = 2; ctx.beginPath(); st.trail.forEach((p, i) => { const [x, y] = px(p.x, p.y); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); }
     // robot: pedestal, torso, arm
@@ -75,7 +80,9 @@
     // drag handles (design mode only)
     if (!st.busy && !st.ball) {
       handles().forEach(h => { ctx.fillStyle = 'rgba(196,80,47,.14)'; ctx.strokeStyle = '#c4502f'; ctx.lineWidth = 1.6; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.arc(h.x, h.y, 15, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.setLineDash([]); });
-      ctx.fillStyle = '#c4502f'; ctx.font = '600 15px Caveat, cursive'; ctx.fillText('drag the dashed rings to reshape', sx + 26, sy - 58);
+      const ty2 = Math.max(26, sy - (st.d.L1 + st.d.L2) * S - 12), tx2 = Math.max(12, sx - 40);
+      ctx.font = `600 ${17 * FS}px Caveat, cursive`; ctx.lineWidth = 5; ctx.strokeStyle = '#f7f1e6'; ctx.lineJoin = 'round'; ctx.strokeText('drag the dashed rings to reshape the robot', tx2, ty2);
+      ctx.fillStyle = '#c4502f'; ctx.fillText('drag the dashed rings to reshape the robot', tx2, ty2);
     }
   }
   // handles live on the robot in its current pose: shoulder (height), elbow (upper arm), hand (forearm)
@@ -180,7 +187,7 @@
   $('#cc-reset').addEventListener('click', () => { if (st.busy) return; st.d = { ...C.BASE }; st.lead = 0; syncUI(); invalidate(); say('Back to the starting robot: a medium arm that just chases the ball.'); });
 
   const best = {};
-  function record(k, n) { best[k] = Math.max(best[k] || 0, n); $('#cc-board').innerHTML = [['policy', 'policy tuned'], ['body', 'body tuned'], ['co', 'co-designed']].map(([key, name]) => `<li><span>${name}</span><b>${best[key] === undefined ? '–' : best[key] + ' / 20'}</b></li>`).join(''); }
+  function record(k, n) { best[k] = Math.max(best[k] || 0, n); $('#cc-board').innerHTML = [['policy', 'policy tuned'], ['body', 'body tuned'], ['co', 'co-designed']].map(([key, name]) => `<li><span>${name}</span><b>${best[key] === undefined ? '—' : best[key] + ' / 20'}</b></li>`).join(''); }
 
   window.addEventListener('resize', resize);
   syncUI(); setScore(Array(throws.length).fill(null)); resize(); record('_', 0);

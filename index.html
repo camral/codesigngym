@@ -127,12 +127,12 @@
         <fieldset class="knobs"><legend>Policy <em>(how it moves)</em></legend>
           <label for="cc-lead"><span>aim at the ball&hellip;</span><b id="cc-leadv"></b></label><input id="cc-lead" type="range" min="0" max="0.8" step="0.02">
         </fieldset>
-        <div class="demo-btns">
+        <div class="demo-btns grid2">
           <button class="btn solid" id="cc-throw" type="button"><i class="fa-solid fa-play"></i> Throw 20 balls</button>
-          <button class="btn" id="cc-tune-pol" type="button">Tune policy for this body</button>
-          <button class="btn" id="cc-tune-body" type="button">Tune body for this policy</button>
-          <button class="btn accent" id="cc-codesign" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Co-design both</button>
           <button class="btn ghost" id="cc-reset" type="button"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+          <button class="btn" id="cc-tune-pol" type="button" title="Search the aim for the current body">Tune policy only</button>
+          <button class="btn" id="cc-tune-body" type="button" title="Search the body for the current aim">Tune body only</button>
+          <button class="btn accent full" id="cc-codesign" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Co-design body and policy</button>
         </div>
         </div>
         <div class="verdict wide-verdict" id="cc-say" aria-live="polite"></div>
@@ -141,10 +141,10 @@
     </div>
 
     <!-- B: evolve a walker -->
-    <div class="demo reveal" id="demo-walker" role="tabpanel" aria-labelledby="tab-walker" hidden>
+    <div class="demo reveal two-col" id="demo-walker" role="tabpanel" aria-labelledby="tab-walker" hidden>
       <div class="demo-stage"><canvas aria-label="Two lanes showing the same 2D walker body: on top walking with the gait evolved for the base body, below walking with a gait evolved for this body."></canvas></div>
       <div class="demo-side">
-        <fieldset class="knobs col"><legend>Body <em>(the design): <span id="wk-name">Base body</span></em></legend>
+        <fieldset class="knobs col"><legend>Body <em>(the design)</em><span id="wk-name" class="sr"></span></legend>
           <div class="chips-row" id="wk-presets" role="group" aria-label="Body presets"></div>
           <label for="wk-w"><span>torso width</span><b id="wk-wv"></b></label><input id="wk-w" type="range" min="0" max="1" step="0.01">
           <label for="wk-th"><span>torso height</span><b id="wk-thv"></b></label><input id="wk-th" type="range" min="0" max="1" step="0.01">
@@ -155,11 +155,11 @@
           <div class="demo-btns">
             <button class="btn solid" id="wk-evolve" type="button"><i class="fa-solid fa-dna"></i> Evolve a gait for this body</button>
             <button class="btn accent" id="wk-search" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Search bodies for me</button>
+            <span class="gen-note" id="wk-gen" aria-live="polite"></span>
           </div>
-          <p class="gen-note" id="wk-gen" aria-live="polite"></p>
           <div class="verdict" id="wk-say" aria-live="polite"></div>
+          <div class="lb" id="wk-board" aria-label="Bodies tried so far"></div>
         </div>
-        <div class="col lb" id="wk-board" aria-label="Bodies tried so far"></div>
       </div>
       <p class="cap demo-cap">Real 2D rigid-body physics (<a href="https://piqnt.com/planck.js/" target="_blank" rel="noopener">planck.js</a>). The gait is a rhythm for the four joints (a frequency, and an amplitude and phase per joint), found by a small genetic algorithm: 24 gaits × 40 generations, the same fixed seed for every body. The score is distance walked in 8 s; an episode ends if the torso tips past 57&deg;. In our tests, long-legged bodies walk roughly twice as far as the base body once they have their own gait, and barely a metre with the base body's.</p>
     </div>

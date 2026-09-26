@@ -15,7 +15,8 @@
   let dpr = 1, body = PRESETS[0][2].slice(), baseGait = null, lanes = [null, null], cam = [0, 0], busy = false, visible = true;
   const board = new Map();   // key -> {name, body, withBase, own, ownG}
 
-  function resize() { dpr = Math.min(2, window.devicePixelRatio || 1); W = (cv.clientWidth || 960) < 620 ? 560 : 960; cv.style.aspectRatio = `${W} / ${H}`; cv.width = W * dpr; cv.height = H * dpr; }
+  let FS = 1;   // canvas font scale: the canvas is drawn wide and shrunk on phones, so text is drawn larger there
+  function resize() { dpr = Math.min(2, window.devicePixelRatio || 1); W = (cv.clientWidth || 960) < 620 ? 560 : 960; FS = W < 700 ? 1.55 : 1; cv.style.aspectRatio = `${W} / ${H}`; cv.width = W * dpr; cv.height = H * dpr; }
   const bodyKey = b => b.map(v => (+v).toFixed(2)).join(',');
   const sym = () => [+SL.w.value, +SL.th.value, +SL.thigh.value, +SL.shin.value, +SL.thigh.value, +SL.shin.value];
   function setSliders(b) { SL.w.value = b[0]; SL.th.value = b[1]; SL.thigh.value = b[2]; SL.shin.value = b[3]; labels(); }
@@ -108,28 +109,32 @@
   function shade(hex, k) { const n = parseInt(hex.slice(1), 16), c = [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.round(k > 0 ? v + (255 - v) * k : v * (1 + k))); return '#' + c.map(v => v.toString(16).padStart(2, '0')).join(''); }
   function draw() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
-    const S = 70, col = ['#c4502f', '#1f6f68'];
+    const S = 70, col = ['#c4502f', '#1f6f68'], AX = W < 700 ? 0.64 : 0.42;
     [0, 1].forEach(k => {
       const oy = k * (LANE + 8), gy = oy + LANE - 34, L = lanes[k], x0 = cam[k];
       ctx.fillStyle = k ? '#eef6f4' : '#fbf1ec'; ctx.fillRect(0, oy, W, LANE);
       ctx.fillStyle = '#e4d9c4'; ctx.fillRect(0, gy, W, LANE - (gy - oy));
       for (let m = Math.floor(x0 - 4); m < x0 + 12; m++) {
-        const X = (m - x0) * S + W * 0.42; if (X < -20 || X > W + 20) continue;
+        const X = (m - x0) * S + W * AX; if (X < -20 || X > W + 20) continue;
         ctx.strokeStyle = '#cdbfa5'; ctx.beginPath(); ctx.moveTo(X, gy); ctx.lineTo(X, gy + (m % 5 ? 6 : 12)); ctx.stroke();
-        if (m % 5 === 0 && m >= 0) { ctx.fillStyle = '#9b917f'; ctx.font = '11px Inter, sans-serif'; ctx.fillText(m + ' m', X - 8, gy + 25); }
+        if (m % 5 === 0 && m >= 0) { ctx.fillStyle = '#9b917f'; ctx.font = `${11 * FS}px Inter, sans-serif`; ctx.fillText(m + ' m', X - 8, gy + 25); }
       }
-      ctx.fillStyle = col[k]; ctx.font = '700 13px Inter, sans-serif'; ctx.fillText(L ? L.label : (k ? 'no gait evolved for this body yet' : 'evolving the base body’s gait…'), 14, oy + 22);
-      if (!L) { if (k) { ctx.fillStyle = '#766f62'; ctx.font = '12px Inter, sans-serif'; ctx.fillText('press “Evolve a gait for this body”', 14, oy + 40); } return; }
-      ctx.fillStyle = '#766f62'; ctx.font = '12px Inter, sans-serif'; ctx.fillText(`walks ${L.dist.toFixed(1)} m in ${Wk.T_SIM} s`, 14, oy + 40);
+      if (!L) { text(k, oy, k ? 'no gait evolved for this body yet' : 'evolving the base body’s gait…', k ? 'press “Evolve a gait for this body”' : ''); return; }
       L.sim.parts.forEach(p => {
         const pos = p.b.getPosition(), a = p.b.getAngle();
-        ctx.save(); ctx.translate((pos.x - x0) * S + W * 0.42, gy - pos.y * S); ctx.rotate(-a);
+        ctx.save(); ctx.translate((pos.x - x0) * S + W * AX, gy - pos.y * S); ctx.rotate(-a);
         ctx.fillStyle = p.kind === 'torso' ? col[k] : p.leg ? shade(col[k], -0.25) : shade(col[k], 0.25);
         ctx.strokeStyle = '#1f1d1a'; ctx.lineWidth = 1.6;
         const w = p.hw * 2 * S, h = p.hh * 2 * S; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(-w / 2, -h / 2, w, h, Math.min(w, h) / 2.2) : ctx.rect(-w / 2, -h / 2, w, h); ctx.fill(); ctx.stroke(); ctx.restore();
       });
-      if (L.fell) { ctx.fillStyle = '#c4502f'; ctx.font = '600 20px Caveat, cursive'; ctx.fillText('fell over', W - 110, oy + 32); }
+      text(k, oy, L.label, `walks ${L.dist.toFixed(1)} m in ${Wk.T_SIM} s`);
+      if (L.fell) { ctx.fillStyle = '#c4502f'; ctx.font = `600 ${20 * FS}px Caveat, cursive`; ctx.textAlign = 'right'; ctx.fillText('fell over', W - 16, oy + 10 + 20 * FS); ctx.textAlign = 'left'; }
     });
+  }
+  function text(k, oy, title, sub) { // lane labels, drawn over the walker with a paper halo so they stay legible
+    const halo = k ? '#eef6f4' : '#fbf1ec'; ctx.lineJoin = 'round'; ctx.lineWidth = 4;
+    ctx.font = `700 ${13 * FS}px Inter, sans-serif`; ctx.strokeStyle = halo; ctx.strokeText(title, 14, oy + 10 + 13 * FS); ctx.fillStyle = ['#c4502f', '#1f6f68'][k]; ctx.fillText(title, 14, oy + 10 + 13 * FS);
+    if (sub) { ctx.font = `${12 * FS}px Inter, sans-serif`; ctx.strokeText(sub, 14, oy + 14 + 29 * FS); ctx.fillStyle = '#766f62'; ctx.fillText(sub, 14, oy + 14 + 29 * FS); }
   }
   function frame() {
     lanes.forEach((L, k) => {
