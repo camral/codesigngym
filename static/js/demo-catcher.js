@@ -145,14 +145,14 @@
   // ---------------------------------------------------------------- searches (animated)
   async function morphTo(target, ms = 380) {
     const a = { ...st.d }, t0 = performance.now();
-    return new Promise(res => { function f(t) { const u = Math.min(1, (t - t0) / ms), e = u * (2 - u); for (const k of ['h', 'L1', 'L2']) st.d[k] = a[k] + (target[k] - a[k]) * e; syncUI(); draw(); u < 1 ? requestAnimationFrame(f) : res(); } requestAnimationFrame(f); });
+    return new Promise(res => { function f() { const u = Math.max(0, Math.min(1, (performance.now() - t0) / ms)), e = u * (2 - u); for (const k of ['h', 'L1', 'L2']) st.d[k] = a[k] + (target[k] - a[k]) * e; syncUI(); draw(); u < 1 ? requestAnimationFrame(f) : res(); } requestAnimationFrame(f); });
   }
   const yieldUI = () => new Promise(r => setTimeout(r, 0));
   $('#cc-tune-pol').addEventListener('click', async () => {
     setBusy(true); invalidate(); await yieldUI();
     const before = C.score(st.d, st.lead, throws), bl = C.bestLead(st.d, throws);
     const from = st.lead, t0 = performance.now();
-    await new Promise(res => { function f(t) { const u = Math.min(1, (t - t0) / 500); st.lead = from + (bl.lead - from) * u; syncUI(); u < 1 ? requestAnimationFrame(f) : res(); } requestAnimationFrame(f); });
+    await new Promise(res => { function f() { const u = Math.max(0, Math.min(1, (performance.now() - t0) / 500)); st.lead = from + (bl.lead - from) * u; syncUI(); u < 1 ? requestAnimationFrame(f) : res(); } requestAnimationFrame(f); });
     st.lead = bl.lead; syncUI(); setBusy(false);
     await throwAll(true);
     say(`<b>Policy tuned for this body:</b> ${aimText(bl.lead)}. ${bl.score} of 20 (was ${before}). ${bl.lead > 0.2 ? 'A slow arm has to start moving before the ball arrives.' : 'This quick arm does fine just chasing.'}`);
