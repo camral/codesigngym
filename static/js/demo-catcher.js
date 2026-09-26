@@ -42,47 +42,47 @@
 
   // ---------------------------------------------------------------- drawing
   function capsule(x1, y1, x2, y2, r, fill) {
-    ctx.lineCap = 'round'; ctx.strokeStyle = '#1f1d1a'; ctx.lineWidth = 2 * r + 3; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    ctx.lineCap = 'round'; ctx.strokeStyle = '#0a0e17'; ctx.lineWidth = 2 * r + 3; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
     ctx.strokeStyle = fill; ctx.lineWidth = 2 * r; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
   }
   function draw() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
     // sky + ground
-    const g = ctx.createLinearGradient(0, 0, 0, Y0); g.addColorStop(0, '#fbf7ef'); g.addColorStop(1, '#f1e9da'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, Y0);
-    ctx.fillStyle = '#e4d9c4'; ctx.fillRect(0, Y0, W, H - Y0);
-    ctx.strokeStyle = '#cdbfa5'; ctx.lineWidth = 1;
-    ctx.textAlign = 'center'; ctx.fillStyle = '#9b917f'; ctx.font = `${11 * FS}px Inter, sans-serif`;
+    const g = ctx.createLinearGradient(0, 0, 0, Y0); g.addColorStop(0, '#f7f9fc'); g.addColorStop(1, '#eef2f8'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, Y0);
+    ctx.fillStyle = '#e4e8ef'; ctx.fillRect(0, Y0, W, H - Y0);
+    ctx.strokeStyle = '#cdd5e1'; ctx.lineWidth = 1;
+    ctx.textAlign = 'center'; ctx.fillStyle = '#5d6779'; ctx.font = `${11 * FS}px Inter, sans-serif`;
     for (let m = -1; m <= 7; m++) { const [x] = px(m, 0); if (x < 18 || x > W - 18) continue; ctx.beginPath(); ctx.moveTo(x, Y0); ctx.lineTo(x, Y0 + 6); ctx.stroke(); ctx.fillText(m + ' m', x, Y0 + 22); }
     ctx.textAlign = 'left';
     // reach circle (where the hand can get to)
     const [sx, sy] = px(0, st.d.h);
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, Y0); ctx.clip();
-    ctx.setLineDash([4, 6]); ctx.strokeStyle = 'rgba(31,111,104,.45)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(sx, sy, (st.d.L1 + st.d.L2) * S, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.setLineDash([4, 6]); ctx.strokeStyle = 'rgba(37,99,235,.4)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(sx, sy, (st.d.L1 + st.d.L2) * S, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
     ctx.restore();
     // past landing spots
-    throws.forEach((b, i) => { const r = st.results[i]; if (r !== false) return; const lx = b.x0 + b.vx * b.T; const [x] = px(lx, 0); ctx.fillStyle = '#c4502f'; ctx.font = 'bold 13px Inter, sans-serif'; ctx.fillText('×', x - 4, Y0 - 3); });
+    throws.forEach((b, i) => { const r = st.results[i]; if (r !== false) return; const lx = b.x0 + b.vx * b.T; const [x] = px(lx, 0); ctx.fillStyle = '#dc2626'; ctx.font = 'bold 13px Inter, sans-serif'; ctx.fillText('×', x - 4, Y0 - 3); });
     // pitcher
     const [pxx, pyy] = px(6.05, 0);
-    ctx.fillStyle = '#b9ad96'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(pxx - 16, pyy - 64, 32, 64, 6) : ctx.rect(pxx - 16, pyy - 64, 32, 64); ctx.fill();
-    ctx.fillStyle = '#766f62'; ctx.font = `600 ${11 * FS}px Inter, sans-serif`; ctx.textAlign = 'center'; ctx.fillText('pitcher', pxx, pyy - 72); ctx.textAlign = 'left';
+    ctx.fillStyle = '#cdd5e1'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(pxx - 16, pyy - 64, 32, 64, 6) : ctx.rect(pxx - 16, pyy - 64, 32, 64); ctx.fill();
+    ctx.fillStyle = '#5d6779'; ctx.font = `600 ${11 * FS}px Inter, sans-serif`; ctx.textAlign = 'center'; ctx.fillText('pitcher', pxx, pyy - 72); ctx.textAlign = 'left';
     // ball trail + ball
-    if (st.trail.length) { ctx.strokeStyle = 'rgba(196,80,47,.35)'; ctx.lineWidth = 2; ctx.beginPath(); st.trail.forEach((p, i) => { const [x, y] = px(p.x, p.y); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); }
+    if (st.trail.length) { ctx.strokeStyle = 'rgba(37,99,235,.35)'; ctx.lineWidth = 2; ctx.beginPath(); st.trail.forEach((p, i) => { const [x, y] = px(p.x, p.y); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); }
     // robot: pedestal, torso, arm
     const [bx, by] = px(0, 0);
-    ctx.fillStyle = '#45413a'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(bx - 34, by - 18, 68, 18, 5) : ctx.rect(bx - 34, by - 18, 68, 18); ctx.fill();
-    capsule(bx, by - 14, sx, sy, 11, '#8a8373');
+    ctx.fillStyle = '#283142'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(bx - 34, by - 18, 68, 18, 5) : ctx.rect(bx - 34, by - 18, 68, 18); ctx.fill();
+    capsule(bx, by - 14, sx, sy, 11, '#8a95a8');
     const f = C.fk(st.d, st.q), [ex, ey] = px(f.ex, f.ey), [tx, ty] = px(f.tx, f.ty);
-    capsule(sx, sy, ex, ey, 9, '#1f6f68'); capsule(ex, ey, tx, ty, 7.5, '#2f8f86');
-    ctx.fillStyle = '#fffdf8'; ctx.strokeStyle = '#1f1d1a'; ctx.lineWidth = 2;
+    capsule(sx, sy, ex, ey, 9, '#283142'); capsule(ex, ey, tx, ty, 7.5, '#3b4a63');
+    ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#0a0e17'; ctx.lineWidth = 2;
     [[sx, sy, 7], [ex, ey, 6]].forEach(([x, y, r]) => { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
-    ctx.fillStyle = '#eda100'; ctx.beginPath(); ctx.arc(tx, ty, C.CATCH_R * S * 0.62, 0, Math.PI * 2); ctx.fill(); ctx.stroke();   // the catching hand
-    if (st.ball) { const [x, y] = px(st.ball.x, st.ball.y); ctx.fillStyle = st.ball.caught ? '#1f6f68' : '#c4502f'; ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = '#1f1d1a'; ctx.lineWidth = 1.5; ctx.stroke(); }
+    ctx.fillStyle = '#2563eb'; ctx.beginPath(); ctx.arc(tx, ty, C.CATCH_R * S * 0.62, 0, Math.PI * 2); ctx.fill(); ctx.stroke();   // the catching hand
+    if (st.ball) { const [x, y] = px(st.ball.x, st.ball.y); ctx.fillStyle = st.ball.caught ? '#16a34a' : '#dc2626'; ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = '#0a0e17'; ctx.lineWidth = 1.5; ctx.stroke(); }
     // drag handles (design mode only)
     if (!st.busy && !st.ball) {
-      handles().forEach(h => { ctx.fillStyle = 'rgba(196,80,47,.14)'; ctx.strokeStyle = '#c4502f'; ctx.lineWidth = 1.6; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.arc(h.x, h.y, 15, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.setLineDash([]); });
+      handles().forEach(h => { ctx.fillStyle = 'rgba(37,99,235,.12)'; ctx.strokeStyle = '#2563eb'; ctx.lineWidth = 1.6; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.arc(h.x, h.y, 15, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.setLineDash([]); });
       const ty2 = Math.max(26, sy - (st.d.L1 + st.d.L2) * S - 12), tx2 = Math.max(12, sx - 40);
-      ctx.font = `600 ${17 * FS}px Caveat, cursive`; ctx.lineWidth = 5; ctx.strokeStyle = '#f7f1e6'; ctx.lineJoin = 'round'; ctx.strokeText('drag the dashed rings to reshape the robot', tx2, ty2);
-      ctx.fillStyle = '#c4502f'; ctx.fillText('drag the dashed rings to reshape the robot', tx2, ty2);
+      ctx.font = `600 ${13 * FS}px Inter, sans-serif`; ctx.lineWidth = 5; ctx.strokeStyle = '#f7f9fc'; ctx.lineJoin = 'round'; ctx.strokeText('Drag the dashed rings to reshape the robot', tx2, ty2);
+      ctx.fillStyle = '#2563eb'; ctx.fillText('Drag the dashed rings to reshape the robot', tx2, ty2);
     }
   }
   // handles live on the robot in its current pose: shoulder (height), elbow (upper arm), hand (forearm)

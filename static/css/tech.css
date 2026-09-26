@@ -1,0 +1,41 @@
+/* The Tech identity, applied via html[data-theme="tech"] on top of site.css (site.css keeps the original tokens as a base). */
+
+/* ---------------------------------------------------------------- shared: drop the notebook devices */
+[data-theme] .hand, [data-theme] .wall-note, [data-theme] .aside-note, [data-theme] .sec-num, [data-theme] .polaroid .tape { display: none !important; }
+[data-theme] .sec-head { grid-template-columns: 1fr; }
+[data-theme] .polaroid { --r: 0deg !important; padding: 0; border-radius: var(--rad); overflow: hidden; border: 1px solid var(--line); }
+[data-theme] .polaroid:hover { transform: translateY(-3px); }
+[data-theme] .polaroid figcaption { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); padding: 7px 8px; text-align: left; }
+[data-theme] .mark { background-image: none !important; color: var(--accent); padding: 0; }
+[data-theme] .btn, [data-theme] .nav-gh, [data-theme] .chip, [data-theme] .legend button, [data-theme] .demo-tabs, [data-theme] .demo-tabs button, [data-theme] .pip, [data-theme] .bib .copy { border-radius: var(--rad); }
+[data-theme] .env, [data-theme] .paper-fig, [data-theme] .pillar, [data-theme] .take-card, [data-theme] .bignums div, [data-theme] .chart-card, [data-theme] .at-leaf, [data-theme] .at-hub,
+[data-theme] .demo-stage, [data-theme] .knobs, [data-theme] .scorecard, [data-theme] .lb, [data-theme] .rollout, [data-theme] .cta, [data-theme] .bib, [data-theme] .code, [data-theme] dialog.modal { border-radius: var(--rad); }
+[data-theme] .nav { background: color-mix(in srgb, var(--paper) 88%, transparent); }
+[data-theme] .title em { color: var(--accent); }
+[data-theme] .at-hub b, [data-theme] .cta .hand { color: var(--hub-num); }
+[data-theme] .at-hub-s, [data-theme] .cta p { color: var(--hub-sub); }
+[data-theme] .kicker::before { background: var(--accent); }
+[data-theme] .kicker, [data-theme] .take-k, [data-theme] .card-h, [data-theme] .picker h4 { color: var(--accent); }
+[data-theme] .progress { background: var(--accent); }
+[data-theme] .slice li.on::before { background: var(--accent); }
+[data-theme] .verdict { border-left-color: var(--accent); background: var(--accent-soft); }
+[data-theme] .badge { background: var(--accent-soft); color: var(--accent); }
+
+/* ---------------------------------------------------------------- 1. TECH: crisp white, electric blue, grotesk + mono, blueprint grid */
+[data-theme="tech"] {
+  --paper: #ffffff; --paper-2: #f4f6fa; --card: #ffffff; --ink: #0a0e17; --ink-2: #283142; --muted: #5d6779; --line: #e4e8ef; --line-2: #cdd5e1;
+  --accent: #2563eb; --accent-soft: #e8efff; --teal: #0f766e; --teal-soft: #dff5f1; --hi: rgba(37, 99, 235, .15); --code-bg: #0a0e17; --code-ink: #e6ebf5;
+  --shadow: 0 1px 2px rgba(10, 14, 23, .05), 0 6px 20px rgba(10, 14, 23, .06);
+  --serif: 'Inter', system-ui, sans-serif; --display: 'Space Grotesk', 'Inter', sans-serif; --sans: 'Inter', system-ui, sans-serif; --rad: 6px;
+  --hub-num: #60a5fa; --hub-sub: #9aa6ba;
+}
+[data-theme="tech"] body { font-size: 17px; }
+[data-theme="tech"] .hero { background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 40px 40px; background-position: -1px -1px; }
+[data-theme="tech"] .hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, transparent 30%, #fff 80%); pointer-events: none; }
+[data-theme="tech"] .hero > .wrap { position: relative; z-index: 1; }
+[data-theme="tech"] h1.title, [data-theme="tech"] .sec-head h2 { font-variation-settings: normal; letter-spacing: -0.035em; font-weight: 700; }
+[data-theme="tech"] .at-hub b, [data-theme="tech"] .at-leaf b, [data-theme="tech"] .take-n, [data-theme="tech"] .bignums b { font-family: var(--mono); font-weight: 600; letter-spacing: -0.04em; }
+[data-theme="tech"] section.block.alt { background: var(--paper-2); }
+[data-theme="tech"] .kicker { font-family: var(--mono); letter-spacing: .08em; }
+
+[data-theme="tech"] .lb tr.best td { background: var(--accent-soft); }

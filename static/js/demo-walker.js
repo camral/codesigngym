@@ -62,7 +62,7 @@
   function sketch(b) { // tiny side-view silhouette of a body
     const d = Wk.decode(b.concat(Array(9).fill(0.5))), S = 22, lh = d.legs[0][0] + d.legs[0][1], w = d.w * S, y0 = 2 + d.th * S, H2 = y0 + lh * S + 2;
     const xs = [-0.42 * w, 0.42 * w].map(x => x + 22);
-    return `<svg viewBox="0 0 44 ${H2.toFixed(0)}" width="28" height="${Math.min(36, H2 * 28 / 44).toFixed(0)}" aria-hidden="true"><rect x="${(22 - w / 2).toFixed(1)}" y="2" width="${w.toFixed(1)}" height="${(d.th * S).toFixed(1)}" rx="2" fill="#1f6f68"/>${xs.map(x => `<line x1="${x.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x.toFixed(1)}" y2="${(y0 + lh * S).toFixed(1)}" stroke="#45413a" stroke-width="2.6" stroke-linecap="round"/>`).join('')}</svg>`;
+    return `<svg viewBox="0 0 44 ${H2.toFixed(0)}" width="28" height="${Math.min(36, H2 * 28 / 44).toFixed(0)}" aria-hidden="true"><rect x="${(22 - w / 2).toFixed(1)}" y="2" width="${w.toFixed(1)}" height="${(d.th * S).toFixed(1)}" rx="2" fill="#2563eb"/>${xs.map(x => `<line x1="${x.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x.toFixed(1)}" y2="${(y0 + lh * S).toFixed(1)}" stroke="#283142" stroke-width="2.6" stroke-linecap="round"/>`).join('')}</svg>`;
   }
   $('#wk-board').addEventListener('click', e => { const tr = e.target.closest('tr[data-k]'); if (!tr || busy) return; const r = board.get(tr.dataset.k); setSliders(r.body); showBody(r.body); markPreset(); });
 
@@ -111,32 +111,32 @@
   function shade(hex, k) { const n = parseInt(hex.slice(1), 16), c = [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.round(k > 0 ? v + (255 - v) * k : v * (1 + k))); return '#' + c.map(v => v.toString(16).padStart(2, '0')).join(''); }
   function draw() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
-    const S = 70, col = ['#c4502f', '#1f6f68'], AX = W < 700 ? 0.64 : 0.42;
+    const S = 70, col = ['#64748b', '#2563eb'], AX = W < 700 ? 0.64 : 0.42;
     [0, 1].forEach(k => {
       const oy = k * (LANE + 8), gy = oy + LANE - 34, L = lanes[k], x0 = cam[k];
-      ctx.fillStyle = k ? '#eef6f4' : '#fbf1ec'; ctx.fillRect(0, oy, W, LANE);
-      ctx.fillStyle = '#e4d9c4'; ctx.fillRect(0, gy, W, LANE - (gy - oy));
+      ctx.fillStyle = k ? '#eef3ff' : '#f4f6fa'; ctx.fillRect(0, oy, W, LANE);
+      ctx.fillStyle = '#e4e8ef'; ctx.fillRect(0, gy, W, LANE - (gy - oy));
       for (let m = Math.floor(x0 - 4); m < x0 + 12; m++) {
         const X = (m - x0) * S + W * AX; if (X < -20 || X > W + 20) continue;
-        ctx.strokeStyle = '#cdbfa5'; ctx.beginPath(); ctx.moveTo(X, gy); ctx.lineTo(X, gy + (m % 5 ? 6 : 12)); ctx.stroke();
-        if (m % 5 === 0 && m >= 0) { ctx.fillStyle = '#9b917f'; ctx.font = `${11 * FS}px Inter, sans-serif`; ctx.fillText(m + ' m', X - 8, gy + 25); }
+        ctx.strokeStyle = '#cdd5e1'; ctx.beginPath(); ctx.moveTo(X, gy); ctx.lineTo(X, gy + (m % 5 ? 6 : 12)); ctx.stroke();
+        if (m % 5 === 0 && m >= 0) { ctx.fillStyle = '#5d6779'; ctx.font = `${11 * FS}px Inter, sans-serif`; ctx.fillText(m + ' m', X - 8, gy + 25); }
       }
       if (!L) { text(k, oy, k ? 'no gait evolved for this body yet' : 'evolving the base body’s gait…', k ? 'press “Evolve a gait for this body”' : ''); return; }
       L.sim.parts.forEach(p => {
         const pos = p.b.getPosition(), a = p.b.getAngle();
         ctx.save(); ctx.translate((pos.x - x0) * S + W * AX, gy - pos.y * S); ctx.rotate(-a);
         ctx.fillStyle = p.kind === 'torso' ? col[k] : p.leg ? shade(col[k], -0.25) : shade(col[k], 0.25);
-        ctx.strokeStyle = '#1f1d1a'; ctx.lineWidth = 1.6;
+        ctx.strokeStyle = '#0a0e17'; ctx.lineWidth = 1.6;
         const w = p.hw * 2 * S, h = p.hh * 2 * S; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(-w / 2, -h / 2, w, h, Math.min(w, h) / 2.2) : ctx.rect(-w / 2, -h / 2, w, h); ctx.fill(); ctx.stroke(); ctx.restore();
       });
       text(k, oy, L.label, `walks ${L.dist.toFixed(1)} m in ${Wk.T_SIM} s`);
-      if (L.fell) { ctx.fillStyle = '#c4502f'; ctx.font = `600 ${20 * FS}px Caveat, cursive`; ctx.textAlign = 'right'; ctx.fillText('fell over', W - 16, oy + 10 + 20 * FS); ctx.textAlign = 'left'; }
+      if (L.fell) { ctx.fillStyle = '#dc2626'; ctx.font = `700 ${12 * FS}px Inter, sans-serif`; ctx.textAlign = 'right'; ctx.fillText('FELL OVER', W - 16, oy + 10 + 20 * FS); ctx.textAlign = 'left'; }
     });
   }
   function text(k, oy, title, sub) { // lane labels, drawn over the walker with a paper halo so they stay legible
-    const halo = k ? '#eef6f4' : '#fbf1ec'; ctx.lineJoin = 'round'; ctx.lineWidth = 4;
-    ctx.font = `700 ${13 * FS}px Inter, sans-serif`; ctx.strokeStyle = halo; ctx.strokeText(title, 14, oy + 10 + 13 * FS); ctx.fillStyle = ['#c4502f', '#1f6f68'][k]; ctx.fillText(title, 14, oy + 10 + 13 * FS);
-    if (sub) { ctx.font = `${12 * FS}px Inter, sans-serif`; ctx.strokeText(sub, 14, oy + 14 + 29 * FS); ctx.fillStyle = '#766f62'; ctx.fillText(sub, 14, oy + 14 + 29 * FS); }
+    const halo = k ? '#eef3ff' : '#f4f6fa'; ctx.lineJoin = 'round'; ctx.lineWidth = 4;
+    ctx.font = `700 ${13 * FS}px Inter, sans-serif`; ctx.strokeStyle = halo; ctx.strokeText(title, 14, oy + 10 + 13 * FS); ctx.fillStyle = ['#475569', '#2563eb'][k]; ctx.fillText(title, 14, oy + 10 + 13 * FS);
+    if (sub) { ctx.font = `${12 * FS}px Inter, sans-serif`; ctx.strokeText(sub, 14, oy + 14 + 29 * FS); ctx.fillStyle = '#5d6779'; ctx.fillText(sub, 14, oy + 14 + 29 * FS); }
   }
   function frame() {
     lanes.forEach((L, k) => {
