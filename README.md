@@ -14,7 +14,8 @@ fetches JSON, so `file://` will not work).
 | Hero video wall, environment explorer | `static/video/showcase/*.mp4` (one clip per family) |
 | Playground: Build a catcher | `static/js/catcher-core.js` (2D arm + ballistics, deterministic searches) + `demo-catcher.js` |
 | Playground: Give a walker new legs | `static/js/walker-core.js` (planck.js walker + GA) + `demo-walker.js` |
-| Environment cards + modals | `static/js/envs.js` (facts from the codesign-gym README) |
+| Environment cards + modals | `static/js/envs.js`: the paper's 20 families (Native 7 / Extended 7 / Reframed 6), facts from the codesign-gym README; stills in `static/images/envs/fig3/` are cropped from the paper's Figure 3 |
+| Results takeaway | headroom bars computed from `results.json` (best final return / documented max); leader counts and 16.6% from the paper |
 | Baseline results explorer | `static/data/results.json`, `static/data/videos.json`, `static/video/<preset>/<method>.mp4` |
 | Pokémon battle replays | `static/replays/<preset>/<method>-{best,worst}.html`, `static/data/replays.json` |
 | Diagrams | `static/figures/*.svg` (+ editable `.drawio` sources) |

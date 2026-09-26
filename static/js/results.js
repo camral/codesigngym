@@ -8,7 +8,7 @@
 
   Promise.all([fetch('static/data/results.json').then(r => r.json()), fetch('static/data/videos.json').then(r => r.json()).catch(() => ({}))]).then(([d, v]) => {
     D = d; V = v;
-    buildPicker(); buildWins();
+    buildPicker(); buildWins(); buildHeadroom();
     select(new URLSearchParams(location.hash.split('?')[1] || '').get('preset') || 'BallCatcher-Pitch');
   }).catch(() => { $('.chart').innerHTML = '<p class="muted">Could not load results data (open the page through a web server, not file://).</p>'; });
 
@@ -44,6 +44,22 @@
     list.innerHTML = html; sel.innerHTML = opts;
     list.addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (b) select(b.dataset.p); });
     sel.addEventListener('change', () => select(sel.value));
+  }
+
+  // headroom: best final return as a share of the documented maximum, on presets whose return runs from 0 to a real ceiling
+  const CEIL = [['BallCatcher-Arc', 10], ['BallCatcher-Pitch', 10], ['BallCatcher-Fielding', 10], ['TruckUnloadSingle', 10], ['NeroGraspAll', 13], ['SolarCleanerReach', 10],
+    ['WarehouseSmall', 1000, 1], ['SolarCleanerTraverse', 10], ['WarehouseMedium', 1000, 1], ['WarehouseCongested', 1000, 1]];
+  function buildHeadroom() {
+    const el = document.getElementById('headroom'); if (!el) return;
+    const rows = CEIL.map(([id, max, hard]) => {
+      const p = D.presets.find(x => x.id === id); if (!p) return null;
+      const f = Object.entries(p.methods).filter(([, v]) => v.final).map(([m, v]) => [m, v.final.mean]).sort((a, b) => b[1] - a[1])[0];
+      return { name: pretty(p), m: f[0], v: f[1], max, share: Math.max(0, f[1]) / max, hard };
+    }).filter(Boolean).sort((a, b) => b.share - a.share);
+    el.innerHTML = rows.map(r => `<div class="hr-row" title="${r.name}: best is ${methodName(r.m)} at ${fmt(r.v)} of ${r.max}${r.hard ? ' (ceiling not attainable in practice)' : ''}"><span class="hr-name">${r.name}${r.hard ? '<sup>†</sup>' : ''}</span><span class="hr-track"><i style="width:${Math.max(0.6, 100 * r.share).toFixed(1)}%;background:${color(r.m)}"></i></span><span class="hr-v">${(100 * r.share).toFixed(r.share < 0.1 ? 1 : 0)}%</span></div>`).join('')
+      + `<div class="hr-key">${[...new Set(rows.map(r => r.m))].map(m => `<span><i style="background:${color(m)}"></i>${methodName(m)}</span>`).join('')}<span class="muted">† 1000 deliveries is an upper bound, not reachable in practice</span></div>`;
+    const mx = document.getElementById('hr-max'); if (mx) mx.textContent = Math.round(100 * rows[0].share) + '%';
+    const un = document.getElementById('hr-under'); if (un) un.innerHTML = rows.filter(r => r.share < 0.02).length + '<small>/' + rows.length + '</small>';
   }
 
   function buildWins() {

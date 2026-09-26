@@ -30,20 +30,20 @@ window.ENV_FAMILIES = [
     example: 'NeroGraspTiny', credit: 'Aviraj Newatia, Rika Antonova (earlier contributions from Austin Yang).'
   },
   {
-    id: 'hand', name: 'Shape-shifting Hand', sim: 'rotate_in_hand · hand_pick_up · MuJoCo Warp', tags: ['native', 'manip'], ids: 4, transition: true,
-    blurb: 'A hand that reshapes itself, even mid-episode, to turn or pick up objects.',
+    id: 'rotateinhand', name: 'In-Hand Rotation', sim: 'rotate_in_hand · MuJoCo Warp', tags: ['native', 'manip'], ids: 1, transition: true,
+    blurb: 'Turn an object to a stream of goal orientations with a hand that reshapes itself.',
     design: '216 pad-cell heights in [0, 1] + 3 finger-link offsets', policy: '19 hand actuators',
-    presets: [['RotateInHand: box, goals 1 rad apart', '+10 per goal / 0'], ['HandPickUp-Cube', '+9 per goal, +1 tip / 0'], ['HandPickUp-SquashBall', '+9 per goal, +1 tip / 0'], ['HandPickUp-Hammer', '+10 / 0']],
+    presets: [['RotateInHand: box, goals 1 rad apart, 15 s', '+10 per goal / 0']],
     example: 'RotateInHand', credit: 'Yordan Tsvetkov; ported from rl-curr-replay.',
-    note: 'Design sweep rendered from the env’s hand model in MuJoCo: the 216 pad heights blend between random valid designs. Not a trained policy.'
+    note: 'Design sweep rendered from the env\u2019s hand model in MuJoCo: the 216 pad heights blend between random valid designs. Not a trained policy.'
   },
   {
-    id: 'gym', name: 'Classic Locomotion, Co-Designed', sim: 'half_cheetah … humanoid_standup · MuJoCo Warp', tags: ['extended', 'loco'], ids: 7,
-    blurb: 'HalfCheetah, Hopper, Ant, Humanoid and friends, with reshapeable bodies.',
-    design: 'link lengths (3D length + orientation for Ant and Humanoid, 28-dim)', policy: 'the familiar v4 joint torques',
-    presets: [['HalfCheetah-v4 · Hopper-v4 · Walker2d-v4', 'planar'], ['Swimmer-v4', 'fluid drag'], ['Ant-v4', '12 leg links, 3D'], ['Humanoid-v4 · HumanoidStandup-v4', '28-dim design']],
-    example: 'Hopper-v4', credit: 'Ported into MuJoCo Warp and co-design by Aviraj Newatia (XML vendored from Gymnasium, MIT).',
-    note: 'Four eval rollouts: Hopper, HalfCheetah (it flipped: a real PPO+NGOpt outcome), Swimmer, HumanoidStandup. Fixed-camera clips are follow-cropped around the robot.'
+    id: 'handpickup', name: 'Hand Pick Up', sim: 'hand_pick_up · MuJoCo Warp', tags: ['native', 'manip'], ids: 3, transition: true,
+    blurb: 'Lift a cube, ball or hammer off a table, then pose it, with the same shape-shifting hand.',
+    design: '216 pad-cell heights + 3 finger-link offsets', policy: '19 hand actuators, palm down over the table',
+    presets: [['HandPickUp-Cube', '+9 per goal, +1 tip / 0'], ['HandPickUp-SquashBall', '+9 per goal, +1 tip / 0'], ['HandPickUp-Hammer', '+10 / 0']],
+    example: 'HandPickUp-Cube', credit: 'Yordan Tsvetkov; ported from rl-curr-replay.', still: true, poster: 'static/images/envs/fig3/handpickup.jpg',
+    note: 'Still from the paper (Figure 3).'
   },
   {
     id: 'softwalker', name: 'Soft Robot Walker', sim: 'soft_walker · native Warp soft-body engine', tags: ['native', 'soft', 'loco'], ids: 15,
@@ -52,6 +52,62 @@ window.ENV_FAMILIES = [
     presets: [['Spring lattice (2D)', 'flat / stairs / gaps'], ['MPM (2D) and MPM (3D)', 'flat / stairs / gaps'], ['Timoshenko beam lattice (3D)', 'flat / stairs / gaps'], ['Hexahedral FEM, neo-Hookean (3D)', 'flat / stairs / gaps']],
     example: 'SoftWalkerHexFEM3D-Gaps', credit: 'Engine by Andrew Spielberg; integrated by Aviraj Newatia.',
     note: 'Render from the environment (HexFEM 3D on the Gaps terrain), not a baseline run. Baselines on SoftWalkerBeam3D (CMA-ES, FastTD3, PPO+NGOpt; 5 seeds) are in the results explorer. Return windows are not yet characterised.'
+  },
+  {
+    id: 'halfcheetah', name: 'Half-Cheetah', sim: 'half_cheetah · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    blurb: "A planar runner whose six leg segments you can reshape.",
+    design: "each leg segment’s length and angle, head and torso halves (16-dim)", policy: '6 leg joints',
+    presets: [['HalfCheetah-v4', 'unbounded return']],
+    example: 'HalfCheetah-v4', credit: 'Ported into MuJoCo Warp and co-design by Aviraj Newatia (XML vendored from Gymnasium, MIT).',
+    note: "Real eval rollout (PPO+NGOpt): this co-designed cheetah flipped and kept going."
+  },
+  {
+    id: 'hopper', name: 'Hopper', sim: 'hopper · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    blurb: "Hop forward without falling, on a leg you design.",
+    design: "thigh, leg, torso and foot lengths + angles (8-dim)", policy: 'thigh, leg and foot joints',
+    presets: [['Hopper-v4', 'unbounded return']],
+    example: 'Hopper-v4', credit: 'Ported into MuJoCo Warp and co-design by Aviraj Newatia (XML vendored from Gymnasium, MIT).',
+    note: "Real eval rollout (CMA-ES), follow-cropped around the robot."
+  },
+  {
+    id: 'walker2d', name: 'Walker-2D', sim: 'walker2d · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    blurb: "Two legs, designed independently: asymmetric walkers allowed.",
+    design: "thigh, leg and foot of both legs + torso halves (12-dim)", policy: '6 leg joints',
+    presets: [['Walker2d-v4', 'unbounded return']],
+    example: 'Walker2d-v4', credit: 'Ported into MuJoCo Warp and co-design by Aviraj Newatia (XML vendored from Gymnasium, MIT).', still: true, poster: 'static/images/envs/fig3/walker2d.jpg',
+    note: "Still from the paper (Figure 3): the fixed eval camera loses this robot within about a second."
+  },
+  {
+    id: 'swimmer', name: 'Swimmer', sim: 'swimmer · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    blurb: "Swim through viscous fluid with links you get to reshape.",
+    design: "all three links’ length and angle (6-dim)", policy: '2 inter-link joints',
+    presets: [['Swimmer-v4', 'unbounded return']],
+    example: 'Swimmer-v4', credit: 'Ported into MuJoCo Warp and co-design by Aviraj Newatia (XML vendored from Gymnasium, MIT).',
+    note: "Real eval rollout (FastTD3), follow-cropped around the robot."
+  },
+  {
+    id: 'ant', name: 'Ant', sim: 'ant · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    blurb: "A 3D quadruped where every leg link is a design variable.",
+    design: "3D length and orientation of all 12 leg links (36-dim)", policy: '8 leg joints',
+    presets: [['Ant-v4', 'unbounded return']],
+    example: 'Ant-v4', credit: 'Ported into MuJoCo Warp and co-design by Aviraj Newatia (XML vendored from Gymnasium, MIT).', still: true, poster: 'static/images/envs/fig3/ant.jpg',
+    note: "Still from the paper (Figure 3): the fixed eval camera loses this robot within about a second."
+  },
+  {
+    id: 'humanoid', name: 'Humanoid', sim: 'humanoid · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    blurb: "Run with limbs, hands and feet you can resize.",
+    design: "3D limbs plus hand and foot radii (28-dim)", policy: '17 joints',
+    presets: [['Humanoid-v4', 'unbounded return']],
+    example: 'Humanoid-v4', credit: 'Ported into MuJoCo Warp and co-design by Aviraj Newatia (XML vendored from Gymnasium, MIT).',
+    note: "Real eval rollout (FastTD3, return 5,956), follow-cropped around the robot."
+  },
+  {
+    id: 'humanoidstandup', name: 'Humanoid Standup', sim: 'humanoid_standup · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    blurb: "Get up off the floor, with the same 28-dim design space.",
+    design: "3D limbs plus hand and foot radii (28-dim)", policy: '17 joints',
+    presets: [['HumanoidStandup-v4', 'unbounded return']],
+    example: 'HumanoidStandup-v4', credit: 'Ported into MuJoCo Warp and co-design by Aviraj Newatia (XML vendored from Gymnasium, MIT).',
+    note: "Real eval rollout (FastTD3), follow-cropped around the robot."
   },
   {
     id: 'lq', name: 'LQ Structure', sim: 'lq_structure · python-control + cvxpy', tags: ['reframed', 'control'], ids: 3,

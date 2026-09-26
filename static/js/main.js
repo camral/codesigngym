@@ -47,32 +47,24 @@
   const grid = document.getElementById('env-grid'), filters = document.getElementById('env-filters');
   if (grid && window.ENV_FAMILIES) {
     const fams = window.ENV_FAMILIES, touch = window.matchMedia('(hover: none)').matches;
-    const media = f => ({ video: f.id === 'pokemon' ? null : `static/video/showcase/${f.id}.mp4`, poster: f.poster || `static/video/showcase/${f.id}.jpg` });
-    grid.innerHTML = fams.map(f => {
+    const media = f => ({ video: f.id === 'pokemon' || f.still ? null : `static/video/showcase/${f.id}.mp4`, poster: f.poster || `static/video/showcase/${f.id}.jpg` });
+    const card = f => {
       const md = media(f);
       return `<button type="button" class="env reveal" data-id="${f.id}" data-tags="${f.tags.join(' ')}" aria-haspopup="dialog">
-        <div class="media"><img src="${md.poster}" alt="" loading="lazy">${md.video ? `<video muted loop playsinline preload="none" src="${md.video}"></video><span class="play-hint"><i class="fa-solid fa-play"></i> ${touch ? 'tap for details' : 'hover to play'}</span>` : ''}${f.replay ? '<span class="play-hint"><i class="fa-solid fa-play"></i> click to watch a battle</span>' : ''}<span class="ids">${f.ids} id${f.ids > 1 ? 's' : ''}</span></div>
+        <div class="media"><img src="${md.poster}" alt="" loading="lazy">${md.video ? `<video muted loop playsinline preload="none" src="${md.video}"></video><span class="play-hint"><i class="fa-solid fa-play"></i> ${touch ? 'tap for details' : 'hover to play'}</span>` : ''}${f.replay ? '<span class="play-hint"><i class="fa-solid fa-play"></i> click to watch a battle</span>' : ''}${f.still ? '<span class="play-hint still"><i class="fa-regular fa-image"></i> still</span>' : ''}<span class="ids">${f.ids} id${f.ids > 1 ? 's' : ''}</span></div>
         <div class="body"><h3>${f.name}</h3><div class="sim">${f.sim}</div><p>${f.blurb}</p>
         ${f.transition ? '<span class="badge">θ can change mid-episode</span>' : ''}</div></button>`;
-    }).join('');
+    };
+    // all 20 families, grouped as in the paper (Figure 3)
+    const GROUPS = [['native', 'Native', 'New domains built for co-design'], ['extended', 'Extended', 'Classic MuJoCo control, with reshapeable bodies'], ['reframed', 'Reframed', 'Existing problems, recast as co-design']];
+    grid.innerHTML = GROUPS.map(([k, n, d]) => { const fs = fams.filter(f => f.tags[0] === k); return `<div class="env-group g-${k}" data-group="${k}"><h3 class="grp-h"><span>${n}</span><em>${fs.length} families · ${d}</em></h3><div class="env-grid">${fs.map(card).join('')}</div></div>`; }).join('');
     grid.querySelectorAll('.reveal').forEach(el => rv.observe(el));
-    const counts = {}; fams.forEach(f => f.tags.forEach(t => counts[t] = (counts[t] || 0) + 1));
-    filters.innerHTML = window.ENV_TAGS.map(([k, n]) => `<button type="button" class="chip" data-tag="${k}" aria-pressed="${k === 'all'}">${n}<span class="n">${k === 'all' ? fams.length : counts[k] || 0}</span></button>`).join('');
-    // show the first few cards under "All"; the rest behind a button, so the section stays short
-    const SHOW = 6, more = document.createElement('div'); more.className = 'more-wrap';
-    more.innerHTML = `<button type="button" class="btn">Show all ${fams.length} families</button>`; grid.after(more);
-    let expanded = false;
-    function applyFilter(t) {
-      grid.querySelectorAll('.env').forEach((c, i) => { c.hidden = !(t === 'all' ? (expanded || i < SHOW) : c.dataset.tags.split(' ').includes(t)); });
-      more.hidden = t !== 'all' || expanded;
-    }
-    more.querySelector('button').addEventListener('click', () => { expanded = true; applyFilter('all'); });
+    filters.innerHTML = [['all', 'All', fams.length]].concat(GROUPS.map(([k, n]) => [k, n, fams.filter(f => f.tags[0] === k).length])).map(([k, n, c]) => `<button type="button" class="chip" data-tag="${k}" aria-pressed="${k === 'all'}">${n}<span class="n">${c}</span></button>`).join('');
     filters.addEventListener('click', e => {
       const b = e.target.closest('.chip'); if (!b) return;
       filters.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c === b));
-      applyFilter(b.dataset.tag);
+      grid.querySelectorAll('.env-group').forEach(g => { g.hidden = !(b.dataset.tag === 'all' || g.dataset.group === b.dataset.tag); });
     });
-    applyFilter('all');
     // hover / focus to play
     grid.querySelectorAll('.env').forEach(card => {
       const v = card.querySelector('video'); if (!v) return;

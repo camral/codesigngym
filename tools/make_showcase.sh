@@ -55,3 +55,12 @@ ls -la "$Hh"
 # hero wall soft robot: the env's own 3D render (HexFEM on Gaps), square-cropped on the body; 31 frames played at 12 fps
 ffmpeg -v error -y -r 12 -i ../codesign-gym/soft_walker_renders/SoftWalkerHexFEM3D-Gaps.gif -vf "crop=1100:1100:730:310,scale=360:360:flags=lanczos,format=yuv420p" "${enc[@]}" -r 12 "$Hh/softwalker.mp4"
 ffmpeg -v error -y -ss 1.2 -i "$Hh/softwalker.mp4" -frames:v 1 -q:v 3 "$Hh/softwalker.jpg"
+
+# one clip per Extended family (Walker2d and Ant use the paper's Figure 3 stills: their fixed eval camera loses the robot within ~1 s)
+ext() { ffmpeg -v error -y -i "$2" ${3:+-t} ${3:+"$3"} -vf "scale=480:-2:flags=lanczos" "${enc[@]}" "$O/$1.mp4"; ffmpeg -v error -y -ss 1.5 -i "$O/$1.mp4" -frames:v 1 -q:v 3 "$O/$1.jpg"; }
+ext halfcheetah $V/HalfCheetah-v4/ppo_ngopt.mp4 10
+ext hopper $T/hopper.mp4 10
+ext swimmer $T/swimmer.mp4 10
+ext humanoid $T/humanoid.mp4
+ext humanoidstandup $T/standup.mp4 10
+cp "$O/hand.mp4" "$O/rotateinhand.mp4"; cp "$O/hand.jpg" "$O/rotateinhand.jpg"

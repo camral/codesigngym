@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="static/css/site.css?v=88649e4099">
+  <link rel="stylesheet" href="static/css/site.css?v=f56684d74b">
 </head>
 <body>
 
@@ -173,7 +173,7 @@
     <div class="sec-head reveal"><span class="sec-num">§3</span><div><h2>20 families. 85+ presets.</h2><p>Hover a card to watch it; tap for presets and code.</p></div></div>
     <figure class="paper-fig envs-fig reveal"><a class="zoom" href="static/images/paper/environments.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/environments.jpg" alt="Grid of all environment families, grouped as Native, Extended and Reframed." loading="lazy"></a></figure>
     <div class="filters" id="env-filters" role="toolbar" aria-label="Filter environments"></div>
-    <div class="env-grid" id="env-grid"></div>
+    <div class="env-groups" id="env-grid"></div>
   </div>
 </section>
 
@@ -192,13 +192,45 @@
 <!-- ======================================================= 4 RESULTS -->
 <section class="block alt" id="results">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§4</span><div><h2>No single winner.<br>Lots of headroom.</h2><p>Four representative co-design methods, matched 4-hour budget, 5 seeds each: <b>CMA-ES</b>, <b>FastTD3</b>, <b>PPO+NGOpt</b> and <b>LOKI</b>.</p></div></div>
-    <div class="bignums reveal">
-      <div><b>12<small>/16</small></b><span>presets where the leading method changes during training</span></div>
-      <div><b>16.6%</b><span>of balls caught by the best method on Ball Catcher Pitch</span></div>
-      <div><b>&asymp;0</b><span>return for every method on Solar Cleaner and the large warehouses</span></div>
+    <div class="sec-head reveal"><span class="sec-num">§4</span><div><h2>No single winner.<br>Lots of headroom.</h2><p>Four representative co-design methods (<b>CMA-ES</b>, <b>FastTD3</b>, <b>PPO+NGOpt</b>, <b>LOKI</b>), a matched 4-hour budget and 5 seeds each. None of them solves co-design. <span class="mark">There is a lot of room for innovation.</span></p></div></div>
+
+    <div class="take reveal">
+      <div class="take-card">
+        <p class="take-k">No single winner</p>
+        <b class="take-n">12<small> of 16</small></b>
+        <p class="take-l">presets where the leading method <b>changes</b> during training.</p>
+        <div class="leaders" aria-label="Final leader on the 16 presets run with all four methods">
+          <div class="lbar"><i style="--w:6;--c:#eb6834" title="FastTD3: 6">6</i><i style="--w:4;--c:#2a78d6" title="CMA-ES: 4">4</i><i style="--w:3;--c:#1baf7a" title="PPO+NGOpt: 3">3</i><i style="--w:3;--c:#4a3aa7" title="LOKI: 3">3</i></div>
+          <div class="lkey"><span style="--w:6"><i style="background:#eb6834"></i>FastTD3</span><span style="--w:4"><i style="background:#2a78d6"></i>CMA-ES</span><span style="--w:3"><i style="background:#1baf7a"></i>PPO+NGOpt</span><span style="--w:3"><i style="background:#4a3aa7"></i>LOKI</span></div>
+          <p class="take-s">Who finishes ahead, out of 16 presets. Every method wins somewhere; none wins everywhere.</p>
+        </div>
+        <ul class="take-facts">
+          <li><b>9 &rarr; 4</b> CMA-ES leads early on 9 presets, but finishes ahead on only 4.</li>
+          <li><b>0</b> methods lead on every domain group.</li>
+        </ul>
+      </div>
+      <div class="take-card">
+        <p class="take-k">Lots of headroom</p>
+        <b class="take-n" id="hr-max">42%</b>
+        <p class="take-l">is the <b>most</b> any method reaches of the maximum return on our native &amp; warehouse tasks.</p>
+        <div class="headroom" id="headroom" aria-label="Best method's final return as a share of the maximum return, per preset"></div>
+        <p class="take-s">Best method's final return as a share of the maximum, per preset. The dashed line is a solved task.</p>
+      </div>
     </div>
-    <figure class="paper-fig reveal"><a class="zoom" href="static/images/paper/leader.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/leader.jpg" alt="Leading method over the 4-hour training budget on 16 presets: the leader changes on most presets and differs by domain." loading="lazy"></a><figcaption class="cap"><b>Who is ahead, hour by hour.</b> The leader depends on the task and on the budget.</figcaption></figure>
+
+    <div class="bignums reveal">
+      <div><b>16.6%</b><span>of balls caught by the best method on Ball Catcher Pitch</span></div>
+      <div><b id="hr-under">5<small>/10</small></b><span>tasks where the best method gets under 2% of the maximum return</span></div>
+      <div><b>&minus;250</b><span>FastTD3 on NeroGrasp: every fingertip it designed failed structural validation</span></div>
+    </div>
+
+    <figure class="paper-fig reveal"><a class="zoom" href="static/images/paper/leader.jpg" target="_blank" rel="noopener" title="Open full size"><img src="static/images/paper/leader.jpg" alt="Leading method over the 4-hour training budget on 16 presets: the leader changes on most presets and differs by domain." loading="lazy"></a><figcaption class="cap"><b>Who is ahead, hour by hour.</b> The ranking depends on the task and on the budget.</figcaption></figure>
+
+    <div class="cta reveal">
+      <div><p class="hand">your method here?</p><h3>Beat the scoreboard.</h3><p>Every preset, every baseline, one <code>make_vec</code> call away.</p></div>
+      <div class="btns"><a class="btn solid" href="https://github.com/camral/codesign-gym" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Get the code</a><a class="btn" href="#api"><i class="fa-solid fa-terminal"></i> Quickstart</a></div>
+    </div>
+
     <h3 class="sub-h reveal">Dig into any preset</h3>
     <div class="res-top reveal">
       <div class="picker">
@@ -338,13 +370,13 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
   </div>
 </footer>
 
-<script src="static/js/envs.js?v=d9f9cdc8f0"></script>
-<script src="static/js/main.js?v=1f4baf5f4e"></script>
+<script src="static/js/envs.js?v=cf49afb3f9"></script>
+<script src="static/js/main.js?v=2f62b5d29a"></script>
 <script src="https://cdn.jsdelivr.net/npm/planck@1.5.0/dist/planck.min.js"></script>
 <script src="static/js/catcher-core.js?v=5b267256ac"></script>
 <script src="static/js/demo-catcher.js?v=84885a9ab3"></script>
 <script src="static/js/walker-core.js?v=5d33d8fee9"></script>
 <script src="static/js/demo-walker.js?v=f0ea2a6cde"></script>
-<script src="static/js/results.js?v=25eeb96f5a"></script>
+<script src="static/js/results.js?v=b5aa975979"></script>
 </body>
 </html>
