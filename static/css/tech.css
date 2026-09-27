@@ -106,3 +106,6 @@
 [data-theme="tech"] .nav-gh.soon:hover { background: transparent; color: var(--muted); }
 [data-theme="tech"] .cta .btn.soon { color: #9aa6ba; border-color: #3b4a63; background: transparent; }
 [data-theme="tech"] .cta .btn.soon:hover { background: transparent; border-color: #3b4a63; color: #9aa6ba; }
+[data-theme="tech"] .pip.soon { background: transparent; color: var(--muted); border: 1px dashed var(--line-2); cursor: default; }
+[data-theme="tech"] .pip.soon .d { color: var(--line-2); }
+[data-theme="tech"] .pip-tag { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 2px 7px; border-radius: 3px; }
