@@ -102,3 +102,7 @@
 [data-theme="tech"] .demo .lb svg rect { fill: #60a5fa; } [data-theme="tech"] .demo .lb svg line { stroke: #8b97ad; }
 @media (max-width: 640px) { [data-theme="tech"] .demo .dots i { min-height: 22px; } [data-theme="tech"] .demo-side > * { padding: 14px; } }
 [data-theme="tech"] .demo-side { align-items: stretch; }
+[data-theme="tech"] .nav-gh.soon { background: transparent; color: var(--muted); border: 1px dashed var(--line-2); cursor: default; }
+[data-theme="tech"] .nav-gh.soon:hover { background: transparent; color: var(--muted); }
+[data-theme="tech"] .cta .btn.soon { color: #9aa6ba; border-color: #3b4a63; background: transparent; }
+[data-theme="tech"] .cta .btn.soon:hover { background: transparent; border-color: #3b4a63; color: #9aa6ba; }
