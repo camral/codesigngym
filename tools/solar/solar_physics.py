@@ -175,9 +175,9 @@ def arm_ik5n(target, q_arm, iters=20, w_o=0.5, k_null=0.05):
         dk.qpos[act_q[12:]] = np.clip(q + dq, ARM_LO, ARM_HI)
     return dk.qpos[act_q[12:]].copy()
 APPROACH = 0.15
-def panel_path(key, step=0.02, lift=0.06):
+def panel_path(key, step=0.02, lift=0.06, n_cells=None):
     """The panel's cells in the env's order as one continuous roller path (centre a roller radius off the face); a row change lifts off."""
-    cells = [g for g in GOALS if g.key == key]; pts, owner = [], []
+    cells = [g for g in GOALS if g.key == key][:n_cells]; pts, owner = [], []
     for i, g in enumerate(cells):
         p = np.array(g.pos) + NORMAL * R_ROLL
         if not pts:
@@ -203,24 +203,25 @@ def roller_force():
         if rg in (cn.geom1, cn.geom2): mujoco.mj_contactForce(m, d, j, f); fz += f[0]
     return fz
 QMAX = 1.5
+PHASE = ['']
 F_DES = 20.0
-def run_panel(key, press=0.005, dt_pt=0.04, Karm=12.0, frame=None, cleaned=None, st=None):
+def run_panel(key, press=0.005, dt_pt=0.04, Karm=12.0, frame=None, cleaned=None, st=None, entry=None):
     """Physically execute one panel: plan on the live state, then track it with the velocity servos, closing the loop with a short IK refine."""
-    pts, owner, cells, Q, E, J, _ = plan_panel_c(key); st = stand_q() if st is None else st; cleaned = set() if cleaned is None else cleaned
+    entry = plan_entry(key) if entry is None else entry
+    pts, owner, cells, Q, tp, TQ = entry; st = stand_q() if st is None else st; cleaned = set() if cleaned is None else cleaned
     goal_i = 0; ctrl_every = kw['phys_substeps']; n_sub = int(round(dt_pt / m.opt.timestep))
     # ease the arm in from wherever it is to the plan's first pose (off the panel, lifted)
-    q_start = Q[0]; q_from = d.qpos[act_q[12:]].copy(); T_in = max(1.0, 1.5 * np.abs(q_start - q_from).max() / QMAX)
-    for k in range(int((T_in + 0.3) / m.opt.timestep)):
-        if k % ctrl_every == 0: u = min(1.0, k * m.opt.timestep / T_in); u = u * u * (3 - 2 * u); c = st.copy(); c[12:] = q_from + (q_start - q_from) * u
-        servo(c, K=Karm); mujoco.mj_step(m, d)
-        if frame: frame()
+    PHASE[0] = 'in'; track(tp, TQ, Karm, frame, tol=0.03, cap=0.25)
     QD = [0.0] + list(np.abs(np.diff(Q, axis=0)).max(1))
-    depth = 0.0
+    depth = 0.0; PHASE[0] = 'sweep'
     for i, (p, q) in enumerate(zip(pts, Q)):
         lifted = (p - np.array(cells[owner[i]].pos)) @ NORMAL > R_ROLL + 0.01   # a row change's lift-off: no pressing in the air
         tgt = p - NORMAL * (0.0 if lifted else depth)
         # retime: no arm joint faster than QMAX (the servos top out at 3 rad/s)
-        for k in range(max(n_sub, int(np.ceil(QD[i] / QMAX / m.opt.timestep)))):
+        n_min = max(n_sub, int(np.ceil(QD[i] / QMAX / m.opt.timestep))); k = -1
+        while True:
+            k += 1
+            if k >= n_min and (np.linalg.norm(d.geom_xpos[rg] - p) < 0.03 + (0.0 if lifted else depth) or k >= n_min + int((1.0 if i == 0 else 0.1) / m.opt.timestep)): break
             if k % ctrl_every == 0:
                 # admittance on the face normal: press deeper while the roller carries less than F_DES, back off when it carries more
                 if not lifted: depth = float(np.clip(depth + 2e-4 * (F_DES - roller_force()), -0.01, 0.04)); tgt = p - NORMAL * depth
@@ -229,6 +230,9 @@ def run_panel(key, press=0.005, dt_pt=0.04, Karm=12.0, frame=None, cleaned=None,
             # the env's rule: only the current goal can be cleaned, and the sweep then moves on to the next one
             while goal_i < len(cells) and on_cell(cells[goal_i]): cleaned.add(cells[goal_i].geom); goal_i += 1
             if frame: frame()
+    PHASE[0] = 'out'; q_end = d.qpos[act_q[12:]].copy(); lift = pts[-1] + NORMAL * APPROACH
+    back = np.r_[[pts[-1] + (lift - pts[-1]) * k / 8 for k in range(1, 9)], transit_pts(lift, carry_point())]
+    BQ = plan_through(back, q_end); track(back, BQ, Karm, frame)
     return cleaned, goal_i, len(cells)
 m.vis.global_.offwidth, m.vis.global_.offheight = 1920, 1200
 def sheet(path, times, runner, W=480, H=300, az=20, el=-26, dist=4.6):
@@ -254,7 +258,10 @@ def bad_contact(q, margin=0.02):
     return worst < margin, worst
 ARM_G = [g for g in range(m.ngeom) if any(k in (mujoco.mj_id2name(m, 1, m.geom_bodyid[g]) or '') for k in ('link', 'torso_arm', 'roller'))]
 PAIRS = [(g, p) for g in ARM_G for p in PANEL_G if not (g == rg and p in PLATE_G) and ((m.geom_contype[g] & m.geom_conaffinity[p]) or (m.geom_contype[p] & m.geom_conaffinity[g]))]
-def arm_ik5c(target, q_arm, iters=20, w_o=0.5, k_null=0.05, margin=0.04, w_c=1.0):
+# the sim lets arm links pass through a plate (collide_roller_only), which looks wrong, so the planner treats every plate as solid for them too
+PAIRS += [(g, p) for g in ARM_G if g != rg for p in PLATE_G]
+PLATE_MARGIN = 0.045
+def arm_ik5c(target, q_arm, iters=20, w_o=0.5, k_null=0.05, margin=0.04, w_c=1.0, q_pref=None):
     """arm_ik5n plus collision rows: every arm/array pair nearer than ``margin`` is pushed apart along its separation direction."""
     dk.qpos[:] = d.qpos; dk.qpos[act_q[12:]] = q_arm; ft = np.zeros(6)
     for _ in range(iters):
@@ -264,16 +271,18 @@ def arm_ik5c(target, q_arm, iters=20, w_o=0.5, k_null=0.05, margin=0.04, w_c=1.0
         rows = [Jp[:, act_d[12:]], w_o * np.cross(a, NORMAL) @ Jr[:, act_d[12:]], W_HEAD[0] * w_o * np.cross(a, PY_) @ Jr[:, act_d[12:]]]
         errs = [target - dk.geom_xpos[rg], [-w_o * (a @ NORMAL)], [-W_HEAD[0] * w_o * (a @ PY_)]]
         for g, p in PAIRS:
-            dist = mujoco.mj_geomDistance(m, dk, g, p, margin, ft)
-            if dist >= margin: continue
+            mg = margin if p not in PLATE_G else PLATE_MARGIN
+            dist = mujoco.mj_geomDistance(m, dk, g, p, mg, ft)
+            if dist >= mg: continue
             pa, po = ft[:3], ft[3:]; nvec = pa - po; ln = np.linalg.norm(nvec)
             if ln < 1e-9: continue
             nvec = nvec / ln * (1 if dist >= 0 else -1)
             Jc = np.zeros((3, m.nv)); mujoco.mj_jac(m, dk, Jc, None, pa, m.geom_bodyid[g])
-            rows.append(w_c * nvec @ Jc[:, act_d[12:]][None, :].reshape(3, -1) if False else (w_c * (nvec @ Jc[:, act_d[12:]]))[None, :]); errs.append([w_c * (margin - dist)])
+            rows.append((w_c * (nvec @ Jc[:, act_d[12:]]))[None, :]); errs.append([w_c * (mg - dist)])
         J = np.vstack(rows); e = np.concatenate([np.ravel(x) for x in errs])
         Jinv = J.T @ np.linalg.inv(J @ J.T + 2e-3 * np.eye(len(e)))
-        dq = 0.6 * Jinv @ e + (np.eye(6) - Jinv @ J) @ (k_null * (MID - q) / (0.25 * SPAN_J ** 2) * SPAN_J)
+        pull = k_null * (MID - q) / (0.25 * SPAN_J ** 2) * SPAN_J if q_pref is None else 0.3 * (q_pref - q)
+        dq = 0.6 * Jinv @ e + (np.eye(6) - Jinv @ J) @ pull
         dk.qpos[act_q[12:]] = np.clip(q + np.clip(dq, -0.3, 0.3), ARM_LO, ARM_HI)
     return dk.qpos[act_q[12:]].copy()
 def ik5c_best(target, q_now, n_seeds=60, rng=np.random.default_rng(2)):
@@ -283,8 +292,8 @@ def ik5c_best(target, q_now, n_seeds=60, rng=np.random.default_rng(2)):
         score = pe + fe + (1.0 if col else 0.0) + 0.02 * np.linalg.norm(q - q_now)
         if score < key: best, key = q, score
     return best
-def plan_panel_c(key):
-    pts, owner, cells = panel_path(key); q = ik5c_best(pts[0], d.qpos[act_q[12:]].copy()); Q = [q]
+def plan_panel_c(key, n_cells=None):
+    pts, owner, cells = panel_path(key, n_cells=n_cells); q = ik5c_best(pts[0], d.qpos[act_q[12:]].copy()); Q = [q]
     for p in pts[1:]: q = arm_ik5c(p, q); Q.append(q)
     E = np.array([ik5_err(p, q) for p, q in zip(pts, Q)]); jumps = np.abs(np.diff(np.array(Q), axis=0)).max(1)
     C = np.array([bad_contact(q, 0.005)[1] for q in Q])
@@ -314,34 +323,162 @@ def arm_move(q_to, frame=None, extra=0.3):
     for k in range(int((T + extra) / m.opt.timestep)):
         u = min(1.0, k * m.opt.timestep / T); u = u * u * (3 - 2 * u); st[12:] = q_from + (q_to - q_from) * u; servo(st); mujoco.mj_step(m, d)
         if frame: frame()
-def back_to(goal, frame=None, tmax=8.0):
-    p = GAITS['back']; t0 = d.time
+def back_to(goal, frame=None, tmax=8.0, arm=None):
+    p = GAITS['back']; t0 = d.time; arm = STOW if arm is None else arm
     while d.qpos[0] > goal + 0.02 and d.time - t0 < tmax:
         k = int(round((d.time - t0) / m.opt.timestep))
-        if k % kw['phys_substeps'] == 0: c = gait2(d.time - t0, p, -1.0, 0.0, -euler()[2], arm=STOW)
+        if k % kw['phys_substeps'] == 0: c = gait2(d.time - t0, p, -1.0, 0.0, -euler()[2], arm=arm)
         servo(c); mujoco.mj_step(m, d)
         if frame: frame()
-    st = stand_q().copy(); st[12:] = STOW
+    st = stand_q().copy(); st[12:] = arm
     for _ in range(int(0.6 / m.opt.timestep)):
         servo(st); mujoco.mj_step(m, d)
         if frame: frame()
-X_LO, X_HI, X_GO = 1.45, 1.75, 1.58
+X_LO, X_HI, X_GO = 1.25, 1.4, 1.3
+CARRY = [None]
 LANE = 0.8
 def fix_x(frame=None):
-    if d.qpos[0] < X_LO: walk_to(0, X_GO, frame, arm=STOW)
-    elif d.qpos[0] > X_HI: back_to(X_GO, frame)
+    if d.qpos[0] < X_LO: walk_to(0, X_GO, frame, arm=CARRY[0])
+    elif d.qpos[0] > X_HI: back_to(X_GO, frame, arm=CARRY[0])
 PANELS = []
 for _g in GOALS:
     if _g.key not in PANELS: PANELS.append(_g.key)
 def episode(frame=None, log=print, cleaned=None):
     settle(along_axis(1.0)); d.qpos[0] = -kw['spawn_offset']; mujoco.mj_forward(m, d); cleaned = set() if cleaned is None else cleaned
-    walk_to(0, LANE, frame, arm=STOW); log(('lane', round(d.time, 1), d.qpos[:3].round(2).tolist(), np.round(euler(), 2).tolist()))
+    CARRY[0] = STOW.copy(); walk_to(0, LANE, frame, arm=STOW); log(('lane', round(d.time, 1), d.qpos[:3].round(2).tolist(), np.round(euler(), 2).tolist()))
     for key in PANELS:
         # sideways only in the lane, clear of the panel columns; then straight up to the panel
-        if d.qpos[0] > LANE + 0.1: back_to(LANE, frame)
-        walk_to(1, grid.panel_pos[key][1], frame, arm=STOW); walk_to(0, X_GO, frame, arm=STOW); fix_x(frame)
+        if d.qpos[0] > LANE + 0.1: back_to(LANE, frame, arm=CARRY[0])
+        walk_to(1, grid.panel_pos[key][1], frame, arm=CARRY[0])
+        entry = plan_entry(key, (X_GO, grid.panel_pos[key][1])); arm_move(entry[5][0], frame); CARRY[0] = entry[5][0]   # re-pose the arm in the lane, clear of the array
+        walk_to(0, X_GO, frame, arm=CARRY[0]); fix_x(frame)
         log(('at', key, round(d.time, 1), d.qpos[:3].round(2).tolist(), np.round(euler(), 2).tolist()))
-        cl, gi, nc = run_panel(key, cleaned=cleaned, frame=frame); arm_move(STOW, frame)
+        cl, gi, nc = run_panel(key, cleaned=cleaned, frame=frame, entry=entry); CARRY[0] = d.qpos[act_q[12:]].copy()
         log(('swept', key, gi, nc, round(d.time, 1), d.qpos[:3].round(2).tolist(), np.round(euler(), 2).tolist()))
     return cleaned
 W_HEAD[0] = 0.0   # roller kept flat on the face; its heading within the face is left free (the fixed heading cannot reach the top row)
+
+def transit_pts(pa, pb, step=0.02, clear=0.12):
+    """Roller path pa -> pb that goes up to a safe height first and comes down onto pb from above (no joint-space shortcuts through a plate)."""
+    zs = max(pa[2], pb[2]) + clear; way = [pa, np.r_[pa[:2], zs], np.r_[pb[:2], zs], pb]; out = []
+    for s_, e in zip(way[:-1], way[1:]):
+        n_ = max(1, int(np.linalg.norm(e - s_) / step))
+        out += [s_ + (e - s_) * k / n_ for k in range(1, n_ + 1)]
+    return np.array(out)
+def plan_through(pts, q, q_pref=None):
+    Q = []
+    for p in pts: q = arm_ik5c(p, q, q_pref=q_pref); Q.append(q)
+    return np.array(Q)
+def track(pts, Q, Karm=12.0, frame=None, tol=0.05, cap=0.2):
+    """Follow a planned (point, joint) path with the servos, retimed so no arm joint exceeds QMAX, refining on the live state."""
+    st = stand_q(); QD = [np.abs(Q[0] - d.qpos[act_q[12:]]).max()] + list(np.abs(np.diff(Q, axis=0)).max(1))
+    for i, (p, q) in enumerate(zip(pts, Q)):
+        n_min = max(8, int(np.ceil(QD[i] / QMAX / m.opt.timestep))); k = 0
+        # hold each point until the real roller has caught up with it (or tol_cap runs out), so tracking lag never accumulates
+        while k < n_min or (np.linalg.norm(d.geom_xpos[rg] - p) > tol and k < n_min + int(cap / m.opt.timestep)):
+            if k % kw['phys_substeps'] == 0: c = st.copy(); c[12:] = arm_ik5c(p, q, iters=3)
+            servo(c, K=Karm); mujoco.mj_step(m, d); k += 1
+            if frame: frame()
+def roller_at(q):
+    dk.qpos[:] = d.qpos; dk.qpos[act_q[12:]] = q; mujoco.mj_kinematics(m, dk); return dk.geom_xpos[rg].copy()
+
+CARRY_REL = None
+JOIN = [0.0]
+def carry_point():
+    """Where the roller is carried: the stowed roller position, in the base's frame (so it follows the body)."""
+    global CARRY_REL
+    Rb = d.xmat[1].reshape(3, 3)
+    if CARRY_REL is None: CARRY_REL = Rb.T @ (roller_at(STOW) - d.xpos[1])
+    return d.xpos[1] + Rb @ CARRY_REL
+def plan_entry(key, base=None, n_cells=None, carry_q=None):
+    """Plan a panel's sweep and its entry for the base at ``base`` = (x, y) (default: where it is): the sweep start by multi-seed
+    collision-aware IK, the entry backwards from there up and over to the carry point, played forwards. Returns the carry-pose config
+    the arm has to be in before the approach, as entry TQ[0]."""
+    saved = d.qpos.copy()
+    if base is not None: d.qpos[0], d.qpos[1] = base; d.qpos[3:7] = (1, 0, 0, 0); mujoco.mj_kinematics(m, d)
+    pts, owner, cells, Q, E, J, _ = plan_panel_c(key, n_cells)
+    rev = transit_pts(pts[0], carry_point()); RQ = plan_through(rev, Q[0], carry_q)
+    tp, TQ = np.r_[rev[::-1][1:], pts[:1]], np.r_[RQ[::-1][1:], Q[:1]]
+    d.qpos[:] = saved; mujoco.mj_kinematics(m, d)
+    return pts, owner, cells, Q, tp, TQ
+
+def seg_clear(qa, qb, n=30, margin=0.005):
+    # bad_contact caps distances at its margin argument, so ask with a larger one than the threshold
+    return min(bad_contact(qa + (qb - qa) * u, 0.1)[1] for u in np.linspace(0, 1, n)) > margin
+def via_path(qa, qb, iters=3000, step=0.25, rng=np.random.default_rng(5)):
+    """Collision-free arm joint path qa -> qb (RRT-Connect in joint space, collision-checked segments, then shortcut smoothing)."""
+    if seg_clear(qa, qb): return [qb]
+    ta, tb = [(qa, -1)], [(qb, -1)]
+    def extend(T, q):
+        i = int(np.argmin([np.linalg.norm(n[0] - q) for n in T])); qn = T[i][0]; v = q - qn; L = np.linalg.norm(v)
+        qnew = q if L <= step else qn + v / L * step
+        qnew = np.clip(qnew, ARM_LO, ARM_HI)
+        if seg_clear(qn, qnew, n=6): T.append((qnew, i)); return len(T) - 1
+        return None
+    def trace(T, i):
+        out = []
+        while i >= 0: out.append(T[i][0]); i = T[i][1]
+        return out
+    for k in range(iters):
+        qr = rng.uniform(ARM_LO, ARM_HI) if k % 3 else (tb[-1][0] if k % 2 else ta[-1][0])
+        i = extend(ta, qr)
+        if i is None: ta, tb = tb, ta; continue
+        # try to connect the other tree to the new node
+        j = None
+        while True:
+            jj = extend(tb, ta[i][0])
+            if jj is None: break
+            j = jj
+            if np.linalg.norm(tb[j][0] - ta[i][0]) < 1e-9: break
+        if j is not None and np.linalg.norm(tb[j][0] - ta[i][0]) < 1e-9:
+            pa, pb = trace(ta, i)[::-1], trace(tb, j)
+            path = pa + pb[1:]
+            if np.linalg.norm(path[0] - qa) > 1e-9: path = path[::-1]
+            # shortcut smoothing
+            for _ in range(60):
+                if len(path) < 3: break
+                u, w = sorted(rng.choice(len(path), 2, replace=False))
+                if w - u > 1 and seg_clear(path[u], path[w]): path = path[:u + 1] + path[w:]
+            return path[1:]
+        ta, tb = tb, ta
+    raise RuntimeError('no clear arm path')
+def arm_path(qs, frame=None):
+    for q in qs: arm_move(q, frame, extra=0.15)
+def approach(x_lo, x_hi, frame=None, arm=None, tries=4):
+    """Walk up until the base stops inside [x_lo, x_hi] (a stop settles back a little, so correct in short walks)."""
+    for _ in range(tries):
+        if d.qpos[0] < x_lo: walk_to(0, x_lo + 0.02, frame, arm=arm)   # a stop overshoots ~0.08 m with the carried arm
+        elif d.qpos[0] > x_hi: back_to(0.5 * (x_lo + x_hi), frame, arm=arm)
+        else: return True
+    return x_lo <= d.qpos[0] <= x_hi
+DEMO_KEY, DEMO_CELLS = (0, 1), 8
+TUCK_REL = (0.2, 0.0, 1.4)
+CARRY_AT = 1.35
+def tucked_pose(rel=(0.2, 0.0, 1.4), x_eval=1.5):
+    """Arm pose carrying the roller above the body (base-frame offset ``rel``): of many IK solutions, the one with the most clearance
+    from the array with the base already up at ``x_eval`` (where the walk ends), so the carried arm never touches a plate."""
+    tgt_rel = np.array(rel); best, key = None, -np.inf; saved = d.qpos.copy()
+    for i in range(60):
+        d.qpos[:] = saved; mujoco.mj_kinematics(m, d); tgt = d.xpos[1] + d.xmat[1].reshape(3, 3) @ tgt_rel
+        q = arm_ik(tgt, STOW if i == 0 else np.random.default_rng(i).uniform(ARM_LO, ARM_HI), 150)
+        if np.linalg.norm(roller_at(q) - tgt) > 0.01: continue
+        d.qpos[0] = x_eval; clr = bad_contact(q, 0.3)[1]
+        if clr > key: best, key = q, clr
+    d.qpos[:] = saved; mujoco.mj_kinematics(m, d)
+    return best
+def demo(frame=None, cleaned=None, log=print):
+    """The page clip: walk straight in to the middle panel, sweep its first DEMO_CELLS cells, lift off, stow."""
+    settle(along_axis(1.0)); d.qpos[0] = -kw['spawn_offset']; mujoco.mj_forward(m, d); cleaned = set() if cleaned is None else cleaned
+    # tuck the arm first, at the spawn: roller just above the body, clear of any plate once the base is up at the array
+    global CARRY_REL
+    CARRY_REL = np.array(TUCK_REL)
+    # the carry pose is the entry plan's own start, planned for where the walk is expected to stop, so the real entry starts next to it
+    cq = plan_entry(DEMO_KEY, (CARRY_AT, 0.0), DEMO_CELLS)[5][0]; PHASE[0] = 'tuck'; arm_move(cq, frame)
+    PHASE[0] = 'walk'; approach(1.3, 1.45, frame, arm=cq)
+    log(('at', round(d.time, 1), d.qpos[:3].round(2).tolist(), np.round(euler(), 2).tolist()))
+    entry = plan_entry(DEMO_KEY, None, DEMO_CELLS, carry_q=cq)                              # planned where the base actually stopped
+    PHASE[0] = 'repose'; arm_path(via_path(d.qpos[act_q[12:]].copy(), entry[5][0]), frame)
+    cl, gi, nc = run_panel(DEMO_KEY, cleaned=cleaned, frame=frame, entry=entry)
+    PHASE[0] = 'hold'; arm_move(d.qpos[act_q[12:]].copy(), frame, extra=0.8)   # the exit already ends at the carry point above the body
+    log(('swept', gi, nc, round(d.time, 1), d.qpos[:3].round(2).tolist(), np.round(euler(), 2).tolist()))
+    return cleaned
