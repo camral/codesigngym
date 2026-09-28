@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script>if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');</script>
   <link rel="stylesheet" href="static/css/site.css?v=2df1d62464">
-  <link rel="stylesheet" href="static/css/tech.css?v=acf1524915">
+  <link rel="stylesheet" href="static/css/tech.css?v=927a22a8f6">
 </head>
 <body>
 
@@ -71,10 +71,9 @@
       </div>
     </div>
 
-    <div class="apitree reveal" aria-label="One API, twenty environment families, 86 presets, no single winning method">
+    <div class="apitree reveal" aria-label="One gym, twenty environment families, 86 presets, no single winning method">
       <a class="at-hub" href="#api">
-        <b>1</b><span class="at-hub-t">API</span>
-        <span class="at-hub-s">Gymnasium, plus a design axis</span>
+        <b>ONE</b><span class="at-hub-t">GYM</span>
         <code>env, &theta;&#8320; = make_vec("&hellip;")</code>
       </a>
       <svg class="at-lines" viewBox="0 0 900 90" preserveAspectRatio="none" aria-hidden="true">
@@ -132,8 +131,7 @@
           <label for="cc-h"><span>torso height</span><b id="cc-hv"></b></label><input id="cc-h" type="range" min="0.3" max="1.6" step="0.01">
           <label for="cc-L1"><span>upper arm</span><b id="cc-L1v"></b></label><input id="cc-L1" type="range" min="0.25" max="1.3" step="0.01">
           <label for="cc-L2"><span>forearm</span><b id="cc-L2v"></b></label><input id="cc-L2" type="range" min="0.25" max="1.3" step="0.01">
-          <div class="meter"><span>reach <b id="cc-reach"></b></span><span>arm speed <b id="cc-speedv"></b></span></div>
-          <div class="bar"><i id="cc-speed"></i></div>
+          <div class="meters"><div class="meter1"><span>reach <b id="cc-reach"></b></span><div class="bar"><i id="cc-reachbar"></i></div></div><div class="meter1"><span>arm speed <b id="cc-speedv"></b></span><div class="bar"><i id="cc-speed"></i></div></div></div>
         </div>
         <div class="col">
         <div class="knobs"><div class="card-h">Policy <em>how it moves</em></div>
@@ -142,9 +140,9 @@
         <div class="demo-btns grid2">
           <button class="btn solid" id="cc-throw" type="button"><i class="fa-solid fa-play"></i> Throw 20 balls</button>
           <button class="btn ghost" id="cc-reset" type="button"><i class="fa-solid fa-rotate-left"></i> Reset</button>
-          <button class="btn" id="cc-tune-pol" type="button" title="Search the aim for the current body">Tune policy only</button>
-          <button class="btn" id="cc-tune-body" type="button" title="Search the body for the current aim">Tune body only</button>
-          <button class="btn accent full" id="cc-codesign" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Co-design body and policy</button>
+          <button class="btn" id="cc-tune-pol" type="button" title="Search the aim for the current body">Tune policy for this body</button>
+          <button class="btn" id="cc-tune-body" type="button" title="Search the body for the current aim">Tune body for this policy</button>
+          <button class="btn accent full" id="cc-codesign" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Co-design body and policy for me</button>
         </div>
         </div>
         <div class="verdict wide-verdict" id="cc-say" aria-live="polite"></div>
@@ -154,7 +152,7 @@
 
     <!-- B: evolve a walker -->
     <div class="demo reveal two-col" id="demo-walker" role="tabpanel" aria-labelledby="tab-walker" hidden>
-      <div class="demo-stage"><canvas aria-label="Two lanes showing the same 2D walker body: on top walking with the gait evolved for the base body, below walking with a gait evolved for this body."></canvas></div>
+      <div class="demo-stage"><canvas aria-label="Two lanes showing the same 2D walker body: on top walking with the policy tuned for the base body, below walking with a policy tuned for this body."></canvas></div>
       <div class="demo-side">
         <div class="knobs col"><div class="card-h">Body <em>the design</em><span id="wk-name" class="sr"></span></div>
           <div class="chips-row" id="wk-presets" role="group" aria-label="Body presets"></div>
@@ -162,18 +160,18 @@
           <label for="wk-th"><span>torso height</span><b id="wk-thv"></b></label><input id="wk-th" type="range" min="0" max="1" step="0.01">
           <label for="wk-thigh"><span>thigh</span><b id="wk-thighv"></b></label><input id="wk-thigh" type="range" min="0" max="1" step="0.01">
           <label for="wk-shin"><span>shin</span><b id="wk-shinv"></b></label><input id="wk-shin" type="range" min="0" max="1" step="0.01">
+          <div class="demo-btns in-body"><button class="btn solid" id="wk-evolve" type="button"><i class="fa-solid fa-dna"></i> Tune policy for this body</button></div>
         </div>
         <div class="col">
           <div class="demo-btns">
-            <button class="btn solid" id="wk-evolve" type="button"><i class="fa-solid fa-dna"></i> Evolve a gait for this body</button>
-            <button class="btn accent" id="wk-search" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Search bodies for me</button>
+                        <button class="btn accent" id="wk-search" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> Co-design body and policy for me</button>
             <span class="gen-note" id="wk-gen" aria-live="polite"></span>
           </div>
           <div class="verdict" id="wk-say" aria-live="polite"></div>
           <div class="lb" id="wk-board" aria-label="Bodies tried so far"></div>
         </div>
       </div>
-      <p class="cap demo-cap">Real 2D physics (<a href="https://piqnt.com/planck.js/" target="_blank" rel="noopener">planck.js</a>). Every gait is evolved by a small genetic algorithm in your browser. Long legs walk about twice as far as the base body, but only with a gait of their own.</p>
+      <p class="cap demo-cap">Real 2D physics (<a href="https://piqnt.com/planck.js/" target="_blank" rel="noopener">planck.js</a>). Every policy is tuned by a small genetic algorithm in your browser. Long legs walk about twice as far as the base body, but only with a policy tuned for them.</p>
     </div>
   </div>
 </section>
@@ -266,7 +264,7 @@
 <!-- ======================================================= 5 API -->
 <section class="block" id="api">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="sec-num">§5</span><div><h2>Gymnasium, plus a design axis</h2><p>Any Gymnasium environment becomes a co-design environment by declaring an <code>embodiment_space</code>.</p></div></div>
+    <div class="sec-head reveal"><span class="sec-num">§5</span><div><h2>Any optimizer. Any environment.</h2><p>Any Gymnasium environment becomes a co-design environment by declaring an <code>embodiment_space</code>.</p></div></div>
     <div class="two">
       <div class="reveal" data-tabs>
         <div class="tabs" role="tablist" aria-label="Code examples">
@@ -357,13 +355,14 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
   </div>
 </footer>
 
-<script src="static/js/envs.js?v=6c90e06c99"></script>
-<script src="static/js/main.js?v=e4d877bac6"></script>
+<script src="static/js/envs.js?v=811658c310"></script>
+<script src="static/js/goals.js?v=9f4f1452ed"></script>
+<script src="static/js/main.js?v=c68905d57a"></script>
 <script src="https://cdn.jsdelivr.net/npm/planck@1.5.0/dist/planck.min.js"></script>
 <script src="static/js/catcher-core.js?v=5b267256ac"></script>
-<script src="static/js/demo-catcher.js?v=1953080071"></script>
+<script src="static/js/demo-catcher.js?v=acf140a088"></script>
 <script src="static/js/walker-core.js?v=5d33d8fee9"></script>
-<script src="static/js/demo-walker.js?v=e9941b1a3d"></script>
+<script src="static/js/demo-walker.js?v=f70b2b65de"></script>
 <script src="static/js/results.js?v=add3e953c3"></script>
 <script src="static/js/landscape.js?v=c880d88b2d"></script>
 <script src="static/js/anim.js?v=38891a30b5"></script>

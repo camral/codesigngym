@@ -109,3 +109,21 @@
 [data-theme="tech"] .pip.soon { background: transparent; color: var(--muted); border: 1px dashed var(--line-2); cursor: default; }
 [data-theme="tech"] .pip.soon .d { color: var(--line-2); }
 [data-theme="tech"] .pip-tag { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 2px 7px; border-radius: 3px; }
+
+/* catcher: one labelled bar per quantity (reach vs arm speed trade off) */
+.meters { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.meter1 span { display: block; font-family: var(--mono); font-size: 0.72rem; color: #5d6779; margin-bottom: 5px; }
+.meter1 span b { color: #eef2f8; }
+.meter1 .bar { margin-top: 0; }
+[data-theme="tech"] .demo #cc-reachbar { background: #22c55e; }
+[data-theme="tech"] .demo .demo-btns.in-body { margin-top: 16px; }
+[data-theme="tech"] .demo .demo-btns.in-body .btn { width: 100%; justify-content: center; }
+
+/* goal diagrams + design sweeps */
+.env .media .goal-art, .env .media .goal-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.goal-box { display: grid; grid-template-columns: 180px 1fr; gap: 14px; align-items: center; background: var(--paper-2); border: 1px solid var(--line); border-radius: 6px; padding: 10px; }
+.goal-box .goal-art svg { width: 100%; height: auto; display: block; border-radius: 4px; }
+.goal-box p { margin: 0 !important; font-size: 0.92rem !important; color: var(--ink) !important; }
+.modal-body video.sweep { width: 100%; border-radius: 6px; border: 1px solid var(--line); background: #f7f9fc; }
+@media (max-width: 640px) { .goal-box { grid-template-columns: 1fr; } }
+.env .media img[src*="_design"], .env .media video[src*="_design"] { object-fit: contain; background: #f7f9fc; }

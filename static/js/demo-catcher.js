@@ -27,6 +27,7 @@
     $('#cc-speed').style.width = Math.round(100 * Math.min(1, w / wmax)) + '%';
     $('#cc-speedv').textContent = w.toFixed(1) + ' rad/s';
     $('#cc-reach').textContent = (st.d.L1 + st.d.L2).toFixed(2) + ' m';
+    $('#cc-reachbar').style.width = Math.round(100 * (st.d.L1 + st.d.L2) / (C.BOUNDS.L1[1] + C.BOUNDS.L2[1])) + '%';
   }
   function setScore(res) {
     st.results = res;

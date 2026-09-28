@@ -51,7 +51,7 @@
     const card = f => {
       const md = media(f);
       return `<button type="button" class="env reveal" data-id="${f.id}" data-tags="${f.tags.join(' ')}" aria-haspopup="dialog">
-        <div class="media"><img src="${md.poster}" alt="" loading="lazy">${md.video ? `<video muted loop playsinline preload="none" src="${md.video}"></video><span class="play-hint"><i class="fa-solid fa-play"></i> ${touch ? 'tap for details' : 'hover to play'}</span>` : ''}${f.replay ? '<span class="play-hint"><i class="fa-solid fa-play"></i> click to watch a battle</span>' : ''}${f.still ? '<span class="play-hint still"><i class="fa-regular fa-image"></i> still</span>' : ''}<span class="ids">${f.ids} id${f.ids > 1 ? 's' : ''}</span></div>
+        <div class="media">${f.goalCard && window.GOALS ? `<div class="goal-art">${GOALS[f.goal].svg}</div><span class="play-hint still"><i class="fa-solid fa-bullseye"></i> goal</span>` : f.sweep ? `<img src="static/video/showcase/${f.id}_design.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none" src="static/video/showcase/${f.id}_design.mp4"></video><span class="play-hint"><i class="fa-solid fa-play"></i> blue = designable links</span>` : `<img src="${md.poster}" alt="" loading="lazy">${md.video ? `<video muted loop playsinline preload="none" src="${md.video}"></video><span class="play-hint"><i class="fa-solid fa-play"></i> ${touch ? 'tap for details' : 'hover to play'}</span>` : ''}${f.replay ? '<span class="play-hint"><i class="fa-solid fa-play"></i> click to watch a battle</span>' : ''}${f.still ? '<span class="play-hint still"><i class="fa-regular fa-image"></i> still</span>' : ''}`}<span class="ids">${f.ids} id${f.ids > 1 ? 's' : ''}</span></div>
         <div class="body"><h3>${f.name}</h3><div class="sim">${f.sim}</div><p>${f.blurb}</p>
         ${f.transition ? '<span class="badge">θ can change mid-episode</span>' : ''}</div></button>`;
     };
@@ -86,13 +86,18 @@
       if (f.replay) {
         const m = dlg.querySelector('.modal-media'); m.innerHTML = '<div class="replay-frame"></div>';
         mountReplay(m.querySelector('.replay-frame'), f.replay.src, f.name + ' battle replay');
-      } else dlg.querySelector('.modal-media').innerHTML = md.video ? `<video controls autoplay muted loop playsinline poster="${md.poster}" src="${md.video}"></video>` : `<img src="${md.poster}" alt="${f.name} illustration">`;
+      } else if (f.sweep && !md.video) dlg.querySelector('.modal-media').innerHTML = `<video controls autoplay muted loop playsinline src="static/video/showcase/${f.id}_design.mp4"></video>`;
+      else dlg.querySelector('.modal-media').innerHTML = md.video ? `<video controls autoplay muted loop playsinline poster="${md.poster}" src="${md.video}"></video>` : `<img src="${md.poster}" alt="${f.name} illustration">`;
+      const goal = f.goal && window.GOALS && GOALS[f.goal];
       dlg.querySelector('.modal-body').innerHTML = `<h3 id="env-modal-title">${f.name}</h3><div class="sim">${f.sim}</div><p>${f.blurb}</p>
+        ${goal ? `<h4>Goal</h4><div class="goal-box"><div class="goal-art">${goal.svg}</div><p>${goal.text}</p></div>` : ''}
         <dl class="dp"><dt class="d">design θ</dt><dd>${f.design}</dd><dt class="p">policy π</dt><dd>${f.policy}</dd></dl>
+        ${f.sweep && md.video ? `<h4>Design space · blue links are designable</h4><video class="sweep" muted autoplay loop playsinline src="static/video/showcase/${f.id}_design.mp4"></video>` : ''}
         ${f.transition ? '<span class="badge">supports transition-level embodiment: step(action, embodiment)</span>' : ''}
         <h4>Presets · per-episode return window [max / min]</h4><ul class="presets">${f.presets.map(([a, b]) => `<li><span>${a}</span><span>${b}</span></li>`).join('')}</ul>
         <h4>Try it</h4><div class="snippet">env, theta0 = cg.make_vec("${f.example}", num_envs=8)</div>
-        ${f.note ? `<p class="media-note">About the clip: ${f.note}</p>` : '<p class="media-note">About the clip: a final-evaluation rollout from one of our baseline runs.</p>'}`;
+        ${f.note ? `<p class="media-note">About the clip: ${f.note}</p>` : '<p class="media-note">About the clip: a final-evaluation rollout from one of our baseline runs.</p>'}
+        ${goal ? '<p class="media-note">The goal diagram is an illustration, not a simulation. Design sweeps are rendered from the environment model in MuJoCo (rest pose, no policy).</p>' : ''}`;
       dlg.showModal();
     });
     dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('.modal-close')) dlg.close(); });

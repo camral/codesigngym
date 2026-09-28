@@ -1,5 +1,5 @@
 // "Bodies matter": reshape a 2D walker and compare it walking with the gait evolved for the base body (top lane) against a gait
-// evolved for it (bottom lane). A leaderboard keeps every body tried; "Search bodies" runs an outer loop that evolves a gait per body.
+// evolved for it (bottom lane). A leaderboard keeps every body tried; the co-design button runs an outer loop that tunes a policy per body.
 (function () {
   const Wk = window.WalkerCore, root = document.getElementById('demo-walker');
   if (!Wk || !root) return;
@@ -24,6 +24,8 @@
   function labels() { const d = Wk.decode(sym().concat(Array(9).fill(0.5))); $('#wk-wv').textContent = d.w.toFixed(2) + ' m'; $('#wk-thv').textContent = d.th.toFixed(2) + ' m'; $('#wk-thighv').textContent = d.legs[0][0].toFixed(2) + ' m'; $('#wk-shinv').textContent = d.legs[0][1].toFixed(2) + ' m'; }
   function distance(g) { const s = Wk.build(g); let i = 0; for (; i < Wk.T_SIM * Wk.HZ; i++) { s.step(); if (Wk.fallen(s)) break; } return Math.max(0, s.torso.getPosition().x); }
   function lane(k, g, label) { cam[k] = 0; lanes[k] = { sim: Wk.build(g), g, fell: false, hold: 0, label, dist: distance(g) }; }
+  // a standing, unsimulated view of a body: shown while it is being configured and before any policy is tuned for it
+  function preview(k, b) { cam[k] = 0; const s = Wk.build(b.concat(baseGait)); lanes[k] = { sim: s, g: null, frozen: true, label: 'this body (preview)', dist: 0 }; }
   const nameOf = b => (board.get(bodyKey(b)) || {}).name || (PRESETS.find(p => bodyKey(p[2]) === bodyKey(b)) || [0, 'Custom body'])[1];
 
   // evolve a gait for a fixed body, a few generations per frame so the page stays live; resolves with the best genome
@@ -42,9 +44,9 @@
 
   function showBody(b) {
     body = b.slice();
-    lane(0, body.concat(baseGait), 'with the gait evolved for the base body');
+    lane(0, body.concat(baseGait), 'with the policy tuned for the base body');
     const e = board.get(bodyKey(body));
-    if (e && e.own !== undefined) lane(1, e.ownG, 'with a gait evolved for this body'); else lanes[1] = null;
+    if (e && e.own !== undefined) lane(1, e.ownG, 'with a policy tuned for this body'); else preview(1, body);
     $('#wk-name').textContent = nameOf(body);
   }
   function record(b, withBase, own, ownG) {
@@ -56,7 +58,7 @@
   function renderBoard() {
     const rows = [...board.values()].sort((a, b) => (b.own ?? -1) - (a.own ?? -1) || (b.withBase ?? -1) - (a.withBase ?? -1));
     const top = rows.length && rows[0].own !== undefined ? rows[0] : null;
-    $('#wk-board').innerHTML = `<table><thead><tr><th>Body</th><th title="walking with the gait evolved for the base body">base gait</th><th title="walking with a gait evolved for this body">own gait</th></tr></thead><tbody>${rows.map(r =>
+    $('#wk-board').innerHTML = `<table><thead><tr><th>Body</th><th title="walking with the policy tuned for the base body">base policy</th><th title="walking with a policy tuned for this body">own policy</th></tr></thead><tbody>${rows.map(r =>
       `<tr class="${r === top ? 'best' : ''}" data-k="${bodyKey(r.body)}" tabindex="0"><td>${sketch(r.body)}<span>${r.name}</span></td><td>${r.withBase === undefined ? '–' : r.withBase.toFixed(1) + ' m'}</td><td>${r.own === undefined ? '<em>not yet</em>' : '<b>' + r.own.toFixed(1) + ' m</b>'}</td></tr>`).join('')}</tbody></table>`;
   }
   function sketch(b) { // tiny side-view silhouette of a body
@@ -71,10 +73,10 @@
   function say(h) { $('#wk-say').innerHTML = h; }
   async function evolveCurrent(quiet) {
     const b = body.slice(); if (!quiet) setBusy(true); lanes[1] = null;
-    const g = await evolveGait(b, P => { $('#wk-gen').textContent = `gen ${P.gen} / ${GENS}`; if (P.best && P.gen % 8 === 0) lane(1, P.best.g, `evolving a gait for this body… generation ${P.gen}`); });
-    const d = distance(g); lane(1, g, 'with a gait evolved for this body'); record(b, distance(b.concat(baseGait)), d, g); if (!quiet) setBusy(false);
+    const g = await evolveGait(b, P => { $('#wk-gen').textContent = `gen ${P.gen} / ${GENS}`; if (P.best && P.gen % 8 === 0) lane(1, P.best.g, `tuning a policy for this body… generation ${P.gen}`); });
+    const d = distance(g); lane(1, g, 'with a policy tuned for this body'); record(b, distance(b.concat(baseGait)), d, g); if (!quiet) setBusy(false);
     const wb = board.get(bodyKey(b)).withBase, base = board.get(bodyKey(PRESETS[0][2]));
-    if (!quiet) say(`<b>${nameOf(b)}: ${d.toFixed(1)} m with its own gait</b>, against ${wb.toFixed(1)} m borrowing the base body's gait.${base && base.own !== undefined && bodyKey(b) !== bodyKey(PRESETS[0][2]) ? ` The base body manages ${base.own.toFixed(1)} m with its own.` : ''} You can only judge a body after optimizing its policy.`);
+    if (!quiet) say(`<b>${nameOf(b)}: ${d.toFixed(1)} m with its own policy</b>, against ${wb.toFixed(1)} m borrowing the base body's policy.${base && base.own !== undefined && bodyKey(b) !== bodyKey(PRESETS[0][2]) ? ` The base body manages ${base.own.toFixed(1)} m with its own.` : ''} You can only judge a body after tuning its policy.`);
     return d;
   }
   $('#wk-evolve').addEventListener('click', () => evolveCurrent(false));
@@ -85,26 +87,26 @@
     let best = null; setBusy(true);
     for (let i = 0; i < cands.length; i++) {
       const b = cands[i]; setSliders(b); markPreset(); showBody(b);
-      say(`Searching bodies… candidate ${i + 1} of ${cands.length}: <b>${nameOf(b)}</b>. Each body gets its own ${GENS}-generation gait search.`);
+      say(`Searching bodies… candidate ${i + 1} of ${cands.length}: <b>${nameOf(b)}</b>. Each body gets its own ${GENS}-generation policy search.`);
       const e = board.get(bodyKey(b));
       const d = e && e.own !== undefined ? e.own : await evolveCurrent(true);
       if (!best || d > best.d) best = { b, d };
     }
     setSliders(best.b); markPreset(); showBody(best.b); setBusy(false);
     const worst = Math.max(...[...board.values()].filter(x => bodyKey(x.body) !== bodyKey(PRESETS[0][2])).map(x => x.withBase || 0));
-    say(`<b>Best body found: ${nameOf(best.b)}, ${best.d.toFixed(1)} m.</b> With the base body's gait, no other body gets past ${worst.toFixed(1)} m, so a search that tuned the gait first and then judged bodies with it would never have picked this one.`);
+    say(`<b>Best body found: ${nameOf(best.b)}, ${best.d.toFixed(1)} m.</b> With the base body's policy, no other body gets past ${worst.toFixed(1)} m, so a search that tuned the policy first and then judged bodies with it would never have picked this one.`);
   });
   // dragging only previews the body (top lane); it joins the leaderboard once a gait is evolved for it
   for (const k in SL) SL[k].addEventListener('input', () => {
     if (busy || !baseGait) return; labels(); const b = sym(); showBody(b); markPreset();
-    say(`${nameOf(b)}: it walks <b>${lanes[0].dist.toFixed(1)} m</b> with the base body's gait. Evolve a gait for it to see what it can really do.`);
+    say(`${nameOf(b)}: it walks <b>${lanes[0].dist.toFixed(1)} m</b> with the base body's policy. Tune a policy for it to see what it can really do.`);
   });
   $('#wk-presets').innerHTML = PRESETS.map(([k, n]) => `<button type="button" class="chip" data-p="${k}" aria-pressed="false">${n}</button>`).join('');
   function markPreset() { const k = bodyKey(sym()); $('#wk-presets').querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', bodyKey(PRESETS.find(p => p[0] === c.dataset.p)[2]) === k)); }
   $('#wk-presets').addEventListener('click', e => {
     const c = e.target.closest('.chip'); if (!c || busy || !baseGait) return;
     const p = PRESETS.find(p => p[0] === c.dataset.p); setSliders(p[2]); record(p[2], distance(p[2].concat(baseGait))); showBody(p[2]); markPreset();
-    say(`<b>${p[1]}</b> with the base body's gait: ${board.get(bodyKey(p[2])).withBase.toFixed(1)} m. ${board.get(bodyKey(p[2])).own !== undefined ? 'Its own evolved gait is in the bottom lane.' : 'Now evolve a gait for it.'}`);
+    say(`<b>${p[1]}</b> with the base body's policy: ${board.get(bodyKey(p[2])).withBase.toFixed(1)} m. ${board.get(bodyKey(p[2])).own !== undefined ? 'Its own tuned policy is in the bottom lane.' : 'Now tune a policy for it.'}`);
   });
 
   // ---------------------------------------------------------------- drawing
@@ -121,7 +123,7 @@
         ctx.strokeStyle = '#cdd5e1'; ctx.beginPath(); ctx.moveTo(X, gy); ctx.lineTo(X, gy + (m % 5 ? 6 : 12)); ctx.stroke();
         if (m % 5 === 0 && m >= 0) { ctx.fillStyle = '#5d6779'; ctx.font = `${11 * FS}px Inter, sans-serif`; ctx.fillText(m + ' m', X - 8, gy + 25); }
       }
-      if (!L) { text(k, oy, k ? 'no gait evolved for this body yet' : 'evolving the base body’s gait…', k ? 'press “Evolve a gait for this body”' : ''); return; }
+      if (!L) { text(k, oy, k ? 'no policy tuned for this body yet' : 'tuning the base body’s policy…', k ? 'press “Tune policy for this body”' : ''); return; }
       L.sim.parts.forEach(p => {
         const pos = p.b.getPosition(), a = p.b.getAngle();
         ctx.save(); ctx.translate((pos.x - x0) * S + W * AX, gy - pos.y * S); ctx.rotate(-a);
@@ -129,7 +131,7 @@
         ctx.strokeStyle = '#0a0e17'; ctx.lineWidth = 1.6;
         const w = p.hw * 2 * S, h = p.hh * 2 * S; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(-w / 2, -h / 2, w, h, Math.min(w, h) / 2.2) : ctx.rect(-w / 2, -h / 2, w, h); ctx.fill(); ctx.stroke(); ctx.restore();
       });
-      text(k, oy, L.label, `walks ${L.dist.toFixed(1)} m in ${Wk.T_SIM} s`);
+      text(k, oy, L.label, L.frozen ? 'no policy tuned for it yet: press “Tune policy for this body”' : `walks ${L.dist.toFixed(1)} m in ${Wk.T_SIM} s`);
       if (L.fell) { ctx.fillStyle = '#dc2626'; ctx.font = `700 ${12 * FS}px Inter, sans-serif`; ctx.textAlign = 'right'; ctx.fillText('FELL OVER', W - 16, oy + 10 + 20 * FS); ctx.textAlign = 'left'; }
     });
   }
@@ -141,6 +143,7 @@
   function frame() {
     lanes.forEach((L, k) => {
       if (!L) return;
+      if (L.frozen) return;
       if (!L.fell && L.sim.t < Wk.T_SIM) { L.sim.step(); if (Wk.fallen(L.sim)) L.fell = true; }
       else if (!L.hold) L.hold = performance.now();
       else if (performance.now() - L.hold > 1200) { lane(k, L.g, L.label); return; }
@@ -152,10 +155,10 @@
 
   let booting = false;
   async function boot() {
-    if (booting) return; booting = true; setBusy(true); say('Evolving a gait for the base body first (it takes a second)…');
+    if (booting) return; booting = true; setBusy(true); say('Tuning a policy for the base body first (it takes a second)…');
     await ensureBase(); setBusy(false);
     const b = PRESETS[0][2], d = distance(b.concat(baseGait)); record(b, d, d, b.concat(baseGait)); showBody(b); markPreset();
-    say('Both lanes show the <b>base body</b> with the gait evolved for it. Pick another body (or drag the sliders): the top lane tries the same gait on it. Then evolve a gait of its own.');
+    say('Both lanes show the <b>base body</b> with the policy tuned for it. Pick another body (or drag the sliders): the top lane tries the same policy on it and the bottom lane previews the body. Then tune a policy of its own.');
   }
   new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; if (visible && !baseGait) boot(); }), { threshold: 0.05 }).observe(root);
   window.addEventListener('resize', resize);
