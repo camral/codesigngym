@@ -9,7 +9,7 @@ window.ENV_FAMILIES = [
     example: 'BallCatcher-Pitch',
   },
   {
-    id: 'solar', name: 'Solar Panel Cleaner', sim: 'panel_cleaner · MuJoCo Warp', tags: ['native', 'manip', 'loco'], ids: 3,
+    id: 'solar', goalVideo: true, goal: 'Walk up to the array and sweep every panel cell with the roller (on Traverse, any other body part touching a panel ends the episode).', name: 'Solar Panel Cleaner', sim: 'panel_cleaner · MuJoCo Warp', tags: ['native', 'manip', 'loco'], ids: 3,
     blurb: 'Walk to the panels and sweep them clean. Only the roller may touch.',
     design: 'every leg and arm link, deformed independently', policy: 'walk to the array, then sweep with the roller',
     presets: [['Reach: tall, far panels (arm-dominant)', '+10 / 0'], ['Stability: rolling terrain, shoves (leg-dominant)', '+10 / 0'], ['Traverse: packed array, plates are obstacles', '+10 / 0']],
@@ -23,7 +23,7 @@ window.ENV_FAMILIES = [
     example: 'TruckUnloadSingle',
   },
   {
-    id: 'nerograsp', goal: 'nerograsp', goalCard: true, name: 'Grasping Small Objects', sim: 'nerograsp · MuJoCo Warp', tags: ['native', 'manip'], ids: 13,
+    id: 'nerograsp', name: 'Grasping Small Objects', sim: 'nerograsp · MuJoCo Warp', tags: ['native', 'manip'], ids: 13,
     blurb: 'Lift tiny tools and hardware with fingertips you get to redesign.',
     design: 'full-mesh index and thumb fingertips', policy: 'reach, close, lift',
     presets: [['Tiny: randomized fastener', '≈+13 / 0'], ['Small: randomized elongated tool', '≈+13 / 0'], ['Thin: a washer', '≈+13 / 0'], ['All: every object above', '≈+13 / 0'], ['+ one id per object', '']],
@@ -46,7 +46,7 @@ window.ENV_FAMILIES = [
     note: 'Still from the paper (Figure 3).'
   },
   {
-    id: 'softwalker', goal: 'softwalker', goalCard: true, name: 'Soft Robot Walker', sim: 'soft_walker · native Warp soft-body engine', tags: ['native', 'soft', 'loco'], ids: 15,
+    id: 'softwalker', goalVideo: true, goal: 'Evolve a soft body and its actuation so it travels as far forward as possible, across flat ground, stairs or gaps.', name: 'Soft Robot Walker', sim: 'soft_walker · native Warp soft-body engine', tags: ['native', 'soft', 'loco'], ids: 15,
     blurb: 'Evolve a soft body and its gait over flat, stepped or gapped terrain.',
     design: 'per cell: occupancy, stiffness, density, actuator strength, fibre direction, channel, Poisson ratio', policy: 'actuation channels over time',
     presets: [['Spring lattice (2D)', 'flat / stairs / gaps'], ['MPM (2D) and MPM (3D)', 'flat / stairs / gaps'], ['Timoshenko beam lattice (3D)', 'flat / stairs / gaps'], ['Hexahedral FEM, neo-Hookean (3D)', 'flat / stairs / gaps']],
@@ -54,21 +54,21 @@ window.ENV_FAMILIES = [
     note: 'Render from the environment (HexFEM 3D on the Gaps terrain), not a baseline run. Baselines on SoftWalkerBeam3D (CMA-ES, FastTD3, PPO+NGOpt; 5 seeds) are in the results explorer. Return windows are not yet characterised.'
   },
   {
-    id: 'lq', goal: 'lq', goalCard: true, name: 'LQ Structure', sim: 'lq_structure · python-control + cvxpy', tags: ['reframed', 'control'], ids: 3,
+    id: 'lq', name: 'LQ Structure', sim: 'lq_structure · python-control + cvxpy', tags: ['reframed', 'control'], ids: 3,
     blurb: 'A mass-spring chain with an exact optimum: a sanity check for co-design.',
     design: 'masses, stiffness, damping, actuator + sensor placement', policy: 'regulate against disturbances (LQR / LQG / QP)',
     presets: [['LQR: continuous design, unconstrained control', '0 / −∞'], ['LQG: placement under process + sensor noise', '0 / −∞'], ['QP: actuator saturation, mass/authority budget', '0 / −∞']],
     example: 'LQStructure-LQR-v0',
   },
   {
-    id: 'microgrid', goal: 'microgrid', goalCard: true, name: 'Microgrid Sizing & Dispatch', sim: 'microgrid · python-microgrid', tags: ['reframed', 'infra'], ids: 5,
+    id: 'microgrid', name: 'Microgrid Sizing & Dispatch', sim: 'microgrid · python-microgrid', tags: ['reframed', 'infra'], ids: 5,
     blurb: 'Size the solar, battery and diesel, then dispatch against real demand.',
     design: 'solar kW, battery kWh, genset kW', policy: 'charge, discharge, curtail, import',
     presets: [['Random: one building, grid-tied, 24 h', '+720 / ≈−270k'], ['Forecast: + noisy forecasts', '+720 / ≈−270k'], ['Campus: several buildings', '+2,880 / ≈−1.08M'], ['Off-grid: solar + battery + genset, 72 h', '0 / ≈−378k'], ['Off-grid campus', '0 / ≈−1.51M']],
     example: 'MicrogridRandom',
   },
   {
-    id: 'network', goal: 'network', goalCard: true, name: 'Wireless Network Placement', sim: 'mobile_env · mobile-env', tags: ['reframed', 'infra'], ids: 3,
+    id: 'network', name: 'Wireless Network Placement', sim: 'mobile_env · mobile-env', tags: ['reframed', 'infra'], ids: 3,
     blurb: 'Place base stations, then hand moving users between them.',
     design: 'number, position and transmit power of base stations (count + power budgets)', policy: 'user-to-cell association',
     presets: [['Urban: pedestrians, 3–8 small cells', '+100 / −100'], ['Suburban: mixed mobility, 3–7 cells', '+100 / −100'], ['Motorway: sparse, fast, 1–4 macro cells', '+100 / −100']],
@@ -82,14 +82,14 @@ window.ENV_FAMILIES = [
     example: 'RacingSpielberg',
   },
   {
-    id: 'warehouse', goal: 'warehouse', goalCard: true, name: 'Warehouse Layout', sim: 'robot_warehouse · Jumanji (JAX)', tags: ['reframed', 'multi'], ids: 3,
+    id: 'warehouse', name: 'Warehouse Layout', sim: 'robot_warehouse · Jumanji (JAX)', tags: ['reframed', 'multi'], ids: 3,
     blurb: 'Lay out the shelves, then coordinate the robot fleet.',
     design: 'combinatorial shelf placement', policy: 'joint navigation for the whole fleet',
     presets: [['Small: 10×10, 2 robots, 25 shelves', '+1000 / 0'], ['Medium: 16×16, 4 robots, 115 shelves', '+1000 / 0'], ['Congested: 20×22, 8 robots, 264 shelves', '+1000 / 0']],
     example: 'WarehouseSmall',
   },
   {
-    id: 'halfcheetah', goal: 'locomotion', sweep: true, name: 'Half-Cheetah', sim: 'half_cheetah · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    id: 'halfcheetah', goal: 'Move forward as fast as possible without falling, on a body whose limbs you design.', sweep: true, name: 'Half-Cheetah', sim: 'half_cheetah · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
     blurb: "A planar runner whose six leg segments you can reshape.",
     design: "each leg segment’s length and angle, head and torso halves (16-dim)", policy: '6 leg joints',
     presets: [['HalfCheetah-v4', 'unbounded return']],
@@ -97,7 +97,7 @@ window.ENV_FAMILIES = [
     note: "Real eval rollout (PPO+NGOpt): this co-designed cheetah flipped and kept going."
   },
   {
-    id: 'hopper', goal: 'locomotion', sweep: true, name: 'Hopper', sim: 'hopper · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    id: 'hopper', goal: 'Move forward as fast as possible without falling, on a body whose limbs you design.', sweep: true, name: 'Hopper', sim: 'hopper · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
     blurb: "Hop forward without falling, on a leg you design.",
     design: "thigh, leg, torso and foot lengths + angles (8-dim)", policy: 'thigh, leg and foot joints',
     presets: [['Hopper-v4', 'unbounded return']],
@@ -105,7 +105,7 @@ window.ENV_FAMILIES = [
     note: "Real eval rollout (CMA-ES), follow-cropped around the robot."
   },
   {
-    id: 'walker2d', goal: 'locomotion', sweep: true, name: 'Walker-2D', sim: 'walker2d · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    id: 'walker2d', goal: 'Move forward as fast as possible without falling, on a body whose limbs you design.', sweep: true, name: 'Walker-2D', sim: 'walker2d · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
     blurb: "Two legs, designed independently: asymmetric walkers allowed.",
     design: "thigh, leg and foot of both legs + torso halves (12-dim)", policy: '6 leg joints',
     presets: [['Walker2d-v4', 'unbounded return']],
@@ -113,7 +113,7 @@ window.ENV_FAMILIES = [
     note: "Still from the paper (Figure 3): the fixed eval camera loses this robot within about a second."
   },
   {
-    id: 'swimmer', goal: 'swim', sweep: true, name: 'Swimmer', sim: 'swimmer · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    id: 'swimmer', goal: 'Swim forward through viscous fluid, with link lengths and angles you design.', sweep: true, name: 'Swimmer', sim: 'swimmer · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
     blurb: "Swim through viscous fluid with links you get to reshape.",
     design: "all three links’ length and angle (6-dim)", policy: '2 inter-link joints',
     presets: [['Swimmer-v4', 'unbounded return']],
@@ -121,7 +121,7 @@ window.ENV_FAMILIES = [
     note: "Real eval rollout (FastTD3), follow-cropped around the robot."
   },
   {
-    id: 'ant', goal: 'locomotion', sweep: true, name: 'Ant', sim: 'ant · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    id: 'ant', goal: 'Move forward as fast as possible without falling, on a body whose limbs you design.', sweep: true, name: 'Ant', sim: 'ant · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
     blurb: "A 3D quadruped where every leg link is a design variable.",
     design: "3D length and orientation of all 12 leg links (36-dim)", policy: '8 leg joints',
     presets: [['Ant-v4', 'unbounded return']],
@@ -129,7 +129,7 @@ window.ENV_FAMILIES = [
     note: "Still from the paper (Figure 3): the fixed eval camera loses this robot within about a second."
   },
   {
-    id: 'humanoid', goal: 'locomotion', sweep: true, name: 'Humanoid', sim: 'humanoid · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    id: 'humanoid', goal: 'Move forward as fast as possible without falling, on a body whose limbs you design.', sweep: true, name: 'Humanoid', sim: 'humanoid · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
     blurb: "Run with limbs, hands and feet you can resize.",
     design: "3D limbs plus hand and foot radii (28-dim)", policy: '17 joints',
     presets: [['Humanoid-v4', 'unbounded return']],
@@ -137,7 +137,7 @@ window.ENV_FAMILIES = [
     note: "Real eval rollout (FastTD3, return 5,956), follow-cropped around the robot."
   },
   {
-    id: 'humanoidstandup', goal: 'standup', sweep: true, name: 'Humanoid Standup', sim: 'humanoid_standup · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
+    id: 'humanoidstandup', goal: 'Start lying on the floor and stand up, with a body you design.', sweep: true, name: 'Humanoid Standup', sim: 'humanoid_standup · MuJoCo Warp', tags: ['extended', 'loco'], ids: 1,
     blurb: "Get up off the floor, with the same 28-dim design space.",
     design: "3D limbs plus hand and foot radii (28-dim)", policy: '17 joints',
     presets: [['HumanoidStandup-v4', 'unbounded return']],

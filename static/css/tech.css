@@ -127,3 +127,5 @@
 .modal-body video.sweep { width: 100%; border-radius: 6px; border: 1px solid var(--line); background: #f7f9fc; }
 @media (max-width: 640px) { .goal-box { grid-template-columns: 1fr; } }
 .env .media img[src*="_design"], .env .media video[src*="_design"] { object-fit: contain; background: #f7f9fc; }
+
+.goal-line { background: var(--accent-soft); border-radius: 6px; padding: 10px 12px; color: var(--ink) !important; font-weight: 500; }
