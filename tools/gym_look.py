@@ -22,6 +22,31 @@ def config(vid):
     return cls()
 
 
+def deform(m, d, s, a, mo):
+    """NumPy twin of offsettable_logic.apply_offsets + deform on a CPU model, then the env's constant refresh."""
+    for i in range(len(s['body'])):
+        delta = np.zeros(3)
+        for j in range(int(s['axis_adr'][i]), int(s['axis_adr'][i]) + int(s['axis_num'][i])):
+            delta += s['axis_dir'][j] * (np.clip(a[int(s['axis_act'][j])], s['axis_lo'][j], s['axis_hi'][j]) * mo)
+        g, b, r, aim = int(s['geom'][i]), int(s['body'][i]), float(s['radius'][i]), s['dir'][i]
+        tip = s['tip0'][i] + delta; along = tip @ aim; tip = tip + aim * (max(along, 0.0) - along); ln = np.linalg.norm(tip)
+        u = tip / ln if ln > 1e-9 else aim; half = max(0.5 * ln, float(s['min_half'][i]))
+        q = np.zeros(4); mujoco.mju_quatZ2Vec(q, u)
+        m.geom_pos[g], m.geom_quat[g], m.geom_size[g] = u * half, q, (r, half, 0)
+        m.geom_rbound[g] = np.hypot(r, half) if s['is_cyl'][i] else half + r
+        L, rho = 2 * half, float(s['density'][i]); mc = rho * np.pi * r * r * L; tr = mc * (3 * r * r + L * L) / 12
+        if s['is_cyl'][i]: mass, ax = mc, 0.5 * mc * r * r
+        else: mcap = rho * 2 / 3 * np.pi * r ** 3; tr += 2 * mcap * (0.4 * r * r + L * L / 4 + 0.375 * r * L); mass, ax = mc + 2 * mcap, 0.5 * mc * r * r + 0.8 * mcap * r * r
+        m.body_mass[b], m.body_inertia[b], m.body_ipos[b], m.body_iquat[b] = mass, (tr, tr, ax), u * half, q
+        moved = u * 2 * half - s['tip0'][i]
+        for k in range(int(s['child_adr'][i]), int(s['child_adr'][i]) + int(s['child_num'][i])): m.body_pos[int(s['child_id'][k])] = s['child_pos'][k] + moved
+        for k in range(int(s['site_adr'][i]), int(s['site_adr'][i]) + int(s['site_num'][i])): m.site_pos[int(s['site_id'][k])] = s['site_pos'][k] + moved
+    ext, ctr = m.stat.extent, m.stat.center.copy()
+    mujoco.mj_setConst(m, d)   # the env's _refresh_constants; it also recompiles geom_sameframe and the visual extent (near clip), so undo those
+    m.stat.extent, m.stat.center[:] = ext, ctr
+    m.geom_sameframe[s['geom']] = mujoco.mjtSameFrame.mjSAMEFRAME_NONE
+
+
 class Port:
     def __init__(self, vid):
         self.vid, self.cfg = vid, config(vid)
@@ -43,28 +68,7 @@ class Port:
 
     def design(self, a):
         """Deform every link by the normalised design ``a`` (slots in [-1, 1], clipped to each link's pos/neg range)."""
-        m, s, mo = self.m, self.seg, float(self.cfg.max_offset)
-        for i in range(len(s['body'])):
-            delta = np.zeros(3)
-            for j in range(int(s['axis_adr'][i]), int(s['axis_adr'][i]) + int(s['axis_num'][i])):
-                delta += s['axis_dir'][j] * (np.clip(a[int(s['axis_act'][j])], s['axis_lo'][j], s['axis_hi'][j]) * mo)
-            g, b, r, aim = int(s['geom'][i]), int(s['body'][i]), float(s['radius'][i]), s['dir'][i]
-            tip = s['tip0'][i] + delta; along = tip @ aim; tip = tip + aim * (max(along, 0.0) - along); ln = np.linalg.norm(tip)
-            u = tip / ln if ln > 1e-9 else aim; half = max(0.5 * ln, float(s['min_half'][i]))
-            q = np.zeros(4); mujoco.mju_quatZ2Vec(q, u)
-            m.geom_pos[g], m.geom_quat[g], m.geom_size[g] = u * half, q, (r, half, 0)
-            m.geom_rbound[g] = np.hypot(r, half) if s['is_cyl'][i] else half + r
-            L, rho = 2 * half, float(s['density'][i]); mc = rho * np.pi * r * r * L; tr = mc * (3 * r * r + L * L) / 12
-            if s['is_cyl'][i]: mass, ax = mc, 0.5 * mc * r * r
-            else: mcap = rho * 2 / 3 * np.pi * r ** 3; tr += 2 * mcap * (0.4 * r * r + L * L / 4 + 0.375 * r * L); mass, ax = mc + 2 * mcap, 0.5 * mc * r * r + 0.8 * mcap * r * r
-            m.body_mass[b], m.body_inertia[b], m.body_ipos[b], m.body_iquat[b] = mass, (tr, tr, ax), u * half, q
-            moved = u * 2 * half - s['tip0'][i]
-            for k in range(int(s['child_adr'][i]), int(s['child_adr'][i]) + int(s['child_num'][i])): m.body_pos[int(s['child_id'][k])] = s['child_pos'][k] + moved
-            for k in range(int(s['site_adr'][i]), int(s['site_adr'][i]) + int(s['site_num'][i])): m.site_pos[int(s['site_id'][k])] = s['site_pos'][k] + moved
-        ext, ctr = m.stat.extent, m.stat.center.copy()
-        mujoco.mj_setConst(self.m, self.d)   # the env's _refresh_constants; it also recompiles geom_sameframe and the visual extent (near clip), so undo those
-        m.stat.extent, m.stat.center[:] = ext, ctr
-        m.geom_sameframe[s['geom']] = mujoco.mjtSameFrame.mjSAMEFRAME_NONE
+        deform(self.m, self.d, self.seg, a, float(self.cfg.max_offset))
 
     def lowest(self):
         """Lowest point of the floor-touching geoms at qpos0 (host twin of offsettable_logic.geom_bottom)."""
