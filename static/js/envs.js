@@ -9,7 +9,7 @@ window.ENV_FAMILIES = [
     example: 'BallCatcher-Pitch',
   },
   {
-    id: 'solar', goalVideo: true, goal: 'Walk up to the array and sweep every panel cell with the roller (on Traverse, any other body part touching a panel ends the episode).', name: 'Solar Panel Cleaner', sim: 'panel_cleaner · MuJoCo Warp', tags: ['native', 'manip', 'loco'], ids: 3,
+    id: 'solar', goalVideo: true, goalNote: 'Goal clip: a scripted, kinematic demo in the real SolarCleaner-Reach scene (no physics, not a policy), with a co-designed arm, every link 0.15 m longer, so the roller reaches every cell. Cells turn green as the roller passes, as in the env.', goal: 'Walk up to the array and sweep every panel cell with the roller (on Traverse, any other body part touching a panel ends the episode).', name: 'Solar Panel Cleaner', sim: 'panel_cleaner · MuJoCo Warp', tags: ['native', 'manip', 'loco'], ids: 3,
     blurb: 'Walk to the panels and sweep them clean. Only the roller may touch.',
     design: 'every leg and arm link, deformed independently', policy: 'walk to the array, then sweep with the roller',
     presets: [['Reach: tall, far panels (arm-dominant)', '+10 / 0'], ['Stability: rolling terrain, shoves (leg-dominant)', '+10 / 0'], ['Traverse: packed array, plates are obstacles', '+10 / 0']],
