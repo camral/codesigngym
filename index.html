@@ -284,7 +284,7 @@ obs, rejected, info = env.<span class="f">reset</span>(<span class="n">embodimen
 
 <span class="c"># ... and your inner loop acts in it</span>
 <span class="k">for</span> t <span class="k">in</span> <span class="f">range</span>(horizon):
-    obs, reward, term, trunc, info = env.<span class="f">step</span>(policy(obs))</pre></div>
+    obs, reward, term, trunc, info = env.<span class="f">step</span>(policy(obs, theta))</pre></div>
         <div class="code" role="tabpanel" hidden><button class="copy" data-copy="#c2">copy</button><pre id="c2"><span class="c"># reset returns a per-env rejection flag instead of raising</span>
 obs, rejected, info = env.<span class="f">reset</span>(<span class="n">embodiment</span>=thetas)
 <span class="k">if</span> rejected.any():
@@ -306,8 +306,7 @@ obs, _, _ = env.<span class="f">reset</span>(<span class="n">embodiment</span>=t
 <span class="c"># so a fixed design cannot be reshaped mid-episode</span>
 eval_env, _ = cg.<span class="f">make_vec</span>(<span class="s">"RotateInHand"</span>, <span class="n">8</span>, <span class="n">is_eval_env</span>=<span class="k">True</span>)</pre></div>
         <div class="code" role="tabpanel" hidden><button class="copy" data-copy="#c4">copy</button><pre id="c4"><span class="c"># envs/my_env/registration.py</span>
-<span class="k">def</span> <span class="f">build_vec</span>(num_envs, *, is_eval_env, max_action_space_size,
-              max_observation_space_size, **cfg):
+<span class="k">def</span> <span class="f">build_vec</span>(num_envs, *, is_eval_env, **cfg):
     env = MyNativeVectorEnv(num_envs, **cfg)  <span class="c"># vmap, shards, warp...</span>
     env.base_embodiment = default_design()
     <span class="k">return</span> env
