@@ -26,7 +26,7 @@
 
   // nav border + active section
   const nav = document.querySelector('.nav');
-  const links = [...document.querySelectorAll('.nav-links a')];
+  const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];   // in-page sections only (the Paper link is a file)
   const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
   function onScroll() {
     nav.classList.toggle('scrolled', window.scrollY > 8);
