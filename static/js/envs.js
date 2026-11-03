@@ -35,6 +35,7 @@ window.ENV_FAMILIES = [
     design: '245 pad-cell heights in [0, 1] + finger spacing, finger width, thumb width', policy: '19 hand actuators',
     presets: [['RotateInHand-Cube: box, goals 1 rad apart, 7.5 s per goal, 15 s', '+10 per goal / 0']],
     example: 'RotateInHand-Cube',
+    clip: 'rotateinhand_fasttd3_s1',
     note: 'Evaluation rollout from our FastTD3 baseline (seed 1, return 4.96), the best RotateInHand-Cube rollout across all four methods.'
   },
   {
@@ -43,7 +44,8 @@ window.ENV_FAMILIES = [
     design: '245 pad-cell heights in [0, 1] + finger spacing, finger width, thumb width', policy: '19 hand actuators, palm down over the table (22 with the hammer presets\u2019 sliding wrist)',
     presets: [['HandPickUp-Cube: lift, then turn through goals 0.5 rad apart, 6 s per goal, 15 s', '+9 per goal, +1 tip / 0'], ['HandPickUp-Hammer: lift and hold one pose under random pushes, 7 s', '+10 / 0'], ['HandPickUp-SmallHammer: the same, slimmer hammer', '+10 / 0']],
     example: 'HandPickUp-Cube',
-    note: 'Evaluation rollout from our FastTD3 baseline on HandPickUp-Hammer (seed 4, return 5.06 at the 3.6 h evaluation), the best HandPickUp rollout across all four methods.'
+    clip: 'handpickup_fasttd3_s4_slow',
+    note: 'Evaluation rollout from our FastTD3 baseline on HandPickUp-Hammer (seed 4, return 5.06 at the 3.6 h evaluation), the best HandPickUp rollout across all four methods. Played at 1/3 speed.'
   },
   {
     id: 'softwalker', goalVideo: true, goal: 'Evolve a soft body and its actuation so it travels as far forward as possible, across flat ground, stairs or gaps.', name: 'Soft Robot Walker', sim: 'soft_walker · native Warp soft-body engine', tags: ['native', 'soft', 'loco'], ids: 15,

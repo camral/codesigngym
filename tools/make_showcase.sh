@@ -16,8 +16,10 @@ clip solar        $V/SolarCleanerTraverse/cmaes.mp4
 clip truck        $V/TruckUnloadSingle/fasttd3.mp4
 clip nerograsp    $V/NeroGraspAll/cmaes.mp4
 clip hand         $V/extra/hand_morph.mp4
-clip rotateinhand $V/extra/rotateinhand_fasttd3_seed1.mp4       # best hand-run eval rollouts (codesign-baselines hand-final best_renders)
-clip handpickup   $V/extra/handpickup_hammer_fasttd3_seed4.mp4   # poster re-taken at 1.3 s (hammer lifted)
+clip rotateinhand_fasttd3_s1 $V/extra/rotateinhand_fasttd3_seed1.mp4   # best hand-run eval rollouts (codesign-baselines hand-final best_renders)
+# HandPickUp card clip, slowed 3x (envs.js clip: handpickup_fasttd3_s4_slow); poster at 3.9 s shows the lifted hammer
+ffmpeg -v error -y -i $V/extra/handpickup_hammer_fasttd3_seed4.mp4 -vf "setpts=3*PTS,scale='min(640,iw)':-2:flags=lanczos" -r 20 "${enc[@]}" "$O/handpickup_fasttd3_s4_slow.mp4"
+ffmpeg -v error -y -ss 3.9 -i "$O/handpickup_fasttd3_s4_slow.mp4" -frames:v 1 -q:v 3 "$O/handpickup_fasttd3_s4_slow.jpg"
 clip lq           $V/LQStructure-LQR-v0/loki.mp4
 clip microgrid    $V/MicrogridOffGridCampus/cmaes.mp4
 clip network      $V/NetworkUrban/ppo_ngopt.mp4

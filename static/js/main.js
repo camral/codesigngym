@@ -47,7 +47,7 @@
   const grid = document.getElementById('env-grid'), filters = document.getElementById('env-filters');
   if (grid && window.ENV_FAMILIES) {
     const fams = window.ENV_FAMILIES, touch = window.matchMedia('(hover: none)').matches;
-    const media = f => ({ video: f.id === 'pokemon' || f.still ? null : `static/video/showcase/${f.id}.mp4`, poster: f.poster || `static/video/showcase/${f.id}.jpg` });
+    const media = f => ({ video: f.id === 'pokemon' || f.still ? null : `static/video/showcase/${f.clip || f.id}.mp4`, poster: f.poster || `static/video/showcase/${f.clip || f.id}.jpg` });  // clip: a new file name busts cached copies
     const card = f => {
       const md = media(f);
       return `<button type="button" class="env reveal" data-id="${f.id}" data-tags="${f.tags.join(' ')}" aria-haspopup="dialog">
