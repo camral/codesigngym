@@ -26,7 +26,7 @@
   const methodName = id => D.methods.find(m => m.id === id).name;
   const pretty = p => p.id.replace(/-v4$/, '').replace('HumanoidStandup', 'Humanoid Standup').replace(/^Pokenv/, 'Pokémon ').replace(/^BallCatcher-/, 'Ball Catcher ').replace(/^NeroGrasp/, 'NeroGrasp ')
     .replace(/^SolarCleaner/, 'Solar Cleaner ').replace(/^TruckUnload/, 'Truck Unload ').replace(/^Racing/, 'Racing ').replace(/^Warehouse/, 'Warehouse ').replace(/^Network/, 'Network ')
-    .replace(/^Microgrid/, 'Microgrid ').replace('OffGridSingle', 'Off-grid').replace('OffGridCampus', 'Off-grid Campus').replace('MaxPower', 'Max Power').replace(/^SoftWalkerBeam3D$/, 'Soft Walker (Beam 3D)').replace(/\s+/g, ' ').trim();
+    .replace(/^Microgrid/, 'Microgrid ').replace('OffGridSingle', 'Off-grid').replace('OffGridCampus', 'Off-grid Campus').replace('MaxPower', 'Max Power').replace(/^SoftWalkerBeam3D$/, 'Soft Walker (Beam 3D)').replace(/^RotateInHand-Cube$/, 'Rotate In Hand (Cube)').replace(/^HandPickUp-(\w+)$/, 'Hand Pick Up ($1)').replace(/\s+/g, ' ').trim();
   const tickFmt = (v, step) => { if (Math.abs(v) < step * 1e-6) return '0'; const a = Math.abs(v); if (a >= 1e5) return (v / 1e3).toFixed(0) + 'k'; const d = Math.max(0, -Math.floor(Math.log10(step) + 1e-9)); return v.toFixed(d).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
   const color = id => D.methods.find(m => m.id === id).color;
 

@@ -297,7 +297,7 @@ obs, rejected, info = env.<span class="f">reset</span>(<span class="n">embodimen
 <span class="c"># check a design without touching the simulator state</span>
 ok = env.<span class="f">validate_embodiment</span>(theta)</pre></div>
         <div class="code" role="tabpanel" hidden><button class="copy" data-copy="#c3">copy</button><pre id="c3"><span class="c"># Racing and the Shape-shifting Hand accept a design at every step</span>
-env, theta = cg.<span class="f">make_vec</span>(<span class="s">"RotateInHand"</span>, <span class="n">num_envs</span>=<span class="n">64</span>)
+env, theta = cg.<span class="f">make_vec</span>(<span class="s">"RotateInHand-Cube"</span>, <span class="n">num_envs</span>=<span class="n">64</span>)
 obs, _, _ = env.<span class="f">reset</span>(<span class="n">embodiment</span>=theta)
 <span class="k">for</span> t <span class="k">in</span> <span class="f">range</span>(horizon):
     theta = theta + <span class="n">0.01</span> * design_policy(obs)   <span class="c"># reshape the pads</span>
@@ -305,7 +305,7 @@ obs, _, _ = env.<span class="f">reset</span>(<span class="n">embodiment</span>=t
 
 <span class="c"># an eval env ignores step-time designs (with a warning),</span>
 <span class="c"># so a fixed design cannot be reshaped mid-episode</span>
-eval_env, _ = cg.<span class="f">make_vec</span>(<span class="s">"RotateInHand"</span>, <span class="n">8</span>, <span class="n">is_eval_env</span>=<span class="k">True</span>)</pre></div>
+eval_env, _ = cg.<span class="f">make_vec</span>(<span class="s">"RotateInHand-Cube"</span>, <span class="n">8</span>, <span class="n">is_eval_env</span>=<span class="k">True</span>)</pre></div>
         <div class="code" role="tabpanel" hidden><button class="copy" data-copy="#c4">copy</button><pre id="c4"><span class="c"># envs/my_env/registration.py</span>
 <span class="k">def</span> <span class="f">build_vec</span>(num_envs, *, is_eval_env, **cfg):
     env = MyNativeVectorEnv(num_envs, **cfg)  <span class="c"># vmap, shards, warp...</span>
@@ -356,14 +356,14 @@ REGISTRY[<span class="s">"MyEnv-v0"</span>] = (<span class="s">"envs.my_env.regi
   </div>
 </footer>
 
-<script src="static/js/envs.js?v=d4378bfc18"></script>
+<script src="static/js/envs.js?v=b38f14d429"></script>
 <script src="static/js/main.js?v=0a96dd1acc"></script>
 <script src="https://cdn.jsdelivr.net/npm/planck@1.5.0/dist/planck.min.js"></script>
 <script src="static/js/catcher-core.js?v=5b267256ac"></script>
 <script src="static/js/demo-catcher.js?v=acf140a088"></script>
 <script src="static/js/walker-core.js?v=5d33d8fee9"></script>
 <script src="static/js/demo-walker.js?v=f70b2b65de"></script>
-<script src="static/js/results.js?v=add3e953c3"></script>
+<script src="static/js/results.js?v=199cdbe9cb"></script>
 <script src="static/js/landscape.js?v=c880d88b2d"></script>
 <script src="static/js/anim.js?v=38891a30b5"></script>
 </body>

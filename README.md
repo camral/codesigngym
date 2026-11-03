@@ -16,7 +16,7 @@ fetches JSON, so `file://` will not work).
 | Playground: Give a walker new legs | `static/js/walker-core.js` (planck.js walker + GA) + `demo-walker.js` |
 | Environment cards + modals | `static/js/envs.js`: the paper's 20 families (Native 7 / Extended 7 / Reframed 6), facts from the codesign-gym README; stills in `static/images/envs/fig3/` are cropped from the paper's Figure 3 |
 | Results takeaway | headroom bars computed from `results.json` (best final return / documented max); leader counts and 16.6% from the paper |
-| Baseline results explorer | `static/data/results.json`, `static/data/videos.json`, `static/video/<preset>/<method>.mp4` |
+| Baseline results explorer | `static/data/results.json`, `static/data/videos.json`, `static/video/<preset>/<method>.mp4`; hand presets added by `tools/add_local_presets.py` |
 | Pokémon battle replays | `static/replays/<preset>/<method>-{best,worst}.html`, `static/data/replays.json` |
 | Diagrams | `static/figures/*.svg` (+ editable `.drawio` sources) |
 
@@ -28,12 +28,13 @@ All scripts assume `../codesign-gym` is a checkout with `baseline_figures/_wandb
 python tools/export_results.py [--refresh]  # results.json via codesign-gym/make_figures.py (paper tables) + EXTRA presets (SoftWalkerBeam3D) fetched from wandb
 python tools/fetch_videos.py                # best-seed final-eval video per (preset, method) from wandb; needs wandb login
 PYTHON=python tools/make_showcase.sh        # per-family showcase clips (+ follow-cropped locomotion montage)
+python tools/add_local_presets.py [DIR]   # hand presets (RotateInHand-Cube, HandPickUp-Cube/-Hammer): results + videos from local codesign-baselines exp_results/hand-final
 python tools/fetch_replays.py               # Pokémon: best/worst eval battle replays (poke-env HTML) + team/outcome summary
 python tools/stamp.py                       # after editing CSS/JS: cache-busting ?v=<hash> on every local asset link
 ```
 
-`tools/track_crop.py` follow-crops fixed-camera MuJoCo rollouts around the robot. The Shape-shifting Hand clip is a
-design sweep rendered from the env's hand model in plain MuJoCo (pad heights blended between random valid designs), and the
+`tools/track_crop.py` follow-crops fixed-camera MuJoCo rollouts around the robot. The In-Hand Rotation and Hand Pick Up card
+clips are the best evaluation rollouts from the hand runs (FastTD3; not necessarily the final evaluation), and the
 SoftWalker clips (including the hero tile) are the env's own renders, since the SoftWalker baseline runs log only single-frame eval videos; the page labels them as such. Every other clip is a final-evaluation rollout
 from the baseline runs.
 

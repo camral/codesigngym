@@ -169,6 +169,74 @@
    "src": "static/video/HalfCheetah-v4/ppo_ngopt.mp4"
   }
  },
+ "HandPickUp-Cube": {
+  "cmaes": {
+   "duration": 1.95,
+   "kb": 16,
+   "poster": "static/video/HandPickUp-Cube/cmaes.jpg",
+   "ret": 2.62,
+   "seed": 3,
+   "src": "static/video/HandPickUp-Cube/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 2.6,
+   "kb": 29,
+   "poster": "static/video/HandPickUp-Cube/fasttd3.jpg",
+   "ret": 3.593,
+   "seed": 2,
+   "src": "static/video/HandPickUp-Cube/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 1.95,
+   "kb": 19,
+   "poster": "static/video/HandPickUp-Cube/loki.jpg",
+   "ret": 0.3052,
+   "seed": 4,
+   "src": "static/video/HandPickUp-Cube/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 1.95,
+   "kb": 16,
+   "poster": "static/video/HandPickUp-Cube/ppo_ngopt.jpg",
+   "ret": 0.5951,
+   "seed": 1,
+   "src": "static/video/HandPickUp-Cube/ppo_ngopt.mp4"
+  }
+ },
+ "HandPickUp-Hammer": {
+  "cmaes": {
+   "duration": 2.25,
+   "kb": 27,
+   "poster": "static/video/HandPickUp-Hammer/cmaes.jpg",
+   "ret": 2.939,
+   "seed": 2,
+   "src": "static/video/HandPickUp-Hammer/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 2.25,
+   "kb": 29,
+   "poster": "static/video/HandPickUp-Hammer/fasttd3.jpg",
+   "ret": 3.05,
+   "seed": 4,
+   "src": "static/video/HandPickUp-Hammer/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 2.25,
+   "kb": 29,
+   "poster": "static/video/HandPickUp-Hammer/loki.jpg",
+   "ret": 0.4478,
+   "seed": 4,
+   "src": "static/video/HandPickUp-Hammer/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 2.25,
+   "kb": 22,
+   "poster": "static/video/HandPickUp-Hammer/ppo_ngopt.jpg",
+   "ret": 0.7819,
+   "seed": 4,
+   "src": "static/video/HandPickUp-Hammer/ppo_ngopt.mp4"
+  }
+ },
  "Hopper-v4": {
   "cmaes": {
    "duration": 12.55,
@@ -529,6 +597,40 @@
    "ret": 76.14,
    "seed": 2,
    "src": "static/video/RacingSpielberg/ppo_ngopt.mp4"
+  }
+ },
+ "RotateInHand-Cube": {
+  "cmaes": {
+   "duration": 2.4,
+   "kb": 27,
+   "poster": "static/video/RotateInHand-Cube/cmaes.jpg",
+   "ret": 0.3654,
+   "seed": 4,
+   "src": "static/video/RotateInHand-Cube/cmaes.mp4"
+  },
+  "fasttd3": {
+   "duration": 2.95,
+   "kb": 54,
+   "poster": "static/video/RotateInHand-Cube/fasttd3.jpg",
+   "ret": 4.956,
+   "seed": 1,
+   "src": "static/video/RotateInHand-Cube/fasttd3.mp4"
+  },
+  "loki": {
+   "duration": 2.4,
+   "kb": 40,
+   "poster": "static/video/RotateInHand-Cube/loki.jpg",
+   "ret": -2.333,
+   "seed": 1,
+   "src": "static/video/RotateInHand-Cube/loki.mp4"
+  },
+  "ppo_ngopt": {
+   "duration": 4.3,
+   "kb": 44,
+   "poster": "static/video/RotateInHand-Cube/ppo_ngopt.jpg",
+   "ret": 2.394,
+   "seed": 0,
+   "src": "static/video/RotateInHand-Cube/ppo_ngopt.mp4"
   }
  },
  "SolarCleanerReach": {
