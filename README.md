@@ -15,7 +15,7 @@ fetches JSON, so `file://` will not work).
 | Playground: Build a catcher | `static/js/catcher-core.js` (2D arm + ballistics, deterministic searches) + `demo-catcher.js` |
 | Playground: Give a walker new legs | `static/js/walker-core.js` (planck.js walker + GA) + `demo-walker.js` |
 | Environment cards + modals | `static/js/envs.js`: the paper's 20 families (Native 7 / Extended 7 / Reframed 6), facts from the codesign-gym README; stills in `static/images/envs/fig3/` are cropped from the paper's Figure 3 |
-| Results takeaway | headroom bars computed from `results.json` (best final return / documented max); leader counts and 16.6% from the paper |
+| Results takeaway | headroom bars computed from `results.json` (best final return / documented max); leader counts (13 of 19, 7/6/3/3, 12 → 6) from `tools/make_leader.py`’s grid over the 19 four-method presets; 16.6% from the paper |
 | Baseline results explorer | `static/data/results.json`, `static/data/videos.json`, `static/video/<preset>/<method>.mp4`; hand presets added by `tools/add_local_presets.py` |
 | Pokémon battle replays | `static/replays/<preset>/<method>-{best,worst}.html`, `static/data/replays.json` |
 | Who-is-ahead grid | `static/images/leader.png` from `results.json` by `tools/make_leader.py` (paper rule; adds the hand presets) |
