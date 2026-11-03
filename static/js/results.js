@@ -47,7 +47,7 @@
   }
 
   // headroom: best final return as a share of the documented maximum, on presets whose return runs from 0 to a real ceiling
-  const CEIL = [['BallCatcher-Arc', 10], ['BallCatcher-Pitch', 10], ['BallCatcher-Fielding', 10], ['TruckUnloadSingle', 10], ['NeroGraspAll', 13], ['SolarCleanerReach', 10],
+  const CEIL = [['BallCatcher-Arc', 10], ['BallCatcher-Pitch', 10], ['BallCatcher-Fielding', 10], ['TruckUnloadSingle', 10], ['NeroGraspAll', 13], ['SolarCleanerReach', 10], ['HandPickUp-Hammer', 10],
     ['WarehouseSmall', 1000, 1], ['SolarCleanerTraverse', 10], ['WarehouseMedium', 1000, 1], ['WarehouseCongested', 1000, 1]];
   function buildHeadroom() {
     const el = document.getElementById('headroom'); if (!el) return;
