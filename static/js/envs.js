@@ -21,6 +21,8 @@ window.ENV_FAMILIES = [
     design: 'column + two arm-link lengths per robot, each robot independent', policy: 'arms, mobile bases and adhesion grippers, jointly',
     presets: [['Single: one stacker shelving red boxes', 'max 10'], ['Multi: shelf + flat 3×3 area, two stackers', 'max 10']],
     example: 'TruckUnloadSingle',
+    clip: 'truck_v2',
+    note: 'Loader, conveyor and stacker unloading boxes from the truck onto the shelf on TruckUnloadSingle.',
   },
   {
     id: 'nerograsp', name: 'Grasping Small Objects', sim: 'nerograsp · MuJoCo Warp', tags: ['native', 'manip'], ids: 13,

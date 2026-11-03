@@ -13,7 +13,7 @@ clip() { # name src [trim_seconds]
 }
 clip ballcatcher  $V/BallCatcher-Arc/loki.mp4
 clip solar        $V/SolarCleanerTraverse/cmaes.mp4
-clip truck        $V/TruckUnloadSingle/fasttd3.mp4
+clip truck_v2     $V/extra/truck_v2_src.mp4
 clip nerograsp    $V/NeroGraspAll/cmaes.mp4
 clip hand         $V/extra/hand_morph.mp4
 # hand card clips: supplied renders (RotateInHand-Cube, HandPickUp-Hammer); v2 names bust cached copies
@@ -48,7 +48,7 @@ hero() { # name src crop_filter [trim_start] [trim_len]
 ffmpeg -v error -y -i $V/Humanoid-v4/fasttd3.mp4 -t 2.7 "${enc[@]}" $T/humanoid_visible.mp4
 $P tools/track_crop.py $T/humanoid_visible.mp4 $T/humanoid.mp4 185 360
 hero humanoid  $T/humanoid.mp4                      "crop=360:360:0:0"
-hero truck     $V/TruckUnloadSingle/fasttd3.mp4     "crop=400:400:60:40"
+hero truck_v2  $V/extra/truck_v2_src.mp4          "crop=810:810:560:0"
 hero racing    $V/RacingSpielberg/ppo_ngopt.mp4     "crop=420:420:0:0"          ""   12
 hero warehouse $V/WarehouseSmall/ppo_ngopt.mp4      "crop=302:302:0:0"
 hero grasp     $V/NeroGraspAll/ppo_ngopt.mp4        "crop=360:360:110:0"
