@@ -18,6 +18,7 @@ fetches JSON, so `file://` will not work).
 | Results takeaway | headroom bars computed from `results.json` (best final return / documented max); leader counts and 16.6% from the paper |
 | Baseline results explorer | `static/data/results.json`, `static/data/videos.json`, `static/video/<preset>/<method>.mp4`; hand presets added by `tools/add_local_presets.py` |
 | Pokémon battle replays | `static/replays/<preset>/<method>-{best,worst}.html`, `static/data/replays.json` |
+| Who-is-ahead grid | `static/images/leader.png` from `results.json` by `tools/make_leader.py` (paper rule; adds the hand presets) |
 | Diagrams | `static/figures/*.svg` (+ editable `.drawio` sources) |
 
 ## Regenerating data and media
@@ -30,6 +31,7 @@ python tools/fetch_videos.py                # best-seed final-eval video per (pr
 PYTHON=python tools/make_showcase.sh        # per-family showcase clips (+ follow-cropped locomotion montage)
 python tools/add_local_presets.py [DIR]   # hand presets (RotateInHand-Cube, HandPickUp-Cube/-Hammer): results + videos from local codesign-baselines exp_results/hand-final
 python tools/fetch_replays.py               # Pokémon: best/worst eval battle replays (poke-env HTML) + team/outcome summary
+python tools/make_leader.py                 # who-is-ahead grid from results.json (rerun after add_local_presets.py)
 python tools/stamp.py                       # after editing CSS/JS: cache-busting ?v=<hash> on every local asset link
 ```
 
