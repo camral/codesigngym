@@ -36,7 +36,7 @@ window.ENV_FAMILIES = [
     presets: [['RotateInHand-Cube: box, goals 1 rad apart, 7.5 s per goal, 15 s', '+10 per goal / 0']],
     example: 'RotateInHand-Cube',
     clip: 'rotateinhand_v2',
-    note: 'Evaluation rollout from our FastTD3 baseline (seed 1, return 4.96), the best RotateInHand-Cube rollout across all four methods.'
+    note: 'The co-designed hand turning a cube on RotateInHand-Cube; colours show the learned pad-cell heights.'
   },
   {
     id: 'handpickup', name: 'Hand Pick Up', sim: 'hand_pick_up · MuJoCo Warp', tags: ['native', 'manip'], ids: 3, transition: true,
@@ -45,7 +45,7 @@ window.ENV_FAMILIES = [
     presets: [['HandPickUp-Cube: lift, then turn through goals 0.5 rad apart, 6 s per goal, 15 s', '+9 per goal, +1 tip / 0'], ['HandPickUp-Hammer: lift and hold one pose under random pushes, 7 s', '+10 / 0'], ['HandPickUp-SmallHammer: the same, slimmer hammer', '+10 / 0']],
     example: 'HandPickUp-Cube',
     clip: 'handpickup_v2',
-    note: 'Evaluation rollout from our FastTD3 baseline on HandPickUp-Hammer (seed 4, return 5.06 at the 3.6 h evaluation), the best HandPickUp rollout across all four methods.'
+    note: 'The co-designed hand picking up a hammer on HandPickUp-Hammer; colours show the learned pad-cell heights.'
   },
   {
     id: 'softwalker', goalVideo: true, goal: 'Evolve a soft body and its actuation so it travels as far forward as possible, across flat ground, stairs or gaps.', name: 'Soft Robot Walker', sim: 'soft_walker · native Warp soft-body engine', tags: ['native', 'soft', 'loco'], ids: 15,

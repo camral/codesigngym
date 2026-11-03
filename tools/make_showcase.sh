@@ -16,10 +16,9 @@ clip solar        $V/SolarCleanerTraverse/cmaes.mp4
 clip truck        $V/TruckUnloadSingle/fasttd3.mp4
 clip nerograsp    $V/NeroGraspAll/cmaes.mp4
 clip hand         $V/extra/hand_morph.mp4
-# hand card clips (best hand-run eval rollouts, codesign-baselines hand-final best_renders) at real time: eval videos keep every 4th 0.04 s control step at 20 fps, so slow 3.2x
-for c in rotateinhand_fasttd3_s1_rt:rotateinhand_fasttd3_seed1:4.7 handpickup_fasttd3_s4_rt:handpickup_hammer_fasttd3_seed4:4.2; do IFS=: read -r out src at <<< "$c"
-  ffmpeg -v error -y -i "$V/extra/$src.mp4" -vf "setpts=3.2*PTS,scale='min(640,iw)':-2:flags=lanczos" -r 20 "${enc[@]}" "$O/$out.mp4"
-  ffmpeg -v error -y -ss "$at" -i "$O/$out.mp4" -frames:v 1 -q:v 3 "$O/$out.jpg"; done
+# hand card clips: supplied renders (RotateInHand-Cube, HandPickUp-Hammer); v2 names bust cached copies
+clip rotateinhand_v2 $V/extra/rotateinhand_v2_src.mp4
+clip handpickup_v2   $V/extra/handpickup_v2_src.mp4
 clip lq           $V/LQStructure-LQR-v0/loki.mp4
 clip microgrid    $V/MicrogridOffGridCampus/cmaes.mp4
 clip network      $V/NetworkUrban/ppo_ngopt.mp4
